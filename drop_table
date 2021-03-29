@@ -1,0 +1,8 @@
+drop table usuario;
+drop table servicos;
+drop table pedidos;
+drop table endereco_completo;
+drop table endereco;
+drop table disponibilidade_data_hora;
+drop table contato;
+drop table complemento;
