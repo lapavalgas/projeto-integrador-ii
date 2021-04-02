@@ -9,13 +9,14 @@ import com.usj.fastservice.models.dto.DadosUsuarioDTO;
 
 public class UsuarioMapper {
 	
+	
 	public static DadosUsuarioDTO setMsg(Long id, String msg) {
 		return DadosUsuarioDTO.builder()
 							.usuario_id(String.valueOf(id))
 							.msg(msg)
 							.build();
 	}
-	
+
 	/**
 	 */
 

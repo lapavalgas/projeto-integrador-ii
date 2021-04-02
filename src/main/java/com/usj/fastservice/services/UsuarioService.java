@@ -20,7 +20,7 @@ public class UsuarioService {
 	}
 
 	public DadosUsuarioDTO logarUsuario(Long id) throws Exception {
-		Usuario usuario = readRepositoryById(id);
+		Usuario usuario = readUsuarioRepositoryById(id);
 		try {
 			return UsuarioMapper.toUsuarioDTO(usuario);
 		} catch (Exception e) {
@@ -30,7 +30,7 @@ public class UsuarioService {
 
 	// TODO: talvez implementar a solução anterior
 	public DadosUsuarioDTO carregarDadosDoUsuario(Long id) throws Exception {
-		return UsuarioMapper.toUsuarioDTO(readRepositoryById(id));
+		return UsuarioMapper.toUsuarioDTO(readUsuarioRepositoryById(id));
 	}
 
 	public DadosUsuarioDTO deletarUsuario(Long id) throws Exception {
@@ -42,7 +42,7 @@ public class UsuarioService {
 		}
 	}
 	
-	private Usuario readRepositoryById(Long id) throws Exception {
+	Usuario readUsuarioRepositoryById(Long id) throws Exception {
 		return usuarioRepository.findById(id).orElseThrow(() -> new Exception("Usuario não encontrado!"));
 	}
 	

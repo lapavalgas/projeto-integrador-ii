@@ -25,19 +25,19 @@ public class UsuarioController {
 		return usuarioService.cadastroDeUsuario(usuarioCadastroRequestDTO);
 	}
 
-	@GetMapping(value = "/{id}")
-	public DadosUsuarioDTO login(@PathVariable Long id) throws Exception {
-		return usuarioService.logarUsuario(id);
+	@GetMapping(value = "/{idUsuario}")
+	public DadosUsuarioDTO login(@PathVariable Long idUsuario) throws Exception {
+		return usuarioService.logarUsuario(idUsuario);
 	}
 
-	@GetMapping(value = "/{id}")
-	public Usuario read(@PathVariable Long id) throws Exception {
-		return usuarioService.carregarDadosDoUsuario(id);
+	@GetMapping(value = "/{idUsuario}")
+	public DadosUsuarioDTO read(@PathVariable Long idUsuario) throws Exception {
+		return usuarioService.carregarDadosDoUsuario(idUsuario);
 	}
 
-	@DeleteMapping(value = "/{id}")
-	public String delete(@PathVariable Long id) throws Exception {
-		return usuarioService.deletarUsuario(id);
+	@DeleteMapping(value = "/{idUsuario}")
+	public DadosUsuarioDTO delete(@PathVariable Long idUsuario) throws Exception {
+		return usuarioService.deletarUsuario(idUsuario);
 	}
 
 }

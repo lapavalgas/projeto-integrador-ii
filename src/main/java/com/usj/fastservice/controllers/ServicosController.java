@@ -1,5 +1,7 @@
 package com.usj.fastservice.controllers;
 
+import java.util.List;
+
 import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,59 +15,40 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.usj.fastservice.models.Servicos;
 import com.usj.fastservice.models.Usuario;
+import com.usj.fastservice.models.dto.DadosServicoDTO;
 import com.usj.fastservice.services.ServicoService;
 import com.usj.fastservice.services.UsuarioService;
 
 @RestController
-@RequestMapping("/usrs")
+@RequestMapping("/usuarios/{idUsuario}")
 public class ServicosController {
 
 	@Autowired
-	ServicoService servicoDAO;
+	ServicoService servicoService;
 	
-	@Autowired
-	UsuarioService usuarioDAO;
-	
-	@GetMapping(value="/{id}/servicos") 
-	public Servicos getServicoById(@PathVariable Long id) throws Exception {
-		try {
-			return servicoDAO.read(id);
-		} catch (Exception e) {
-			System.out.println("Serviço não encontrado!");
-			return null;
-		}	
+	@PostMapping(value="/servicos") 
+	public DadosServicoDTO create(@PathVariable Long idUsuario, @RequestBody DadosServicoDTO servicoRequestDto) throws Exception {
+		return servicoService.cadastroDeServico(idUsuario, servicoRequestDto);
 	}
 	
-	@PostMapping(value="/{id}/servicos") 
-	public Servicos create(@RequestBody Servicos servico, @PathVariable Long id) {
-		try {
-			Usuario usuario = new Usuario();
-			usuario = usuarioDAO.carregarDadosContato(id);
-			servico.setUsuario(usuario);
-			return servicoDAO.save(servico);			
-			
-		} catch (Exception e) {
-			System.out.println("Usuário não encontrado!");
-			return null;
-		}			
+	@GetMapping(value="/servicos") 
+	public List<DadosServicoDTO> readByUserId(@PathVariable Long idUsuario) throws Exception {
+		return servicoService.carregarServicos(idUsuario);
 	}
 	
-	@DeleteMapping("/{idUsr}/servico/{idServico}")
-	public void delete(@PathVariable Long idUsr, @PathVariable Long idServico, @PathParam(value="true") Boolean stts) throws Exception {
-		Usuario usuario = usuarioDAO.carregarDadosContato(idUsr);		
-		Servicos servico = servicoDAO.read(idServico);		
-		try {
-			if(usuario.equals(servico.getUsuario())) {
-				stts = false;
-			} 				
-		} catch (Exception e) {
-			System.out.println("Usuário ou serviço não encontrados!");			
-		}
+	@GetMapping(value="/servicos/{idServico}") 
+	public DadosServicoDTO readByServicoId(@PathVariable Long idUsuario, @PathVariable Long idServico) throws Exception {
+		return servicoService.carregarDadosDoServico(idServico);
 	}
 	
-	
-	
-	
-	
-	
+	@GetMapping(value ="/servicos}")
+	public List<DadosServicoDTO> readAll(@PathVariable Long idUsuario){
+		return servicoService.carregarServicos();		
+	}	
+
+	@DeleteMapping("/servicos/{idServico}")
+	public DadosServicoDTO delete(@PathVariable Long idUsuario, @PathVariable Long idServico, @PathParam(value="") String stts) throws Exception {
+		return servicoService.setStatusServicos(idUsuario,idServico,stts);
+	}
+		
 }

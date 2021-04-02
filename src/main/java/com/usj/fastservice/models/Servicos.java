@@ -47,7 +47,7 @@ public class Servicos {
     private String valor;
 
     @Column(name = "statusOperante")
-    private boolean statusOperante;
+    private String statusOperante;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "usuario_id")

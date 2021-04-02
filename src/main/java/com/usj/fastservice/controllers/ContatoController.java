@@ -12,20 +12,20 @@ import com.usj.fastservice.models.dto.DadosUsuarioDTO;
 import com.usj.fastservice.services.ContatoService;
 
 @RestController
-@RequestMapping("/usuarios")
+@RequestMapping("/usuarios/{idUsuario}")
 public class ContatoController {
 	
 	@Autowired
 	ContatoService contatoService;
 	
-	@GetMapping("/{id}/contatos")
-	public DadosUsuarioDTO read(@PathVariable Long id) throws Exception {
-		return contatoService.carregarDadosContato(id);
+	@GetMapping("/contatos")
+	public DadosUsuarioDTO read(@PathVariable Long idUsuario) throws Exception {
+		return contatoService.carregarDadosContato(idUsuario);
 	}
 	
-	@PutMapping("/{id}/contatos")
-	public DadosUsuarioDTO update(@RequestBody DadosUsuarioDTO contato, @PathVariable Long id) throws Exception {
-		return contatoService.atualizarDadosContato(contato, id);
+	@PutMapping("/contatos")
+	public DadosUsuarioDTO update(@PathVariable Long idUsuario, @RequestBody DadosUsuarioDTO contato) throws Exception {
+		return contatoService.atualizarDadosContato(contato, idUsuario);
 	}
 
 }

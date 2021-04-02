@@ -10,7 +10,7 @@
  *  5. enderecoDto		PUT 	/usrs/{id}/endereco?cep={cep}						| atualiza o endereço base do usuário id e o CEP (utilizando a consulta na api do correios desenvolvido no item 1)
  *  6. enderecoDto 		PUT		/usrs/{id}/endereco					[requestBody]	| atualiza o complemento do endereco do usuario id
  *  7. servicoDto		POST 	/usrs/{id}/servico					[requestBody]	| cadastra um serviço de usuario profissional
- *  8. pedidoDto		POST	/usrs/{id}/pedido					[requestBody]	| cadastra um pedido solicitado pelo usuário idi
+ *  8. pedidoDto		POST	/usrs/{id}/pedido					[requestBody]	| cadastra um pedido solicitado pelo usuário id
  *  9. pedidoDto		PUT		/usrs/{id}/pedido					[requestBody]	| atualiza as disponibilidade de horários para efetuar o serviço / OBSERVAÇÃO: para que o usuário (cliente) seja avisado, será necessário incluir uma flag no userDto contendo: 1) idPedido atualizado; (precisa ser uma lista)
  * 10. pedidoDto		PUT		/usrs/{id}/pedido									| atualizar confirmação do usuário 		/ OBSERVAÇÃO: exige uma verificação se o usuário fez o pedido ou se oferece serviço, para confirmar finalização do usuário correto
  * 11. pedidoDto		PUT		/usrs/{id}/pedido/{id}?av={0 a 5}					| atualiza avaliação do usuário final 	/ OBSERVAÇÃO: exige uma verificação se o usuário fez o pedido ou se oferece serviço, para confirmar finalização do usuário correto

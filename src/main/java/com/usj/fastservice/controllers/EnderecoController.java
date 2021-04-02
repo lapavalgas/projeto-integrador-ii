@@ -15,20 +15,20 @@ import com.usj.fastservice.models.dto.DadosUsuarioDTO;
 import com.usj.fastservice.services.EnderecoCompletoService;
 
 @RestController
-@RequestMapping("/usuarios")
+@RequestMapping("/usuarios/{idUsuario}")
 public class EnderecoController {
 	
 	@Autowired
 	EnderecoCompletoService enderecoCompletoService;
 	
-	@GetMapping("/{id}/enderecos")
-	public DadosUsuarioDTO read(@PathVariable Long id) throws Exception {
-		return enderecoCompletoService.carregarDadosEndereco(id);			
+	@GetMapping("/enderecos")
+	public DadosUsuarioDTO read(@PathVariable Long idUsuario) throws Exception {
+		return enderecoCompletoService.carregarDadosEndereco(idUsuario);			
 	}
 	
-	@PutMapping("/{id}/enderecos")
-	public DadosUsuarioDTO update(@RequestBody DadosUsuarioDTO complemento, @PathVariable Long id) throws Exception {
-		return enderecoCompletoService.atualizarEndereco(complemento, id);
+	@PutMapping("/enderecos")
+	public DadosUsuarioDTO update(@PathVariable Long idUsuario, @RequestBody DadosUsuarioDTO complemento) throws Exception {
+		return enderecoCompletoService.atualizarEndereco(complemento, idUsuario);
 	}
 		
 }
