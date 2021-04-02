@@ -17,7 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.usj.fastservice.enums.FormaDePagamento;
+import com.usj.fastservice.models.enums.FormaDePagamento;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

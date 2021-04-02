@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.usj.fastservice.models.EnderecoCompleto;
+import com.usj.fastservice.models.dto.DadosUsuarioDTO;
+import com.usj.fastservice.models.mapper.UsuarioMapper;
 import com.usj.fastservice.repositories.EnderecoCompletoRepository;
 
 @Service
@@ -13,21 +15,26 @@ public class EnderecoCompletoService {
 
 	@Autowired
 	private EnderecoCompletoRepository enderecoCompletoRepository;
-	
-	
-	public EnderecoCompleto save(EnderecoCompleto enderecoCompleto) {
-		return enderecoCompletoRepository.save(enderecoCompleto);
+
+	public DadosUsuarioDTO carregarDadosEndereco(Long id) throws Exception {
+		EnderecoCompleto enderecoCompleto = enderecoCompletoRepository.findById(id).orElseThrow(() -> new Exception("Não foi possível localizar o endereço :("));
+		return UsuarioMapper.toEndereco(enderecoCompleto);
 	}
-	
-	public List<EnderecoCompleto> list() {
-		return enderecoCompletoRepository.findAll();
+
+	public DadosUsuarioDTO atualizarEndereco(DadosUsuarioDTO enderecoAtualizar, Long id) throws Exception {
+		EnderecoCompleto enderecoCompleto = enderecoCompletoRepository.findById(id).orElseThrow(() -> new Exception("Não foi possível localizar o endereço :("));
+
+		DadosUsuarioDTO endereco; // = buscaNaAPICorreio();
+		
+		enderecoCompleto.getEndereco().setCep(enderecoAtualizar.getCep());
+		enderecoCompleto.getEndereco().setEstado(null);
+		enderecoCompleto.getEndereco().setMunicipio(null);
+		enderecoCompleto.getEndereco().setBairro(null);
+		enderecoCompleto.getEndereco().setLogradouro(null);
+		enderecoCompleto.getComplemento().setNumero(enderecoAtualizar.getNumero());
+		enderecoCompleto.getComplemento().setComplemento(enderecoAtualizar.getComplemento());
+		
+		return UsuarioMapper.toEndereco(enderecoCompletoRepository.save(enderecoCompleto));
 	}
-	
-	public EnderecoCompleto read(Long id) throws Exception {
-		return enderecoCompletoRepository.findById(id).orElseThrow(() -> new Exception("Endereço completo não encontrado!"));
-	}
-	
-	public void delete(Long id) {
-		enderecoCompletoRepository.deleteById(id);
-	}
+
 }
