@@ -58,5 +58,13 @@ public class ServicoService {
 			return ServicoMapper.setMsg(idServico, "Você não tem permissão para editar esse serviço ");
 		}
 	}
+	
+	Servicos readServicoRepositoryById(Long idServico) throws Exception {
+		return servicoRepository.findById(idServico).orElseThrow(() -> new Exception("Servico não encontrado!"));
+	}
+	
+	List<Servicos> readAllServicosRepository(Long idUsuario) throws Exception {
+		return servicoRepository.findAllByUsuarioId(idUsuario); 
+	}
 
 }

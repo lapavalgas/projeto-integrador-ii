@@ -1,6 +1,7 @@
 package com.usj.fastservice.models;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -58,6 +59,6 @@ public class Servicos {
     @OneToMany(mappedBy = "servico", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	@JsonIgnoreProperties("servico")    
 	@ToString.Exclude
-    private Collection<Pedidos> pedidos;
+    private List<Pedidos> pedidos;
 
 }

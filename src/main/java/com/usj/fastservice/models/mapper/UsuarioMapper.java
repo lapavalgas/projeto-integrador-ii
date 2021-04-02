@@ -1,5 +1,7 @@
 package com.usj.fastservice.models.mapper;
 
+import org.springframework.stereotype.Component;
+
 import com.usj.fastservice.models.Complemento;
 import com.usj.fastservice.models.Contato;
 import com.usj.fastservice.models.Endereco;
@@ -7,8 +9,8 @@ import com.usj.fastservice.models.EnderecoCompleto;
 import com.usj.fastservice.models.Usuario;
 import com.usj.fastservice.models.dto.DadosUsuarioDTO;
 
+@Component
 public class UsuarioMapper {
-	
 	
 	public static DadosUsuarioDTO setMsg(Long id, String msg) {
 		return DadosUsuarioDTO.builder()

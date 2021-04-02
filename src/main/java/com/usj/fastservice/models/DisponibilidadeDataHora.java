@@ -46,4 +46,5 @@ public class DisponibilidadeDataHora {
 	@ToString.Exclude
 	private Pedidos pedido;
 
+
 }

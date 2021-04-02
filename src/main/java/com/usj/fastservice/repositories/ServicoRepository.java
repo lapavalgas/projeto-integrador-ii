@@ -12,6 +12,6 @@ import com.usj.fastservice.models.Usuario;
 public interface ServicoRepository extends JpaRepository<Servicos, Long>{
 	
 	// TODO : pode ser que de errado; então substituir ID (Long) por Usuario (objeto)
-	List<Servicos> findAllByUsuarioId(Long id);
+	List<Servicos> findAllByUsuarioId(Long usuarioId);
 	
 }

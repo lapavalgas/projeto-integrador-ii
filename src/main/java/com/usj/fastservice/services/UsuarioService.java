@@ -28,7 +28,7 @@ public class UsuarioService {
 		}
 	}
 
-	// TODO: talvez implementar a solução anterior
+	// TODO: talvez implementar a solução anterior 
 	public DadosUsuarioDTO carregarDadosDoUsuario(Long id) throws Exception {
 		return UsuarioMapper.toUsuarioDTO(readUsuarioRepositoryById(id));
 	}

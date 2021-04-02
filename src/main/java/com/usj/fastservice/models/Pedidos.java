@@ -1,6 +1,6 @@
 package com.usj.fastservice.models;
 
-import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -52,7 +52,7 @@ public class Pedidos {
     private Servicos servico;
     
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Collection<DisponibilidadeDataHora> disponibilidade;
+    private List<DisponibilidadeDataHora> disponibilidade;
     
     @Enumerated(EnumType.STRING)
     @Column(name = "pagamento_id")
