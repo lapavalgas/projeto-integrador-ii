@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 import com.usj.fastservice.models.Servicos;
 import com.usj.fastservice.models.dto.DadosServicoDTO;
-import com.usj.fastservice.models.dto.DadosUsuarioDTO;
 
 @Component
 public class ServicoMapper {
@@ -19,7 +18,7 @@ public class ServicoMapper {
 							.build();
 	}
 
-	public static DadosServicoDTO toServicoDTO(Servicos servico) {
+	public static DadosServicoDTO toDto(Servicos servico) {
 		return DadosServicoDTO.builder()
 				.servico_id(servico.getId())
 				.nome(servico.getNome())
@@ -30,32 +29,21 @@ public class ServicoMapper {
 				.build();
 	}
 	
-	public static List<DadosServicoDTO> toListServicoDTO(List<Servicos> listaServico){
-		List<DadosServicoDTO> listaServicosDto = new ArrayList<DadosServicoDTO>();
-		for (Servicos servico : listaServico) { listaServicosDto.add(ServicoMapper.toServicoDTOOwner(servico)); }
-		return listaServicosDto;
-	}
-	
-	public static DadosServicoDTO toServicoDTOOwner(Servicos servico) {
-		return DadosServicoDTO.builder()
-				.servico_id(servico.getId())
-				.nome(servico.getNome())
-				.descricao(servico.getDescricao())
-				.categoria(servico.getCategoria())
-				.statusOperante(servico.getStatusOperante())
-				.build();
-	}
-	
-	public static Servicos toServicos(DadosServicoDTO dadosServicoDTO) {
+	public static Servicos toModel(DadosServicoDTO dadosServicoDTO) {
 		return Servicos.builder()
 				.nome(dadosServicoDTO.getNome())
 				.descricao(dadosServicoDTO.getDescricao())
 				.categoria(dadosServicoDTO.getCategoria())
 				.valor(dadosServicoDTO.getValor())
 				.statusOperante(dadosServicoDTO.getStatusOperante())
-				.usuario(UsuarioMapper.toUsuario(dadosServicoDTO.getUsuarioProfissional()))
+				.usuario(UsuarioMapper.toModel(dadosServicoDTO.getUsuarioProfissional()))
 				.build();
 	}
 	
+	public static List<DadosServicoDTO> toListDto(List<Servicos> listaServico){
+		List<DadosServicoDTO> listaServicosDto = new ArrayList<DadosServicoDTO>();
+		for (Servicos servico : listaServico) { listaServicosDto.add(ServicoMapper.toDto(servico)); }
+		return listaServicosDto;
+	}
 	
 }

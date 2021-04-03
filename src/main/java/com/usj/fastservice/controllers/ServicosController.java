@@ -41,13 +41,14 @@ public class ServicosController {
 		return servicoService.carregarDadosDoServico(idServico);
 	}
 	
-	@GetMapping(value ="/{servicos}/all")
+	// TODO : implementar paginação (para limitar número de serviços)
+	@GetMapping(value ="/servicos/marketplace")
 	public List<DadosServicoDTO> readAll(@PathVariable Long idUsuario){
-		return servicoService.carregarServicos(idUsuario);		
+		return servicoService.carregarServicos();		
 	}	
 
 	@DeleteMapping("/servicos/{idServico}")
-	public DadosServicoDTO delete(@PathVariable Long idUsuario, @PathVariable Long idServico, @PathParam(value="") String stts) throws Exception {
+	public DadosServicoDTO delete(@PathVariable Long idUsuario, @PathVariable Long idServico, @PathParam(value="") boolean stts) throws Exception {
 		return servicoService.setStatusServicos(idUsuario,idServico,stts);
 	}
 		

@@ -56,5 +56,8 @@ public class Usuario {
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY) 
 	private List<Pedidos> pedidosRealizados;
+    
+    @Column
+    private boolean ativo;
 
 }

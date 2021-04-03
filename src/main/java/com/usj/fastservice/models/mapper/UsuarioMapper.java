@@ -11,32 +11,22 @@ import com.usj.fastservice.models.dto.DadosUsuarioDTO;
 
 @Component
 public class UsuarioMapper {
-	
+
 	public static DadosUsuarioDTO setMsg(Long id, String msg) {
-		return DadosUsuarioDTO.builder()
-							.usuario_id(id)
-							.msg(msg)
-							.build();
+		return DadosUsuarioDTO.builder().usuario_id(id).msg(msg).build();
 	}
 
-	public static Usuario toUsuario(DadosUsuarioDTO usuarioCadastroRequestDTO) {
+	public static Usuario toModel(DadosUsuarioDTO usuarioCadastroRequestDTO) {
 		return Usuario.builder()
-							.id(usuarioCadastroRequestDTO.getUsuario_id())
-							.cpf(usuarioCadastroRequestDTO.getCpf())
-							.nome(usuarioCadastroRequestDTO.getNome())
-							.dataNascimento(usuarioCadastroRequestDTO.getDataNascimento())
-							.genero(usuarioCadastroRequestDTO.getGenero())
-							.build();
+				.id(usuarioCadastroRequestDTO.getUsuario_id())
+				.cpf(usuarioCadastroRequestDTO.getCpf())
+				.nome(usuarioCadastroRequestDTO.getNome())
+				.dataNascimento(usuarioCadastroRequestDTO.getDataNascimento())
+				.genero(usuarioCadastroRequestDTO.getGenero())
+				.build();
 	}
-	
-	public static DadosUsuarioDTO toLoggedUsuarioDTO(Usuario usuario) {
-		return DadosUsuarioDTO.builder()
-							.usuario_id(usuario.getId())
-							.nome(usuario.getNome())
-							.build();
-	}
-	
-	public static DadosUsuarioDTO toUsuarioDTO(Usuario usuario) {
+
+	public static DadosUsuarioDTO toDto(Usuario usuario) {
 		return DadosUsuarioDTO.builder()
 				.usuario_id(usuario.getId())
 				.nome(usuario.getNome())
@@ -55,34 +45,31 @@ public class UsuarioMapper {
 				.build();
 	}
 
+	/**
+	 */
+
+	public static DadosUsuarioDTO toLoggedUsuarioDTO(Usuario usuario) {
+		return DadosUsuarioDTO.builder().usuario_id(usuario.getId()).nome(usuario.getNome()).build();
+	}
+
 	public static DadosUsuarioDTO toUsuarioDTO(Contato contato) {
-		return DadosUsuarioDTO.builder()
-							.usuario_id(contato.getId())
-							.email(contato.getEmail())
-							.telefone(contato.getTelefone())
-							.build();
+		return DadosUsuarioDTO.builder().usuario_id(contato.getId()).email(contato.getEmail())
+				.telefone(contato.getTelefone()).build();
 	}
-	
+
 	public static Contato toContato(DadosUsuarioDTO usuarioDTO) {
-		return Contato.builder()
-							.id(usuarioDTO.getUsuario_id())
-							.email(usuarioDTO.getEmail())
-							.telefone(usuarioDTO.getTelefone())
-							.build();
+		return Contato.builder().id(usuarioDTO.getUsuario_id()).email(usuarioDTO.getEmail())
+				.telefone(usuarioDTO.getTelefone()).build();
 	}
-	
+
 	public static DadosUsuarioDTO toEndereco(EnderecoCompleto enderecoCompleto) {
-		return DadosUsuarioDTO.builder()
-							.usuario_id(enderecoCompleto.getId())
-							.cep(enderecoCompleto.getEndereco().getCep())
-							.estado(enderecoCompleto.getEndereco().getEstado())
-							.municipio(enderecoCompleto.getEndereco().getMunicipio())
-							.bairro(enderecoCompleto.getEndereco().getBairro())
-							.logradouro(enderecoCompleto.getEndereco().getLogradouro())
-							.numero(enderecoCompleto.getComplemento().getNumero())
-							.complemento(enderecoCompleto.getComplemento().getComplemento())
-							.build();
+		return DadosUsuarioDTO.builder().usuario_id(enderecoCompleto.getId())
+				.cep(enderecoCompleto.getEndereco().getCep()).estado(enderecoCompleto.getEndereco().getEstado())
+				.municipio(enderecoCompleto.getEndereco().getMunicipio())
+				.bairro(enderecoCompleto.getEndereco().getBairro())
+				.logradouro(enderecoCompleto.getEndereco().getLogradouro())
+				.numero(enderecoCompleto.getComplemento().getNumero())
+				.complemento(enderecoCompleto.getComplemento().getComplemento()).build();
 	}
-	
 
 }

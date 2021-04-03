@@ -1,7 +1,5 @@
 package com.usj.fastservice.controllers;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import javax.websocket.server.PathParam;
@@ -15,14 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.usj.fastservice.models.DisponibilidadeDataHora;
-import com.usj.fastservice.models.Pedidos;
-import com.usj.fastservice.models.Servicos;
-import com.usj.fastservice.models.Usuario;
 import com.usj.fastservice.models.dto.DadosPedidoDTO;
-import com.usj.fastservice.services.DisponibilidadeDataHoraService;
 import com.usj.fastservice.services.PedidoService;
-import com.usj.fastservice.services.UsuarioService;
 
 @RestController
 @RequestMapping("/usuarios/{idUsuario}")

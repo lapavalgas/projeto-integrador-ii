@@ -14,7 +14,6 @@ import com.usj.fastservice.models.dto.DadosUsuarioDTO;
 import com.usj.fastservice.models.mapper.ContatoMapper;
 import com.usj.fastservice.models.mapper.EnderecoMapper;
 import com.usj.fastservice.models.mapper.UsuarioMapper;
-import com.usj.fastservice.repositories.EnderecoRepository;
 import com.usj.fastservice.repositories.UsuarioRepository;
 
 @Service
@@ -23,37 +22,30 @@ public class UsuarioService {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
-	@Autowired
-	private EnderecoService enderecoService;
-	
-	@Autowired
-	private ComplementoService complementoService;
-
 	public DadosUsuarioDTO cadastroDeUsuario(DadosUsuarioDTO usuarioCadastroRequestDTO) {
 		try {
-			Usuario usuario = UsuarioMapper.toUsuario(usuarioCadastroRequestDTO);
-//			usuario = usuarioRepository.save(usuario);
-//			usuarioCadastroRequestDTO.setUsuario_id(usuario.getId());
+			Usuario usuario = UsuarioMapper.toModel(usuarioCadastroRequestDTO); 
 			Contato contato = ContatoMapper.toContato(usuarioCadastroRequestDTO);
+			EnderecoCompleto endereco = EnderecoMapper.toModel(usuarioCadastroRequestDTO);
 			contato.setUsuario(usuario);
-			EnderecoCompleto endereco = EnderecoMapper.toEnderecoLessId(usuarioCadastroRequestDTO);
-			endereco.setEndereco(enderecoService.save(endereco.getEndereco()));
-			endereco.setComplemento(complementoService.save(endereco.getComplemento())); 
 			endereco.setUsuario(usuario);
 			usuario.setContato(contato);
 			usuario.setEnderecoCompleto(endereco);
 			usuario.setServicosOferecidos(new ArrayList<Servicos>());
 			usuario.setPedidosRealizados(new ArrayList<Pedidos>());
+			usuario.setAtivo(true);;
 			usuario = usuarioRepository.save(usuario);
 			return UsuarioMapper.toLoggedUsuarioDTO(usuario); 
-		} catch (Exception e) {
+		} catch (Exception e) { 
 			return UsuarioMapper.setMsg(null,"Problemas no serviço. Entre em contato com o administrador!  :(");
 		}
 	}
 
+	// TODO : implementar UsuarioFilter
 	public DadosUsuarioDTO logarUsuario(Long id) throws Exception {
 		try {
 			Usuario usuario = readUsuarioRepositoryById(id);
+			UsuarioService.isUsuarioAtivo(usuario);
 			return UsuarioMapper.toLoggedUsuarioDTO(usuario);
 		} catch (Exception e) {
 			return UsuarioMapper.setMsg(null, e.getMessage());
@@ -63,7 +55,8 @@ public class UsuarioService {
 	public DadosUsuarioDTO carregarDadosDoUsuario(Long id) throws Exception {
 		try {
 			Usuario usuario = readUsuarioRepositoryById(id);
-			return UsuarioMapper.toUsuarioDTO(usuario);	
+			UsuarioService.isUsuarioAtivo(usuario);
+			return UsuarioMapper.toDto(usuario);					
 		} catch (Exception e) { 
 			return UsuarioMapper.setMsg(null, e.getMessage());
 		}
@@ -71,15 +64,26 @@ public class UsuarioService {
 
 	public DadosUsuarioDTO deletarUsuario(Long id) throws Exception {
 		try {
-			usuarioRepository.deleteById(id);
+//			usuarioRepository.deleteById(id);
+			Usuario usuario = readUsuarioRepositoryById(id);
+			UsuarioService.isUsuarioAtivo(usuario);
+			usuario.setAtivo(false);
+			usuarioRepository.save(usuario);
 			return UsuarioMapper.setMsg(id, "Usuario deletado com sucesso!");
 		} catch (Exception e) {
 			return UsuarioMapper.setMsg(id, "Usuario não encontrado!");
-		}
+		} 
 	}
 	
 	Usuario readUsuarioRepositoryById(Long id) throws Exception {
 		return usuarioRepository.findById(id).orElseThrow(() -> new Exception("Usuario não encontrado!"));
 	}
 	
+	public static boolean isUsuarioAtivo(Usuario usuario) throws Exception {
+		if (usuario.isAtivo()) {
+			return usuario.isAtivo();
+		} else {
+			throw new Exception("Usuário desativado!");
+		}
+	}
 }

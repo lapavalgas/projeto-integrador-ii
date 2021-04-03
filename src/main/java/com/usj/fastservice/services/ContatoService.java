@@ -16,21 +16,31 @@ public class ContatoService {
 	@Autowired
 	private ContatoRepository contatoRepository;
 
-	public Contato save(Contato contato) {
-		return contatoRepository.save(contato);
-	}
-
 	public DadosUsuarioDTO carregarDadosContato(Long id) throws Exception {
-		Contato contato = contatoRepository.findById(id).orElseThrow(() -> new Exception("Não foi possível localizar o contato :("));
-		return UsuarioMapper.toUsuarioDTO(contato);
+		try {
+			Contato contato = readContatoRepositoryById(id);
+			UsuarioService.isUsuarioAtivo(contato.getUsuario());
+			return UsuarioMapper.toUsuarioDTO(contato);
+		} catch (Exception e) {
+			return UsuarioMapper.setMsg(null, e.getMessage());
+		}
 	}
 
 	public DadosUsuarioDTO atualizarDadosContato(@RequestBody DadosUsuarioDTO contatoRequestResponseDTO, @PathVariable Long id) throws Exception {
-		Contato contato = contatoRepository.findById(id).orElseThrow(() -> new Exception("Não foi possível localizar o contato :("));
-		contato.setEmail(contatoRequestResponseDTO.getEmail());
-		contato.setTelefone(contatoRequestResponseDTO.getTelefone());
-		contatoRepository.save(contato);
-		return UsuarioMapper.toUsuarioDTO(contato);
+		try {
+			Contato contato = readContatoRepositoryById(id);
+			UsuarioService.isUsuarioAtivo(contato.getUsuario());
+			contato.setEmail(contatoRequestResponseDTO.getEmail());
+			contato.setTelefone(contatoRequestResponseDTO.getTelefone());
+			contatoRepository.save(contato);
+			return UsuarioMapper.toUsuarioDTO(contato);
+		} catch (Exception e) {
+			return UsuarioMapper.setMsg(null, e.getMessage());
+		}
+	}
+	
+	Contato readContatoRepositoryById(Long id) throws Exception {
+		return contatoRepository.findById(id).orElseThrow(() -> new Exception("Não foi possível localizar o contato :("));
 	}
 
 }
