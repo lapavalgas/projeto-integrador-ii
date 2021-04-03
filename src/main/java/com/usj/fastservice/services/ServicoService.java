@@ -83,7 +83,6 @@ public class ServicoService {
 		}
 	}
 	
-	
 	Servicos readServicoRepositoryById(Long idServico) throws Exception {
 		return servicoRepository.findById(idServico).orElseThrow(() -> new Exception("Servico não encontrado!"));
 	}

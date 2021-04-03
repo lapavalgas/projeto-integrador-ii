@@ -18,13 +18,13 @@ public class PedidoMapper {
 							.build();
 	}
 	
-	public static List<DadosPedidoDTO> toListPedidoDTO(List<Pedidos> pedidos){
+	public static List<DadosPedidoDTO> toListDto(List<Pedidos> pedidos){
 		List<DadosPedidoDTO> listaServicosDto = new ArrayList<DadosPedidoDTO>();
-		for (Pedidos pedido : pedidos) { listaServicosDto.add(toPedidoDTO(pedido)); }
+		for (Pedidos pedido : pedidos) { listaServicosDto.add(toDto(pedido)); }
 		return listaServicosDto;
 	}
 	
-	public static List<Pedidos> toListPedidoModel(List<DadosPedidoDTO> pedidosDto){
+	public static List<Pedidos> toListModel(List<DadosPedidoDTO> pedidosDto){
 		List<Pedidos> listaServicos = new ArrayList<Pedidos>();
 		for (DadosPedidoDTO pedidoDto : pedidosDto) { listaServicos.add(toModel(pedidoDto)); }
 		return listaServicos;
@@ -37,21 +37,21 @@ public class PedidoMapper {
 				.servico(ServicoMapper.toModel(dadosPedidoDTO.getServicoContratado()))
 				.disponibilidade(dadosPedidoDTO.getDisponibilidade())
 				.formaDePagamento(dadosPedidoDTO.getFormaDePagamento())
-				.servicoFinalizadoPeloUsuario(dadosPedidoDTO.isServicoFinalizadoCliente())
-				.servicoFinalizadoPeloProfissional(dadosPedidoDTO.isServicoFinalizadoProfissional())
+				.servicoFinalizadoPeloUsuario(Boolean.getBoolean(dadosPedidoDTO.getServicoFinalizadoCliente()))
+				.servicoFinalizadoPeloProfissional(Boolean.getBoolean(dadosPedidoDTO.getServicoFinalizadoProfissional()))
 				.avaliacaoDoServicoPeloUsuario(Integer.parseInt(dadosPedidoDTO.getAvaliacaoDoCliente()))
 				.build();
 	}
 	
-	public static DadosPedidoDTO toPedidoDTO(Pedidos pedido) {
+	public static DadosPedidoDTO toDto(Pedidos pedido) {
 		return DadosPedidoDTO.builder()
 				.pedido_id(pedido.getId())
 				.cliente(UsuarioMapper.toLoggedUsuarioDTO(pedido.getUsuario()))
 				.servicoContratado(ServicoMapper.toDto(pedido.getServico()))
 				.disponibilidade(pedido.getDisponibilidade())
 				.formaDePagamento(pedido.getFormaDePagamento())
-				.servicoFinalizadoCliente(pedido.isServicoFinalizadoPeloUsuario())
-				.servicoFinalizadoProfissional(pedido.isServicoFinalizadoPeloProfissional())
+				.servicoFinalizadoCliente(String.valueOf(pedido.isServicoFinalizadoPeloUsuario()))
+				.servicoFinalizadoProfissional(String.valueOf(pedido.isServicoFinalizadoPeloProfissional()))
 				.avaliacaoDoCliente(String.valueOf(pedido.getAvaliacaoDoServicoPeloUsuario()))
 				.build();
 	}

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.usj.fastservice.models.dto.DadosPedidoDTO;
@@ -23,12 +24,11 @@ public class PedidoController {
 	@Autowired
 	PedidoService pedidoService;
 
-	@PostMapping(value = "/pedido")
-	public DadosPedidoDTO create(@PathVariable Long idUsuario, @RequestBody DadosPedidoDTO pedidoRequestDTO)
-			throws Exception {
-		return pedidoService.abrirPedido(idUsuario, pedidoRequestDTO);
+	@PostMapping(value = "/servicos/{idServico}/pedidos")
+	public DadosPedidoDTO create(@PathVariable Long idUsuario, @PathVariable Long idServico, @RequestBody DadosPedidoDTO pedidoRequestDTO) throws Exception {
+		return pedidoService.abrirPedido(idUsuario, idServico, pedidoRequestDTO);
 	}
-
+	
 	@GetMapping("/pedidos/{idPedido}")
 	public DadosPedidoDTO getPedidoById(@PathVariable Long idUsuario, @PathVariable Long idPedido) throws Exception {
 		return pedidoService.carregarPedido(idUsuario, idPedido);
@@ -37,32 +37,36 @@ public class PedidoController {
 	@GetMapping("/pedidos/cliente")
 	public List<DadosPedidoDTO> readPedidosCliente(@PathVariable Long idUsuario) throws Exception {
 		return pedidoService.carregarPedidosDeClientes(idUsuario);
-	}
+	}	
 	
 	@GetMapping("/pedidos/profissional")
 	public List<DadosPedidoDTO> readPedidosProfissional(@PathVariable Long idUsuario) throws Exception {
 		return pedidoService.carregarPedidosDeProfissional(idUsuario);
 	}
-
-	@GetMapping("/pedidos")
-	public List<DadosPedidoDTO> readPedidosByFilter(@PathVariable Long idUsuario, @PathParam(value = "") Boolean filtroPorPedidos) throws Exception {
-		return pedidoService.carregarPedidosByFilter(idUsuario, filtroPorPedidos);
-	}
-
-	@PutMapping("/pedidos/{idPedido}/datahora")
+	
+	@PutMapping("/pedidos/{idPedido}/disponibilidades")
 	public DadosPedidoDTO update(@PathVariable Long idUsuario, @PathVariable Long idPedido, @RequestBody DadosPedidoDTO disponibilidadeRequestDTO) throws Exception {
 		return pedidoService.atualizarDisponibilidadeDeHorarios(idUsuario, idPedido, disponibilidadeRequestDTO);
 	}
-
+	
 	@PutMapping("/pedidos/{idPedido}/disponibilidades/{idDataHora}")
 	public DadosPedidoDTO updateDataSelecionada(@PathVariable Long idUsuario, @PathVariable Long idPedido, @PathVariable Long idDataHora) throws Exception {
-		return pedidoService.usuarioSelecionaDataHora(idUsuario, idPedido, idDataHora);
+		return pedidoService.usuarioSelecionaDataHora(idUsuario, idPedido, idDataHora); 
+	}
+	
+	@PutMapping("/pedidos/{idPedido}/finalizar")
+	public DadosPedidoDTO update(@PathVariable Long idUsuario, @PathVariable Long idPedido, @PathParam(value="") boolean stts) throws Exception {
+		return pedidoService.finalizarPedido(idUsuario, idPedido, stts);
 	}
 
-	@PutMapping("/pedidos/{idPedido}")
-	public DadosPedidoDTO updateAvaliacaoServico(@PathVariable Long idUsuario, @PathVariable Long idPedido, @PathParam(value = "") Integer av) throws Exception {
-		return pedidoService.usuarioAvaliarServico(idUsuario, idPedido, av);
+	@PutMapping("/pedidos/{idPedido}/avaliar")
+	public DadosPedidoDTO updateAvaliacaoServico(@PathVariable Long idUsuario, @PathVariable Long idPedido, @PathParam(value = "") Integer stts) throws Exception {
+		return pedidoService.usuarioAvaliarServico(idUsuario, idPedido, stts);
 	}	
 
+	@GetMapping("/pedidos/filtrar")
+	public List<DadosPedidoDTO> readPedidosByFilter(@PathVariable Long idUsuario, @PathParam(value = "") Boolean servicofinalizado) throws Exception {
+		return pedidoService.carregarPedidosByFilter(idUsuario, servicofinalizado);
+	}
 
 }

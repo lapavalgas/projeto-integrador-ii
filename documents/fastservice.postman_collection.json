@@ -1,0 +1,552 @@
+{
+	"info": {
+		"_postman_id": "f152bad7-7c67-4b96-8502-4abf75b6547e",
+		"name": "fastservice",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CREATE Usuario",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cpf\": \"00000000\",\r\n    \"nome\": \"Teste teste\",\r\n    \"dataNascimento\": \"01/01/1990\",\r\n    \"genero\": \"T\",\r\n    \"email\": \"teste@teste.com\",\r\n    \"telefone\": \"000000000\",\r\n    \"cep\": \"88101-300\",\r\n    \"estado\": \"Estado Teste\",\r\n    \"municipio\":\"Municipio Teste\",\r\n    \"bairro\":\"Bairro Teste\",\r\n    \"numero\": \"00\",\r\n    \"complemento\": \"AP. 000\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{uri}}/usuarios",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LOGIN Usuario",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cpf\": \"00000000\",\r\n    \"nome\": \"Teste teste\",\r\n    \"dataNascimento\": \"01/01/1990\",\r\n    \"genero\": \"T\",\r\n    \"email\": \"teste@teste.com\",\r\n    \"telefone\": \"000000000\",\r\n    \"cep\": \"88101-300\",\r\n    \"estado\": \"Estado Teste\",\r\n    \"municipio\":\"Municipio Teste\",\r\n    \"bairro\":\"Bairro Teste\",\r\n    \"numero\": \"00\",\r\n    \"complemento\": \"AP. 000\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{uri}}/usuarios/login/1",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"usuarios",
+						"login",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "READ Usuario",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cpf\": \"00000000\",\r\n    \"nome\": \"Teste teste\",\r\n    \"dataNascimento\": \"01/01/1990\",\r\n    \"genero\": \"T\",\r\n    \"email\": \"teste@teste.com\",\r\n    \"telefone\": \"000000000\",\r\n    \"cep\": \"88101-300\",\r\n    \"estado\": \"Estado Teste\",\r\n    \"municipio\":\"Municipio Teste\",\r\n    \"bairro\":\"Bairro Teste\",\r\n    \"numero\": \"00\",\r\n    \"complemento\": \"AP. 000\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{uri}}/usuarios/1",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"usuarios",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Usuario",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cpf\": \"00000000\",\r\n    \"nome\": \"Teste teste\",\r\n    \"dataNascimento\": \"01/01/1990\",\r\n    \"genero\": \"T\",\r\n    \"email\": \"teste@teste.com\",\r\n    \"telefone\": \"000000000\",\r\n    \"cep\": \"88101-300\",\r\n    \"estado\": \"Estado Teste\",\r\n    \"municipio\":\"Municipio Teste\",\r\n    \"bairro\":\"Bairro Teste\",\r\n    \"numero\": \"00\",\r\n    \"complemento\": \"AP. 000\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{uri}}/usuarios/1",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"usuarios",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "READ Contato",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{uri}}/usuarios/1/contatos",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"usuarios",
+						"1",
+						"contatos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE Contato",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"teste-atualizado@teste.com\",\r\n    \"telefone\": \"000000011\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{uri}}/usuarios/1/contatos",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"usuarios",
+						"1",
+						"contatos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "READ Endereco",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{uri}}/usuarios/1/enderecos",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"usuarios",
+						"1",
+						"enderecos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE Endereco",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cpf\": \"11111-111\",\r\n    \"cep\": \"88101-300\",\r\n    \"estado\": \"Estado Teste ALTERADO\",\r\n    \"municipio\":\"Municipio Teste ALTERADO\",\r\n    \"bairro\":\"Bairro Teste ALTERADO\",\r\n    \"numero\": \"11\",\r\n    \"complemento\": \"AP. 111\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{uri}}/usuarios/1/enderecos",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"usuarios",
+						"1",
+						"enderecos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CREATE Servico",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\": \"Programação Java\",\r\n    \"descricao\": \"Desenvolvimento de pequenos sistemas transacionais em Java.\",\r\n    \"categoria\": \"Informática\",\r\n    \"valor\": \"1200.00\",\r\n    \"statusOperante\": true,\r\n    \"usuarioProfissional\": {\r\n        \"usuario_id\": 1,\r\n        \"nome\": \"!!!!!!!!!!!!!!!\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{uri}}/usuarios/1/servicos",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"usuarios",
+						"1",
+						"servicos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "READ Servico server-ALL",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{uri}}/usuarios/1/servicos/marketplace",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"usuarios",
+						"1",
+						"servicos",
+						"marketplace"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "READ Servico user-ALL",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{uri}}/usuarios/1/servicos",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"usuarios",
+						"1",
+						"servicos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "READ Servico ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{uri}}/usuarios/1/servicos/1",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"usuarios",
+						"1",
+						"servicos",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Servico ID (just close)",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{uri}}/usuarios/1/servicos/1?stts=false",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"usuarios",
+						"1",
+						"servicos",
+						"1"
+					],
+					"query": [
+						{
+							"key": "stts",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CREATE Pedido",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"formaDePagamento\": \"PIX\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{uri}}/usuarios/1/servicos/4/pedidos",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"usuarios",
+						"1",
+						"servicos",
+						"4",
+						"pedidos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "READ Pedido",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{uri}}/usuarios/1/pedidos/1",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"usuarios",
+						"1",
+						"pedidos",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "READ Pedido cliente-ALL",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{uri}}/usuarios/1/pedidos/cliente",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"usuarios",
+						"1",
+						"pedidos",
+						"cliente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "READ Pedido profissional-ALL",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{uri}}/usuarios/2/pedidos/profissional",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"usuarios",
+						"2",
+						"pedidos",
+						"profissional"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Pedido set-dataHora",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"disponibilidade\": [\r\n        {\r\n            \"dataHora\": \"2021-04-03\"\r\n        },\r\n        {\r\n            \"dataHora\": \"2021-04-03\"\r\n        },\r\n        {\r\n            \"dataHora\": \"2021-04-05\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{uri}}/usuarios/2/pedidos/1/disponibilidades",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"usuarios",
+						"2",
+						"pedidos",
+						"1",
+						"disponibilidades"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Pedido choose-dataHora",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{uri}}/usuarios/2/pedidos/1/disponibilidades/1",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"usuarios",
+						"2",
+						"pedidos",
+						"1",
+						"disponibilidades",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Pedido finish",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{uri}}/usuarios/2/pedidos/1/finalizar?stts=true",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"usuarios",
+						"2",
+						"pedidos",
+						"1",
+						"finalizar"
+					],
+					"query": [
+						{
+							"key": "stts",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Pedido avaliar",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{uri}}/usuarios/1/pedidos/1/avaliar?stts=5",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"usuarios",
+						"1",
+						"pedidos",
+						"1",
+						"avaliar"
+					],
+					"query": [
+						{
+							"key": "stts",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "READ Pedido filter",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{uri}}/usuarios/1/pedidos/filtrar?servicofinalizado=false",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"usuarios",
+						"1",
+						"pedidos",
+						"filtrar"
+					],
+					"query": [
+						{
+							"key": "servicofinalizado",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
