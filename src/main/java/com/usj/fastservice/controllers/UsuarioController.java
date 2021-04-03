@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.usj.fastservice.models.Usuario;
 import com.usj.fastservice.models.dto.DadosUsuarioDTO;
 import com.usj.fastservice.services.UsuarioService;
 
@@ -21,11 +20,11 @@ public class UsuarioController {
 	private UsuarioService usuarioService;
 
 	@PostMapping
-	public Usuario create(@RequestBody DadosUsuarioDTO usuarioCadastroRequestDTO) {
+	public DadosUsuarioDTO create(@RequestBody DadosUsuarioDTO usuarioCadastroRequestDTO) {
 		return usuarioService.cadastroDeUsuario(usuarioCadastroRequestDTO);
 	}
 
-	@GetMapping(value = "/{idUsuario}")
+	@GetMapping(value = "/login/{idUsuario}")
 	public DadosUsuarioDTO login(@PathVariable Long idUsuario) throws Exception {
 		return usuarioService.logarUsuario(idUsuario);
 	}

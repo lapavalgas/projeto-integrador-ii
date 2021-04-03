@@ -1,6 +1,6 @@
 package com.usj.fastservice.models;
 
-import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -52,9 +52,9 @@ public class Usuario {
     private EnderecoCompleto enderecoCompleto;   
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY) 
-    private Collection<Servicos> servicosOferecidos;
+    private List<Servicos> servicosOferecidos;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY) 
-	private Collection<Pedidos> pedidosRealizados;
+	private List<Pedidos> pedidosRealizados;
 
 }

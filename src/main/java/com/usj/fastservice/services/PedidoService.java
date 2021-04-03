@@ -33,7 +33,7 @@ public class PedidoService {
 	
 	public DadosPedidoDTO abrirPedido(Long idUsuario, DadosPedidoDTO pedidoRequestDTO) throws Exception {
 		Usuario usuario = usuarioService.readUsuarioRepositoryById(idUsuario);
-		Servicos servico = servicoService.readServicoRepositoryById(Long.decode(pedidoRequestDTO.getServicoContratado().getServico_id()));
+		Servicos servico = servicoService.readServicoRepositoryById(pedidoRequestDTO.getServicoContratado().getServico_id());
 		Pedidos pedido = PedidoMapper.toModel(pedidoRequestDTO);
 		pedido.setUsuario(usuario);
 		pedido.setServico(servico);

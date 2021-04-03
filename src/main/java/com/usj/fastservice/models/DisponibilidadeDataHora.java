@@ -40,7 +40,7 @@ public class DisponibilidadeDataHora {
 	@Column(name = "dataSelecionadaPeloUsuario")
 	private boolean dataSelecionadaPeloUsuario;
 
-	@ManyToOne(cascade = CascadeType.PERSIST, optional = false)
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "disponibilidade_id")
 	@JsonIgnoreProperties("disponibilidade")
 	@ToString.Exclude

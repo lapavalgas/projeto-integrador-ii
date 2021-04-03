@@ -39,13 +39,13 @@ public class Pedidos {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.PERSIST, optional = false)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "usuario_id")
 	@JsonIgnoreProperties("pedidosRealizados")
 	@ToString.Exclude
     private Usuario usuario;
 
-    @ManyToOne(cascade = CascadeType.PERSIST, optional = false)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "servico_id")
 	@JsonIgnoreProperties("pedidos")
 	@ToString.Exclude

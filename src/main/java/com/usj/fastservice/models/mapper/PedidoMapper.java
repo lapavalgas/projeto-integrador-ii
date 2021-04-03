@@ -13,7 +13,7 @@ public class PedidoMapper {
 
 	public static DadosPedidoDTO setMsg(Long id, String msg) {
 		return DadosPedidoDTO.builder()
-							.pedido_id(String.valueOf(id))
+							.pedido_id(id)
 							.msg(msg)
 							.build();
 	}
@@ -32,7 +32,7 @@ public class PedidoMapper {
 	
 	public static Pedidos toModel(DadosPedidoDTO dadosPedidoDTO) {
 		return Pedidos.builder()
-				.id(Long.decode(dadosPedidoDTO.getPedido_id()))
+				.id(dadosPedidoDTO.getPedido_id())
 				.usuario(UsuarioMapper.toUsuario(dadosPedidoDTO.getCliente()))
 				.servico(ServicoMapper.toServicos(dadosPedidoDTO.getServicoContratado()))
 				.disponibilidade(dadosPedidoDTO.getDisponibilidade())
@@ -45,8 +45,8 @@ public class PedidoMapper {
 	
 	public static DadosPedidoDTO toPedidoDTO(Pedidos pedido) {
 		return DadosPedidoDTO.builder()
-				.pedido_id(String.valueOf(pedido.getId()))
-				.cliente(UsuarioMapper.toUsuarioDTO(pedido.getUsuario()))
+				.pedido_id(pedido.getId())
+				.cliente(UsuarioMapper.toLoggedUsuarioDTO(pedido.getUsuario()))
 				.servicoContratado(ServicoMapper.toServicoDTO(pedido.getServico()))
 				.disponibilidade(pedido.getDisponibilidade())
 				.formaDePagamento(pedido.getFormaDePagamento())

@@ -2,6 +2,8 @@ package com.usj.fastservice.models.dto;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.usj.fastservice.models.DisponibilidadeDataHora;
 import com.usj.fastservice.models.enums.FormaDePagamento;
 
@@ -14,9 +16,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Builder
+@JsonInclude(value = Include.NON_NULL)
 public class DadosPedidoDTO {
-
-	private String pedido_id;
+	
+	private Long pedido_id;
 	
 	private DadosUsuarioDTO cliente;
 	
@@ -26,9 +29,9 @@ public class DadosPedidoDTO {
 	
 	private FormaDePagamento formaDePagamento;
 	
-	private boolean servicoFinalizadoCliente;
-
 	private String avaliacaoDoCliente;
+
+	private boolean servicoFinalizadoCliente;
 	
 	private boolean servicoFinalizadoProfissional;
 

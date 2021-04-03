@@ -41,9 +41,9 @@ public class ServicosController {
 		return servicoService.carregarDadosDoServico(idServico);
 	}
 	
-	@GetMapping(value ="/servicos}")
+	@GetMapping(value ="/{servicos}/all")
 	public List<DadosServicoDTO> readAll(@PathVariable Long idUsuario){
-		return servicoService.carregarServicos();		
+		return servicoService.carregarServicos(idUsuario);		
 	}	
 
 	@DeleteMapping("/servicos/{idServico}")

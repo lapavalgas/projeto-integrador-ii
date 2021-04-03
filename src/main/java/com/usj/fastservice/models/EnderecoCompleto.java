@@ -44,11 +44,11 @@ public class EnderecoCompleto {
 	@Column(name = "usuario_id")
 	private Long id;
 
-	@ManyToOne(cascade = CascadeType.PERSIST, optional = false) 
+	@ManyToOne(cascade = CascadeType.PERSIST) 
 	@JoinColumn(name = "endereco_id")
 	private Endereco endereco;
 
-	@OneToOne(cascade = CascadeType.ALL, optional = false, orphanRemoval = true)
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "complemento_id", referencedColumnName = "id")
 	private Complemento complemento;
 

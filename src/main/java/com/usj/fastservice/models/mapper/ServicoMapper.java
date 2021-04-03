@@ -14,19 +14,19 @@ public class ServicoMapper {
 	
 	public static DadosServicoDTO setMsg(Long id, String msg) {
 		return DadosServicoDTO.builder()
-							.servico_id(String.valueOf(id))
+							.servico_id(id)
 							.msg(msg)
 							.build();
 	}
 
 	public static DadosServicoDTO toServicoDTO(Servicos servico) {
 		return DadosServicoDTO.builder()
-				.servico_id(String.valueOf(servico.getId()))
+				.servico_id(servico.getId())
 				.nome(servico.getNome())
 				.descricao(servico.getDescricao())
 				.categoria(servico.getCategoria())
 				.statusOperante(servico.getStatusOperante())
-				.usuarioProfissional(UsuarioMapper.toUsuarioDTO(servico.getUsuario()))
+				.usuarioProfissional(UsuarioMapper.toLoggedUsuarioDTO(servico.getUsuario()))
 				.build();
 	}
 	
@@ -38,7 +38,7 @@ public class ServicoMapper {
 	
 	public static DadosServicoDTO toServicoDTOOwner(Servicos servico) {
 		return DadosServicoDTO.builder()
-				.servico_id(String.valueOf(servico.getId()))
+				.servico_id(servico.getId())
 				.nome(servico.getNome())
 				.descricao(servico.getDescricao())
 				.categoria(servico.getCategoria())

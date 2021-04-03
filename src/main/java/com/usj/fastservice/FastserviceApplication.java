@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class FastserviceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FastserviceApplication.class, args);
+		SpringApplication.run(FastserviceApplication.class, args);		
 	}
 
 }

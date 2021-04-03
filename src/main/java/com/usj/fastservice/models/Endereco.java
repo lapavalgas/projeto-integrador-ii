@@ -1,6 +1,6 @@
 package com.usj.fastservice.models;
 
-import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -59,6 +59,6 @@ public class Endereco {
 	@OneToMany(mappedBy = "endereco", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	@JsonIgnoreProperties("endereco")
 	@ToString.Exclude
-	private Collection<EnderecoCompleto> enderecoCompleto;
+	private List<EnderecoCompleto> enderecoCompleto;
 
 }
