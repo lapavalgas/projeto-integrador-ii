@@ -38,4 +38,5 @@ public class DadosPedidoDTO {
 	private String servicoFinalizadoProfissional;
 
 	private String msg;	
+	
 }

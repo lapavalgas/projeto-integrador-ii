@@ -102,6 +102,14 @@ public class PedidoService {
 			UsuarioService.isUsuarioAtivo(servico.getUsuario());
 			Long cliente = pedido.getUsuario().getId();
 		if (cliente == idUsuario) {
+			if (pedido.getDisponibilidade().isEmpty()) {
+				throw new Exception("Em breve o usuario "+ servico.getUsuario().getNome() +" deverá liberar algumas datas e horas disponíveis para executar o serviço.");
+			}
+			for (DisponibilidadeDataHora disponibilidadeDataHora : pedido.getDisponibilidade()) {
+				if (disponibilidadeDataHora.isDataSelecionadaPeloUsuario()) {
+					throw new Exception("A data e hora já foram selecionadas. Entre em contato com o "+ servico.getUsuario().getNome() +" para alterar.");
+				}
+			}
 			for (DisponibilidadeDataHora disponibilidadeDataHora : pedido.getDisponibilidade()) {
 				if (disponibilidadeDataHora.getId() == idDataHora) {
 					disponibilidadeDataHora.setDataSelecionadaPeloUsuario(true);
@@ -126,7 +134,7 @@ public class PedidoService {
 		Long cliente = pedido.getUsuario().getId();
 		if (cliente == idUsuario)
 			if (pedido.isServicoFinalizadoPeloUsuario()) {
-				pedido.setAvaliacaoDoServicoPeloUsuario(av);
+				pedido.setAvaliacaoDoServicoPeloUsuario(String.valueOf(av));
 				pedidoRepository.save(pedido);
 			} else {
 				throw new Exception("O pedido ainda não foi finalizado!"); 			

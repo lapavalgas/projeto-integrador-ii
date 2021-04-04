@@ -37,9 +37,9 @@ public class PedidoMapper {
 				.servico(ServicoMapper.toModel(dadosPedidoDTO.getServicoContratado()))
 				.disponibilidade(dadosPedidoDTO.getDisponibilidade())
 				.formaDePagamento(dadosPedidoDTO.getFormaDePagamento())
-				.servicoFinalizadoPeloUsuario(Boolean.getBoolean(dadosPedidoDTO.getServicoFinalizadoCliente()))
-				.servicoFinalizadoPeloProfissional(Boolean.getBoolean(dadosPedidoDTO.getServicoFinalizadoProfissional()))
-				.avaliacaoDoServicoPeloUsuario(Integer.parseInt(dadosPedidoDTO.getAvaliacaoDoCliente()))
+				.servicoFinalizadoPeloUsuario(Boolean.parseBoolean(dadosPedidoDTO.getServicoFinalizadoCliente()))
+				.servicoFinalizadoPeloProfissional(Boolean.parseBoolean(dadosPedidoDTO.getServicoFinalizadoProfissional()))
+				.avaliacaoDoServicoPeloUsuario(dadosPedidoDTO.getAvaliacaoDoCliente())
 				.build();
 	}
 	
@@ -52,7 +52,7 @@ public class PedidoMapper {
 				.formaDePagamento(pedido.getFormaDePagamento())
 				.servicoFinalizadoCliente(String.valueOf(pedido.isServicoFinalizadoPeloUsuario()))
 				.servicoFinalizadoProfissional(String.valueOf(pedido.isServicoFinalizadoPeloProfissional()))
-				.avaliacaoDoCliente(String.valueOf(pedido.getAvaliacaoDoServicoPeloUsuario()))
+				.avaliacaoDoCliente(pedido.getAvaliacaoDoServicoPeloUsuario())
 				.build();
 	}
 }

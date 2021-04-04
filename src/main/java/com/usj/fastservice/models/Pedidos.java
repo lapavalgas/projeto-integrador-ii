@@ -65,6 +65,6 @@ public class Pedidos {
     private boolean servicoFinalizadoPeloProfissional;
     
     @Column(name = "avaliacaoDoServicoPeloUsuario")
-    private int avaliacaoDoServicoPeloUsuario;
+    private String avaliacaoDoServicoPeloUsuario;
 
 }
