@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+	<meta charset="utf-8">
+	<title>Fast Service - Contato</title>
+	<meta name="description" content="Entre em contato com a Fast Service!">
+
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="Fast Service - Contato" />
+	<meta property="og:description" content="Entre em contato com a Fast Service!" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="shortcut icon" href="img/FS-icon.ico">
+	<link rel="stylesheet" href="css/style.css">
+
+	<script>document.documentElement.classList.add("js");</script>
+</head>
+
+<body>
+
+	<header class="header">
+		<div class="container">
+			<a href="index.html" class="grid-4">
+				<img src="img/FS-logo-header.png" alt="Fast Service">
+			</a>
+			<nav class="grid-12 header_menu">
+				<ul>
+					<li><a href="sobre.html">Sobre</a></li>
+					<li><a href="servicos.html">Serviços</a></li>
+					<li><a href="contato.html" class="menu_ativo">Contato</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+
+	<section class="introducao-interna interna_contato">
+		<div class="container">
+			<h1 data-anime="400" class="fadeInDown">Contato</h1>
+			<p data-anime="800" class="fadeInDown">Entre em contato com a gente!</p>
+		</div>
+	</section>
+
+	<section class="contato container fadeInDown" data-anime="1200">
+		<form id="form_orcamento" method="POST" action="./enviar.php" class="contato_form grid-8 formphp">
+			<label for="nome">Nome</label>
+			<input type="text" id="nome" name="nome" required>
+			<label for="email">E-mail</label>
+			<input type="email" id="email" name="email" required>
+			<label for="telefone">Telefone</label>
+			<input type="text" id="telefone" name="telefone">
+
+			<label class="nao-aparece">Se você não é um robô, deixe em branco.</label>
+			<input type="text" class="nao-aparece" name="leaveblank">
+			<label class="nao-aparece">Se você não é um robô, não mude este campo.</label>
+			<input type="text" class="nao-aparece" name="dontchange" value="http://">
+
+			<label for="mensagem">Mensagem</label>
+			<textarea id="mensagem" name="mensagem" required></textarea>
+			<button id="enviar" name="enviar" type="submit" class="btn btn-preto">Enviar</button>
+		</form>
+
+		<div class="contato_dados grid-8">
+			<h3>Dados</h3>
+			<span>+55 48 9 9999-9999</span>
+			<span>orcamento@fastservice.com.br</span>
+			<span>AV. Presidente Kennedy - 1000</span>
+			<span>São José - SC - Brasil</span>
+			<h3>Redes Sociais</h3>
+			<ul>
+				<li><a href="http://facebook.com" target="_blank"><img src="img/redes-sociais/facebook.svg" alt="Facebook Fast Service"></a></li>
+				<li><a href="http://instagram.com" target="_blank"><img src="img/redes-sociais/instagram.svg" alt="Instagram Fast Service"></a></li>
+				<li><a href="http://twitter.com" target="_blank"><img src="img/redes-sociais/twitter.svg" alt="Twitter Fast Service"></a></li>
+			</ul>
+		</div>
+	</section>
+
+	<section class="container contato_mapa">
+		<a href="https://www.google.com/maps/place/Av.+Presidente+Kennedy,+1000+-+Campinas,+S%C3%A3o+Jos%C3%A9+-+SC,+88101-001/@-27.6013957,-48.6174898,17z/data=!3m1!4b1!4m5!3m4!1s0x95273623b8ee09e9:0xaa15704c52f7e314!8m2!3d-27.6013957!4d-48.6153011" target="_blank" class="grid-16"><img src="img/FS-mapa.svg" alt="Endereço da Fast Service"></a>
+	</section>
+
+	<section class="quebra">
+		<blockquote class="quote-externo container">
+			<p>“O serviço que você precisa, na hora que você quiser.”</p>
+			<cite>FAST SERVICE</cite>
+		</blockquote>
+	</section>
+
+	<footer>
+		<div class="footer">
+			<div class="container">
+
+				<div class="grid-8 footer_historia">
+					<h3>Nossa História</h3>
+					<p>Iniciamos nossa trajetória em 2020, de uma ideia vinda do meio acadêmico, hoje essa ideia é real, somos a FastService, te ajudamos a encontrar todos os serviços que você precisar.</p>
+				</div>
+
+				<div class="grid-4 footer_contato">
+					<h3>Contato</h3>
+					<ul>
+						<li>- 48 9 9999-9999</li>
+						<li>- contato@fastservice.com.br</li>
+						<li>- São José - SC</li>
+					</ul>
+				</div>
+
+				<div class="grid-4 footer_redes">
+					<h3>Nossas Redes</h3>
+					<ul>
+						<li><a href="http://facebook.com" target="_blank"><img src="img/redes-sociais/facebook.svg" alt="Facebook Fast Service"></a></li>
+						<li><a href="http://instagram.com" target="_blank"><img src="img/redes-sociais/instagram.svg" alt="Instagram Fast Service"></a></li>
+						<li><a href="http://twitter.com" target="_blank"><img src="img/redes-sociais/twitter.svg" alt="Twitter Fast Service"></a></li>
+					</ul>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="copy">
+			<div class="container">
+				<p class="grid-16">Fast Service 2020 - Direitos Reservados.</p>
+			</div>
+		</div>
+	</footer>
+
+	<!-- JavaScript -->
+	<script src="./js/simple-anime.js"></script>
+	<script src="./js/simple-form.js"></script>
+	<script src="./js/script.js"></script>
+	<!-- JavaScript -->
+
+</body>
+
+</html>
