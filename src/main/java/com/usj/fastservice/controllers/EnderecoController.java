@@ -3,6 +3,7 @@ package com.usj.fastservice.controllers;
 import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -20,12 +21,14 @@ public class EnderecoController {
 	
 	@Autowired
 	EnderecoCompletoService enderecoCompletoService;
-	
+
+	@CrossOrigin
 	@GetMapping("/enderecos")
 	public DadosUsuarioDTO read(@PathVariable Long idUsuario) throws Exception {
 		return enderecoCompletoService.carregarDadosEndereco(idUsuario);			
 	}
-	
+
+	@CrossOrigin
 	@PutMapping("/enderecos")
 	public DadosUsuarioDTO update(@PathVariable Long idUsuario, @RequestBody DadosUsuarioDTO complemento) throws Exception {
 		return enderecoCompletoService.atualizarEndereco(complemento, idUsuario);
