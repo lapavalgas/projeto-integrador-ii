@@ -13,7 +13,7 @@ public class EnderecoMapper {
 				.estado(usuarioCadastroRequestDTO.getEstado())
 				.municipio(usuarioCadastroRequestDTO.getMunicipio())
 				.bairro(usuarioCadastroRequestDTO.getBairro())
-				.logradouro(usuarioCadastroRequestDTO.getBairro())
+				.logradouro(usuarioCadastroRequestDTO.getLogradouro())
 				.build();
 		Complemento complemento = Complemento.builder()
 				.numero(usuarioCadastroRequestDTO.getNumero())
@@ -31,7 +31,7 @@ public class EnderecoMapper {
 		enderecoCompleto.getEndereco().setEstado(enderecoAtualizar.getEstado());
 		enderecoCompleto.getEndereco().setMunicipio(enderecoAtualizar.getMunicipio());
 		enderecoCompleto.getEndereco().setBairro(enderecoAtualizar.getBairro());
-		enderecoCompleto.getEndereco().setLogradouro(enderecoAtualizar.getNumero());
+		enderecoCompleto.getEndereco().setLogradouro(enderecoAtualizar.getLogradouro());
 		enderecoCompleto.getComplemento().setNumero(enderecoAtualizar.getNumero());
 		enderecoCompleto.getComplemento().setComplemento(enderecoAtualizar.getComplemento());
 		return enderecoCompleto;
