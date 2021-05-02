@@ -14,6 +14,9 @@
 	<link rel="shortcut icon" href="img/FS-icon.ico">
 	<link rel="stylesheet" href="css/style.css">
 
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+	<script type="text/javascript" src="utils.js"></script>
+
 	<!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
 	<!-- <script>document.documentElement.classList.add("js");</script> -->
 </head>
@@ -21,20 +24,20 @@
 <body id="app">
 
 	<header class="header">
-        <div class="container">
-            <a href="index.html" class="grid-4">
-                <img src="img/FS-logo-header.png" alt="FS">
-            </a>
-            <nav class="grid-12 header_menu">
-                <ul>
-                    <li><a href="sobre.html">Sobre</a></li>
-                    <li><a href="servicos.html">Serviços</a></li>
-                    <li><a href="contato.html">Contato</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-		
+		<div class="container">
+			<a href="index.html" class="grid-4">
+				<img src="img/FS-logo-header.png" alt="FS">
+			</a>
+			<nav class="grid-12 header_menu">
+				<ul>
+					<li><a href="sobre.html">Sobre</a></li>
+					<li><a href="servicos.html">Serviços</a></li>
+					<li><a href="contato.html">Contato</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+
 	<section class="introducao">
 		<div class="container">
 			<h1 data-anime="400" class="fadeInDown">Os Melhores Profissionais</h1>
@@ -56,7 +59,8 @@
 					<img src="img/FS-icone-servico-limpeza.svg" alt="Serviços Domésticos">
 				</div>
 				<h3>Domésticos</h3>
-				<p>Os melhores profissionais para realiazação de serciços em sua residencia, encontre todas as categorias, limpeza, elétrica, hidráulica e muito mais.</p>
+				<p>Os melhores profissionais para realiazação de serciços em sua residencia, encontre todas as
+					categorias, limpeza, elétrica, hidráulica e muito mais.</p>
 			</li>
 
 			<li class="grid-1-3">
@@ -64,7 +68,8 @@
 					<img src="img/FS-icone-servico-ti.svg" alt="Serviços de TI">
 				</div>
 				<h3>TI</h3>
-				<p>Profissionais altamente qualificados para te ajudar a resolver problemas aí na sua casa ou na sua empresa, de manutenção a programação de sistemas e sites.</p>
+				<p>Profissionais altamente qualificados para te ajudar a resolver problemas aí na sua casa ou na sua
+					empresa, de manutenção a programação de sistemas e sites.</p>
 			</li>
 
 			<li class="grid-1-3">
@@ -72,7 +77,8 @@
 					<img src="img/FS-icone-servico-mecanico.svg" alt="Serviços Automotivos">
 				</div>
 				<h3>Automotivos</h3>
-				<p>Precisando concertar seu carro? Lavar? Fazer alguma alteração na estética? ou apenas boa revsião?Aqui você encontra os melhores profissionais!</p>
+				<p>Precisando concertar seu carro? Lavar? Fazer alguma alteração na estética? ou apenas boa revsião?Aqui
+					você encontra os melhores profissionais!</p>
 			</li>
 
 		</ul>
@@ -126,7 +132,8 @@
 
 				<div class="grid-8 footer_historia">
 					<h3>Nossa História</h3>
-					<p>Iniciamos nossa trajetória em 2020, de uma ideia vinda do meio acadêmico, hoje essa ideia é real, somos a FastService, te ajudamos a encontrar todos os serviços que você precisar.</p>
+					<p>Iniciamos nossa trajetória em 2020, de uma ideia vinda do meio acadêmico, hoje essa ideia é real,
+						somos a FastService, te ajudamos a encontrar todos os serviços que você precisar.</p>
 				</div>
 
 				<div class="grid-4 footer_contato">
@@ -141,9 +148,12 @@
 				<div class="grid-4 footer_redes">
 					<h3>Nossas Redes</h3>
 					<ul>
-						<li><a href="http://facebook.com" target="_blank"><img src="img/redes-sociais/facebook.svg" alt="Facebook FastService"></a></li>
-						<li><a href="http://instagram.com" target="_blank"><img src="img/redes-sociais/instagram.svg" alt="Instagram FastService"></a></li>
-						<li><a href="http://twitter.com" target="_blank"><img src="img/redes-sociais/twitter.svg" alt="Twitter FastService"></a></li>
+						<li><a href="http://facebook.com" target="_blank"><img src="img/redes-sociais/facebook.svg"
+									alt="Facebook FastService"></a></li>
+						<li><a href="http://instagram.com" target="_blank"><img src="img/redes-sociais/instagram.svg"
+									alt="Instagram FastService"></a></li>
+						<li><a href="http://twitter.com" target="_blank"><img src="img/redes-sociais/twitter.svg"
+									alt="Twitter FastService"></a></li>
 					</ul>
 				</div>
 
@@ -162,17 +172,49 @@
 	<script src="./js/script.js"></script>
 	<!-- JavaScript -->
 	<!-- VueJs -->
-	<script>
-		import header from './components/header'
-		
-		export default {
-			name: 'app',
-			components: {
-				header
-			}
-		}
-	</script>	
+
+
 	<!-- VueJs -->
+
+	<!-- TESTE CRIPTOGRAFIA -->
+	<script>
+		// alert(document.cookie.anchor("usuario_id"));
+		// alert(getCookie("usuario_id"));
+		// alert(sessionStorage.getItem("usuarioLogado"));
+		// var decrypted = CryptoJS.AES.decrypt(encrypted, "Secret Passphrase");
+		// let decryptedUsuario = CryptoJS.AES.decrypt(
+		// 	sessionStorage.getItem("usuarioLogado"),
+		// 	getCookie("usuario_id")
+		// );
+		// console.log(decryptedUsuario.toString(CryptoJS.enc.Utf8));
+		// let obj = decryptUser();
+		// console.log(obj);
+
+
+		async function get() {
+			let response = await fetch('http://localhost:8080/usuarios/' + decryptUser().usuario_id, {
+				headers: {
+					'Accept': 'application/json',
+					'Content-Type': 'application/json'
+				},
+				method: 'GET',
+				body: JSON.stringify()
+			});
+
+			let teste = await response.json();
+
+			console.log(teste);
+
+			return teste;
+
+		}
+
+		var a = get();
+
+
+
+	</script>
+	<!-- TESTE CRIPTOGRAFIA -->
 
 </body>
 

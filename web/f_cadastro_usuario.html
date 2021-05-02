@@ -15,18 +15,16 @@
 	<link rel="stylesheet" href="css/style.css">
 
 	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+	<script src="utils.js"></script>
 </head>
 
 <body>
-
 	<section class="contato container fadeInDown" data-anime="1200">
 		<div id=app>
 			<form style="width: 100%;" v-on:submit.prevent="submit()" id="form_orcamento" class="contato_form grid-8 formphp">
-
 				<div style="display: flex; width: 100%;">
 					<div style="display: block; width: 100%; padding: 50px; padding-top: 0px;">
-
 						<label for="nome">Nome</label>
 						<input v-model="form.nome" type="text" id="nome" name="nome" required>
 
@@ -82,7 +80,6 @@
 			</form>
 		</div>
 	</section>
-
 	<!-- JavaScript -->
 	<script src="./js/simple-anime.js"></script>
 	<script src="./js/script.js"></script>
@@ -119,10 +116,23 @@
 						method: 'POST',
 						body: JSON.stringify(form)
 					});
+
+					// FETCH: get response data from promise async + await
 					let responseJson = await response.json();
+
+					// CryptoJS: criptografa dos dados para segurança
+					let responseJsonEncrypted = cryptUser(responseJson);
+
+					// COOKIES & SESSIONS: VanillaJS pass small data with Cookies and Sessions
+					document.cookie = "fastserviceId="+getCryptKey(responseJson.usuario_id);
+					sessionStorage.setItem("fastserviceData", responseJsonEncrypted);
+
+					// mensagem de sucesso ao cadastrar
 					this.appMsg = "Usuário cadastro com sucesso! \nID: " + responseJson.usuario_id;
 					alert(this.appMsg);
-					window.location.href = "index.html"
+
+					// redirect
+					window.location.href = "index.html";
 				},
 				cpfMask: function () {
 					this.form.cpf = this.form.cpf.replace(/[^\d]/g, "").replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, "\$1.\$2.\$3\-\$4");
@@ -139,13 +149,8 @@
 				ufEnderecoMask: function () {
 					this.form.estado = this.form.estado.replace(/^\d+$/, "");
 				},
-
 			}
 		});
-
 	</script>
-	<!-- VueJs -->
-
 </body>
-
 </html>
