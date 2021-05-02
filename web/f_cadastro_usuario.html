@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+	<meta charset="utf-8">
+	<title>Fast Service - Contato</title>
+	<meta name="description" content="Entre em contato com a Fast Service!">
+
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="Fast Service - Contato" />
+	<meta property="og:description" content="Entre em contato com a Fast Service!" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="shortcut icon" href="img/FS-icon.ico">
+	<link rel="stylesheet" href="css/style.css">
+
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+
+<body>
+
+	<section class="contato container fadeInDown" data-anime="1200">
+		<div id=app>
+			<form style="width: 100%;" v-on:submit.prevent="submit()" id="form_orcamento" class="contato_form grid-8 formphp">
+
+				<div style="display: flex; width: 100%;">
+					<div style="display: block; width: 100%; padding: 50px; padding-top: 0px;">
+
+						<label for="nome">Nome</label>
+						<input v-model="form.nome" type="text" id="nome" name="nome" required>
+
+						<label for="email">E-mail</label>
+						<input v-model="form.email" type="email" id="email" name="email" required>
+
+						<label for="cpf">CPF</label>
+						<input v-model="form.cpf" v-on:input="cpfMask" type="text" id="cpf" name="cpf" maxlength="11" required>
+
+						<label for="telefone">Telefone</label>
+						<input v-model="form.telefone" v-on:input="telefoneMask" type="text" id="telefone"
+							name="telefone" maxlength="15" required>
+
+						<label for="dataNascimento">Data de nascimento</label>
+						<input v-model="form.dataNascimento" type="date" id="dataNascimento" name="dataNascimento" maxlength="11" required>
+
+						<label for="genero">Genero</label>
+						<div>
+							<input v-model="form.genero" style="display: inline; width: auto;" type="radio" id="M" name="genero" value="H">
+							<label style="display: inline; width: auto;" for="M">Homem</label>
+							<input v-model="form.genero" style="display: inline; width: auto;" type="radio" id="M" name="genero" value="M">
+							<label style="display: inline; width: auto;" for="F">Mulher</label>
+						</div>
+					</div>
+					<div style="display: block; width: 100%; padding: 50px; padding-top: 0px;">
+
+						<label for="cep">CEP</label>
+						<input v-model="form.cep" v-on:input="cepEnderecoMask" type="text" id="cep" name="cep"
+							maxlength="9" required>
+
+						<label for="estado">Estado - UF</label>
+						<input v-model="form.estado" v-on:input="ufEnderecoMask" type="text" id="estado" name="estado"
+							maxlength="2" required>
+
+						<label for="municipio">Municipio</label>
+						<input v-model="form.municipio" type="text" id="municipio" name="municipio" required>
+
+						<label for="bairro">Bairro</label>
+						<input v-model="form.bairro" type="text" id="bairro" name="bairro" required>
+
+						<label for="logradouro">Logradouro</label>
+						<input v-model="form.logradouro" type="text" id="logradouro" name="logradouro" required>
+
+						<label for="numero">Numero</label>
+						<input v-model="form.numero" v-on:input="numeroEnderecoMask" type="text" id="numero" name="numero" maxlength="6" required>
+
+						<label for="complemento">Complemento</label>
+						<input v-model="form.complemento" type="text" id="complemento" name="complemento" maxlength="20">
+
+						<button id="enviar" name="enviar" type="submit" class="btn btn-preto">Cadastrar</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</section>
+
+	<!-- JavaScript -->
+	<script src="./js/simple-anime.js"></script>
+	<script src="./js/script.js"></script>
+
+	<!-- VueJs -->
+	<script>
+		var app = new Vue({
+			el: "#app",
+			data: {
+				form: {
+					cpf: '',
+					nome: '',
+					dataNascimento: '',
+					genero: '',
+					email: '',
+					telefone: '',
+					cep: '',
+					estado: '',
+					municipio: '',
+					bairro: '',
+					logradouro: '',
+					numero: '',
+				},
+				appMsg: '',
+			},
+			methods: {
+				submit: async function () {
+					const form = this.form;
+					let response = await fetch('http://localhost:8080/usuarios', {
+						headers: {
+							'Accept': 'application/json',
+							'Content-Type': 'application/json'
+						},
+						method: 'POST',
+						body: JSON.stringify(form)
+					});
+					let responseJson = await response.json();
+					this.appMsg = "Usuário cadastro com sucesso! \nID: " + responseJson.usuario_id;
+					alert(this.appMsg);
+					window.location.href = "index.html"
+				},
+				cpfMask: function () {
+					this.form.cpf = this.form.cpf.replace(/[^\d]/g, "").replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, "\$1.\$2.\$3\-\$4");
+				},
+				telefoneMask: function () {
+					this.form.telefone = this.form.telefone.replace(/[^\d]/g, "").replace(/(\d{0})(\d{2})(\d{0})(\d{5})/g, "\$1(\$2)\$3 \$4\-");
+				},
+				cepEnderecoMask: function () {
+					this.form.cep = this.form.cep.replace(/[^\d]/g, "").replace(/(\d{5})/g, "\$1-");
+				},
+				numeroEnderecoMask: function () {
+					this.form.numero = this.form.numero.replace(/[^\d]/g, "");
+				},
+				ufEnderecoMask: function () {
+					this.form.estado = this.form.estado.replace(/^\d+$/, "");
+				},
+
+			}
+		});
+
+	</script>
+	<!-- VueJs -->
+
+</body>
+
+</html>
