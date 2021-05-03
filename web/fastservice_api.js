@@ -58,7 +58,7 @@ async function deleteUsuarios(usuario_id) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        method: 'DEL',
+        method: 'DELETE',
     });
     let responseData = await response.json();
     return responseData;

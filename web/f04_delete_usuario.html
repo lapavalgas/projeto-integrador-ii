@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+	<meta charset="utf-8">
+	<title>Fast Service - Contato</title>
+	<meta name="description" content="Entre em contato com a Fast Service!">
+
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="Fast Service - Contato" />
+	<meta property="og:description" content="Entre em contato com a Fast Service!" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="shortcut icon" href="img/FS-icon.ico">
+	<link rel="stylesheet" href="css/style.css">
+
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+	<script src="fastservice_utils.js"></script>
+	<script src="fastservice_api.js"></script>
+</head>
+
+<body>
+
+	<!-- Essa SECTION poderá funcionar melhor como um componente popup. Essa rota ficou estranha pra carmaba, kkkkk  -->
+	<section class="contato container fadeInDown" data-anime="1200">
+		<div id=app>
+
+			<!-- Apenas para poder atualizar o usuario logado para testes -->
+			<div style="width: 100%;" id="form_orcamento" class="contato_form grid-8 formphp">
+				<div style="display: flex; width: 100%;">
+					<div style="display: block; width: 100%; padding: 50px; padding-top: 0px;">
+						<label for="login">DELETE - USER_ID:</label>
+						<input v-model="usuario_id" type="login" id="login" name="login" required>
+						<button id="enviar" v-on:click="deletar()" name="enviar" type="submit" class="btn btn-preto">login</button>
+					</div>
+				</div>
+			</div>
+
+			<!-- formulário para atualizar contato -->
+			<div style="width: 100%;" v-on:submit.prevent="submit()" id="form_orcamento" class="contato_form grid-8 formphp">
+				
+
+					<!-- area de teste -->
+					<div style="display: block; width: 100%; padding: 50px; padding-top: 0px;">
+						<p>TESTES</p><br>
+						<p>MSG : {{usuario_data.msg}}</p><br>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- JavaScript -->
+	<script src="./js/simple-anime.js"></script>
+	<script src="./js/script.js"></script>
+
+	<!-- VueJs -->
+	<script>
+		var app = new Vue({
+			el: "#app",
+			data: {
+				usuario_id: '',
+				usuario_data: {},
+				form: {},
+				appMsg: '',
+			},
+			methods: {
+				deletar: async function () {
+					console.log(this.usuario_id);
+					const response = await deleteUsuarios(this.usuario_id);
+					const responseData = await readUsuarios(this.usuario_id);
+					document.cookie = "fastserviceId=" + response.usuario_id;
+					sessionStorage.setItem("fastserviceData", JSON.stringify(response));
+					this.usuario_data = responseData;
+				},
+			}
+		});
+	</script>
+</body>
+
+</html>
