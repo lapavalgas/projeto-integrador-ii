@@ -192,12 +192,12 @@ async function readUsuariosServicos(usuario_id, servico_id) {
 }
 
 async function deleteUsuariosServicos(usuario_id, servico_id) {
-    let response = await fetch(fastservice_url + '/usuarios/' + usuario_id + '/servicos/' + servico_id, {
+    let response = await fetch(fastservice_url + '/usuarios/' + usuario_id + '/servicos/' + servico_id + '?stts=false', {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        method: 'DEL',
+        method: 'DELETE',
     });
     let responseData = await response.json();
     return responseData;

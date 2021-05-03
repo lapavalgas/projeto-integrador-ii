@@ -30,25 +30,47 @@
 			<div style="width: 100%;" id="form_orcamento" class="contato_form grid-8 formphp">
 				<div style="display: flex; width: 100%;">
 					<div style="display: block; width: 100%; padding: 50px; padding-top: 0px;">
-						<label for="login">DELETE - USER_ID:</label>
+						<label for="login">SIGNIN USUER ID</label>
 						<input v-model="usuario_id" type="login" id="login" name="login" required>
-						<button id="enviar" v-on:click="deletar()" name="enviar" type="submit" class="btn btn-preto">DELETAR</button>
+						<button id="enviar" v-on:click="LOGIN()" name="enviar" type="submit"
+							class="btn btn-preto">login</button>
 					</div>
 				</div>
 			</div>
 
 			<!-- formulário para atualizar contato -->
-			<div style="width: 100%;" v-on:submit.prevent="submit()" id="form_orcamento" class="contato_form grid-8 formphp">
-				
+			<form style="width: 100%;" v-on:submit.prevent="submit()" id="form_orcamento"
+				class="contato_form grid-8 formphp">
+				<div style="display: flex; width: 100%;">
+					<div style="display: block; width: 100%; padding: 50px; padding-top: 0px;">
+
+						<label for="nome">Deletar serviço:</label>
+						<input v-model="servico_id" type="text" id="servico_id" name="nome" required>
+
+						<button id="enviar" name="enviar" type="submit" class="btn btn-preto">DELETAR</button>
+					</div>
 
 					<!-- area de teste -->
 					<div style="display: block; width: 100%; padding: 50px; padding-top: 0px;">
-						<p>TESTES</p><br>
-						<p>MSG : {{usuario_data.msg}}</p><br>
+						<p>user</p><br>
+						<p>MSG: {{usuario_data.msg}}</p><br>
+						<ul>
+							<li>usuario_id: {{usuario_data.usuario_id}}</li>
+							<li>cep: {{usuario_data.cep}}</li>
+							<li>estado: {{usuario_data.estado}}</li>
+							<li>municipio: {{usuario_data.municipio}}</li>
+							<li>bairro: {{usuario_data.bairro}}</li>
+							<li>logradouro: {{usuario_data.logradouro}}</li>
+							<li>numero: {{usuario_data.numero}}</li>
+						</ul>
+						<br><br>
+						<p>serviço</p><br>
+						<p>MSG: {{servico_data.msg}}</p><br>
 					</div>
 
+
 				</div>
-			</div>
+			</form>
 		</div>
 	</section>
 
@@ -63,17 +85,40 @@
 			data: {
 				usuario_id: '',
 				usuario_data: {},
-				form: {},
+				servico_id: '',
+				servico_data: {
+					usuarioProfissional: {
+						nome: '',
+					}
+				},
+				form: {
+					statusOperante: true,
+					usuarioProfissional: {
+					}
+				},
 				appMsg: '',
 			},
 			methods: {
-				deletar: async function () {
+				LOGIN: async function () {
 					console.log(this.usuario_id);
-					const response = await deleteUsuarios(this.usuario_id);
+					const response = await signIn(this.usuario_id);
 					const responseData = await readUsuarios(this.usuario_id);
 					document.cookie = "fastserviceId=" + response.usuario_id;
 					sessionStorage.setItem("fastserviceData", JSON.stringify(response));
 					this.usuario_data = responseData;
+				},
+				LOAD_SERVICE: async function () {
+					console.log(this.usuario_id);
+					const response = await readUsuariosServicos(this.usuario_id, this.servico_id);
+					this.servico_data = response;
+					console.log(response.msg)
+					console.log(this.servico_data.msg)
+				},
+				submit: async function () {
+					console.log(this.usuario_id);
+					const response = await deleteUsuariosServicos(this.usuario_id, this.servico_id);
+					this.servico_data = response;
+					// this.LOAD_SERVICE();
 				},
 			}
 		});
