@@ -17,6 +17,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
 	<script src="utils.js"></script>
+	<script src="fastservice_api.js"></script>
 </head>
 
 <body>
@@ -108,27 +109,17 @@
 			methods: {
 				submit: async function () {
 					const form = this.form;
-					let response = await fetch('http://localhost:8080/usuarios', {
-						headers: {
-							'Accept': 'application/json',
-							'Content-Type': 'application/json'
-						},
-						method: 'POST',
-						body: JSON.stringify(form)
-					});
-
-					// FETCH: get response data from promise async + await
-					let responseJson = await response.json();
+					const response = await cadastraUsuarios(form);
 
 					// CryptoJS: criptografa dos dados para segurança
-					let responseJsonEncrypted = cryptUser(responseJson);
+					let dataEncrypted = cryptUser(response);
 
 					// COOKIES & SESSIONS: VanillaJS pass small data with Cookies and Sessions
-					document.cookie = "fastserviceId="+getCryptKey(responseJson.usuario_id);
-					sessionStorage.setItem("fastserviceData", responseJsonEncrypted);
+					document.cookie = "fastserviceId="+getCryptKey(response.usuario_id);
+					sessionStorage.setItem("fastserviceData", dataEncrypted);
 
 					// mensagem de sucesso ao cadastrar
-					this.appMsg = "Usuário cadastro com sucesso! \nID: " + responseJson.usuario_id;
+					this.appMsg = "Usuário cadastro com sucesso! \nID: " + response.usuario_id;
 					alert(this.appMsg);
 
 					// redirect
