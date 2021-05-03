@@ -15,7 +15,8 @@
 	<link rel="stylesheet" href="css/style.css">
 
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
-	<script type="text/javascript" src="utils.js"></script>
+	<script type="text/javascript" src="fastservice_utils.js"></script>
+	<script src="fastservice_api.js"></script>
 
 	<!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
 	<!-- <script>document.documentElement.classList.add("js");</script> -->
@@ -172,11 +173,8 @@
 	<script src="./js/script.js"></script>
 	<!-- JavaScript -->
 	<!-- VueJs -->
-
-
 	<!-- VueJs -->
-
-	<!-- TESTE CRIPTOGRAFIA -->
+	<!-- TESTE  -->
 	<script>
 		// alert(document.cookie.anchor("usuario_id"));
 		// alert(getCookie("usuario_id"));
@@ -191,30 +189,45 @@
 		// console.log(obj);
 
 
-		async function get() {
-			let response = await fetch('http://localhost:8080/usuarios/' + decryptUser().usuario_id, {
-				headers: {
-					'Accept': 'application/json',
-					'Content-Type': 'application/json'
-				},
-				method: 'GET',
-				body: JSON.stringify()
-			});
+		// async function get() {
+		// 	let response = await fetch('http://localhost:8080/usuarios/1', {
+		// 		headers: {
+		// 			'Accept': 'application/json',
+		// 			'Content-Type': 'application/json'
+		// 		},
+		// 		method: 'GET',
+		// 		body: JSON.stringify()
+		// 	});
+		// 	let teste = await response.json();
+		// 	console.log(teste);
+		// 	return teste;
+		// }
+		// var a = get();
 
-			let teste = await response.json();
-
-			console.log(teste);
-
-			return teste;
-
-		}
-
-		var a = get();
-
-
+		// var data = {}
+		// var appMsg = '';
+		// async function teste() {
+		// 	try {
+		// 		const response = await signIn(10); 
+		// 		if (response.msg === undefined) {
+		// 			let id = response.usuario_id;
+		// 			let dataJson = JSON.stringify(response);
+		// 			data=dataJson;
+		// 			document.cookie = "fastserviceId=" + id;
+		// 			sessionStorage.setItem("fastserviceData", dataJson);
+		// 			appMsg = "Usuário cadastro com sucesso! \nID: " + response.usuario_id;
+		// 		} else {
+		// 			appMsg = "Usuário cadastro com sucesso! \nID: " + response.msg;
+		// 		}
+		// 	} catch (error) {
+		// 		appMsg = "Falha ao cadastro o usuário!";
+		// 	}
+		// }
+		// teste()
+		// console.log(appMsg)
 
 	</script>
-	<!-- TESTE CRIPTOGRAFIA -->
+	<!-- TESTE  -->
 
 </body>
 

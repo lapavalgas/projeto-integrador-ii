@@ -16,7 +16,7 @@
 
 	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
-	<script src="utils.js"></script>
+	<script src="fastservice_utils.js"></script>
 	<script src="fastservice_api.js"></script>
 </head>
 
@@ -90,41 +90,29 @@
 		var app = new Vue({
 			el: "#app",
 			data: {
-				form: {
-					cpf: '',
-					nome: '',
-					dataNascimento: '',
-					genero: '',
-					email: '',
-					telefone: '',
-					cep: '',
-					estado: '',
-					municipio: '',
-					bairro: '',
-					logradouro: '',
-					numero: '',
-				},
+				form: { },
 				appMsg: '',
 			},
 			methods: {
 				submit: async function () {
-					const form = this.form;
-					const response = await cadastraUsuarios(form);
-
-					// CryptoJS: criptografa dos dados para segurança
-					let dataEncrypted = cryptUser(response);
-
-					// COOKIES & SESSIONS: VanillaJS pass small data with Cookies and Sessions
-					document.cookie = "fastserviceId="+getCryptKey(response.usuario_id);
-					sessionStorage.setItem("fastserviceData", dataEncrypted);
-
-					// mensagem de sucesso ao cadastrar
-					this.appMsg = "Usuário cadastro com sucesso! \nID: " + response.usuario_id;
+					try {
+						const response = await cadastraUsuarios(this.form);
+						if (response.msg === undefined) {
+							let id = response.usuario_id;
+							let dataJson = JSON.stringify(response);
+							document.cookie = "fastserviceId="+id;
+							sessionStorage.setItem("fastserviceData", dataJson);
+							this.appMsg = "Usuário cadastro com sucesso! \nID: " + response.usuario_id;
+						} else {
+							this.appMsg = "Usuário cadastro com sucesso! \nID: " + response.msg;
+						}
+					} catch (error) {
+						this.appMsg = "Falha ao cadastro o usuário!";
+					}
 					alert(this.appMsg);
-
-					// redirect
 					window.location.href = "index.html";
 				},
+				// Masks
 				cpfMask: function () {
 					this.form.cpf = this.form.cpf.replace(/[^\d]/g, "").replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, "\$1.\$2.\$3\-\$4");
 				},

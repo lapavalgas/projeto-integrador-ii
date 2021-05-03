@@ -4,6 +4,7 @@ function getCookie(name) {
     if (parts.length === 2) return parts.pop().split(';').shift();
 }
 
+// exercício de criptografia no frontend : implementado apenas no frontend
 function getCryptKey(keyObject) {
     return CryptoJS.MD5(''+keyObject).toString();
 }
