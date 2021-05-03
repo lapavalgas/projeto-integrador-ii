@@ -30,7 +30,7 @@
 			<div style="width: 100%;" id="form_orcamento" class="contato_form grid-8 formphp">
 				<div style="display: flex; width: 100%;">
 					<div style="display: block; width: 100%; padding: 50px; padding-top: 0px;">
-						<label for="login">UPDATE CONTATO:</label>
+						<label for="login">SIGNIN USUER ID</label>
 						<input v-model="usuario_id" type="login" id="login" name="login" required>
 						<button id="enviar" v-on:click="LOGIN()" name="enviar" type="submit"
 							class="btn btn-preto">login</button>
@@ -44,23 +44,45 @@
 				<div style="display: flex; width: 100%;">
 					<div style="display: block; width: 100%; padding: 50px; padding-top: 0px;">
 
-						<label for="email">E-mail</label>
-						<input v-model="form.email" type="email" id="email" name="email" required>
 
-						<label for="telefone">Telefone</label>
-						<input v-model="form.telefone" v-on:input="telefoneMask" type="text" id="telefone"
-							name="telefone" maxlength="15" required>
+						<label for="nome">nome sserviço</label>
+						<input v-model="form.nome" type="text" id="cep" name="nome" maxlength="9" required>
+
+						<label for="descricao">descricao</label>
+						<input v-model="form.descricao" type="text" id="descricao" name="descricao" required>
+
+						<label for="municipio">categoria</label>
+						<input v-model="form.municipio" type="text" id="municipio" name="municipio" required>
+
+						<label for="bairro">valor</label>
+						<input v-model="form.bairro" type="text" id="bairro" name="bairro" required>
 
 						<button id="enviar" name="enviar" type="submit" class="btn btn-preto">Cadastrar</button>
 					</div>
 
 					<!-- area de teste -->
 					<div style="display: block; width: 100%; padding: 50px; padding-top: 0px;">
-						<p>TESTES</p><br>
+						<p>user</p><br>
+						<p>MSG: {{usuario_data.msg}}</p><br>
 						<ul>
-							<li>Nome: {{usuario_data.nome}}</li>
-							<li>Nome: {{usuario_data.email}}</li>
-							<li>Nome: {{usuario_data.telefone}}</li>
+							<li>usuario_id: {{usuario_data.usuario_id}}</li>
+							<li>cep: {{usuario_data.cep}}</li>
+							<li>estado: {{usuario_data.estado}}</li>
+							<li>municipio: {{usuario_data.municipio}}</li>
+							<li>bairro: {{usuario_data.bairro}}</li>
+							<li>logradouro: {{usuario_data.logradouro}}</li>
+							<li>numero: {{usuario_data.numero}}</li>
+						</ul>
+						<br><br>
+						<p>serviço</p><br>
+						<p>MSG: {{usuario_data.msg}}</p><br>
+						<ul>
+							<li>servico_id: 			 {{servico_data.servico_id}}</li>
+							<li>nome: 					 {{servico_data.nome}}</li>
+							<li>descricao: 				 {{servico_data.descricao}}</li>
+							<li>categoria: 				 {{servico_data.categoria}}</li>
+							<li>statusOperante: 		 {{servico_data.statusOperante}}</li>
+							<li>Profissional oferecendo: {{servico_data.usuarioProfissional.nome}}</li>
 						</ul>
 					</div>
 
@@ -81,7 +103,17 @@
 			data: {
 				usuario_id: '',
 				usuario_data: {},
-				form: {},
+				servico_id: '',
+				servico_data: {
+					usuarioProfissional:{
+						nome:'',
+					}
+				},
+				form: {
+					statusOperante: true,
+					usuarioProfissional: {
+					}
+				},
 				appMsg: '',
 			},
 			methods: {
@@ -93,12 +125,17 @@
 					sessionStorage.setItem("fastserviceData", JSON.stringify(response));
 					this.usuario_data = responseData;
 				},
+				LOAD_SERVICE: async function () {
+					console.log(this.usuario_id);
+					const response = await readUsuariosServicos(this.usuario_id, this.servico_id);
+					this.servico_data = response;
+				},
 				submit: async function () {
 					try {
-						const response = await updateUsuariosContatos(this.usuario_id, this.form);
+						const response = await cadastraServicos(this.usuario_id, this.form);
 						if (response.msg === undefined) {
-							let id = response.usuario_id;
-							this.appMsg = "Contatos atualizados com sucesso! \nID: " + response.usuario_id;
+							this.servico_id = response.servico_id;
+							this.appMsg = "Serviço cadastrado com sucesso! \nID: " + response.servico_id;
 						} else {
 							this.appMsg = "ERROR! " + response.msg;
 						}
@@ -108,10 +145,7 @@
 					alert(this.appMsg);
 					// a proxima função é apenas para testes, em produção é outra logica
 					this.LOGIN();
-				},
-				// Masks
-				telefoneMask: function () {
-					this.form.telefone = this.form.telefone.replace(/[^\d]/g, "").replace(/(\d{0})(\d{2})(\d{0})(\d{5})/g, "\$1(\$2)\$3 \$4\-");
+					this.LOAD_SERVICE();
 				},
 			}
 		});

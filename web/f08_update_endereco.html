@@ -30,7 +30,7 @@
 			<div style="width: 100%;" id="form_orcamento" class="contato_form grid-8 formphp">
 				<div style="display: flex; width: 100%;">
 					<div style="display: block; width: 100%; padding: 50px; padding-top: 0px;">
-						<label for="login">UPDATE CONTATO:</label>
+						<label for="login">SIGNIN USUER ID</label>
 						<input v-model="usuario_id" type="login" id="login" name="login" required>
 						<button id="enviar" v-on:click="LOGIN()" name="enviar" type="submit"
 							class="btn btn-preto">login</button>
@@ -44,12 +44,31 @@
 				<div style="display: flex; width: 100%;">
 					<div style="display: block; width: 100%; padding: 50px; padding-top: 0px;">
 
-						<label for="email">E-mail</label>
-						<input v-model="form.email" type="email" id="email" name="email" required>
 
-						<label for="telefone">Telefone</label>
-						<input v-model="form.telefone" v-on:input="telefoneMask" type="text" id="telefone"
-							name="telefone" maxlength="15" required>
+						<label for="cep">CEP</label>
+						<input v-model="form.cep" v-on:input="cepEnderecoMask" type="text" id="cep" name="cep"
+							maxlength="9" required>
+
+						<label for="estado">Estado - UF</label>
+						<input v-model="form.estado" v-on:input="ufEnderecoMask" type="text" id="estado" name="estado"
+							maxlength="2" required>
+
+						<label for="municipio">Municipio</label>
+						<input v-model="form.municipio" type="text" id="municipio" name="municipio" required>
+
+						<label for="bairro">Bairro</label>
+						<input v-model="form.bairro" type="text" id="bairro" name="bairro" required>
+
+						<label for="logradouro">Logradouro</label>
+						<input v-model="form.logradouro" type="text" id="logradouro" name="logradouro" required>
+
+						<label for="numero">Numero</label>
+						<input v-model="form.numero" v-on:input="numeroEnderecoMask" type="text" id="numero"
+							name="numero" maxlength="6" required>
+
+						<label for="complemento">Complemento</label>
+						<input v-model="form.complemento" type="text" id="complemento" name="complemento"
+							maxlength="20">
 
 						<button id="enviar" name="enviar" type="submit" class="btn btn-preto">Cadastrar</button>
 					</div>
@@ -57,10 +76,15 @@
 					<!-- area de teste -->
 					<div style="display: block; width: 100%; padding: 50px; padding-top: 0px;">
 						<p>TESTES</p><br>
+						<p>MSG: {{usuario_data.msg}}</p><br>
 						<ul>
-							<li>Nome: {{usuario_data.nome}}</li>
-							<li>Nome: {{usuario_data.email}}</li>
-							<li>Nome: {{usuario_data.telefone}}</li>
+							<li>usuario_id: {{usuario_data.usuario_id}}</li>
+							<li>cep: {{usuario_data.cep}}</li>
+							<li>estado: {{usuario_data.estado}}</li>
+							<li>municipio: {{usuario_data.municipio}}</li>
+							<li>bairro: {{usuario_data.bairro}}</li>
+							<li>logradouro: {{usuario_data.logradouro}}</li>
+							<li>numero: {{usuario_data.numero}}</li>
 						</ul>
 					</div>
 
@@ -95,7 +119,7 @@
 				},
 				submit: async function () {
 					try {
-						const response = await updateUsuariosContatos(this.usuario_id, this.form);
+						const response = await updateUsuariosEnderecos(this.usuario_id, this.form);
 						if (response.msg === undefined) {
 							let id = response.usuario_id;
 							this.appMsg = "Contatos atualizados com sucesso! \nID: " + response.usuario_id;
