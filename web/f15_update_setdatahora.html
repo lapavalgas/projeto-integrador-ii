@@ -26,15 +26,14 @@
 	<section class="contato container fadeInDown" data-anime="1200">
 		<div id=app>
 
-			
+
 			<!-- Apenas para poder atualizar o usuario logado para testes -->
 			<div style="width: 100%;" id="form_orcamento" class="contato_form grid-8 formphp">
 				<div style="display: flex; width: 100%;">
 					<div style="display: block; width: 100%; padding: 50px; padding-top: 0px;">
 						<label for="login">SIGNIN USUER ID</label>
 						<input v-model="usuario_id" type="login" id="login" name="login" required>
-						<button id="enviar" v-on:click="LOGIN()" name="enviar" type="submit"
-							class="btn btn-preto">login</button>
+						<button id="enviar" v-on:click="LOGIN()" name="enviar" type="submit" class="btn btn-preto">login</button>
 					</div>
 				</div>
 			</div>
@@ -42,32 +41,31 @@
 			<div style="width: 100%;" id="form_orcamento" class="contato_form grid-8 formphp">
 				<div style="display: flex; width: 100%;">
 					<div style="display: block; width: 100%; padding: 50px; padding-top: 0px;">
-						<label for="service">SERVICE LOAD</label>
+						<label for="service">PEDIDO LOAD</label>
 						<input v-model="servico_id" type="service" id="service" name="service" required>
-						<button id="enviar" v-on:click="SERVICE()" name="enviar" type="submit"
-							class="btn btn-preto">login</button>
+						<button id="enviar" v-on:click="PEDIDO()" name="enviar" type="submit" class="btn btn-preto">login</button>
 					</div>
 				</div>
 			</div>
 
-			<!-- formulário para atualizar contato -->
-			<form style="width: 100%;" v-on:submit.prevent="submit()" id="form_orcamento"
-				class="contato_form grid-8 formphp">
+			<!-- formulário para atualizar contato-->
+			<form style="width: 100%;" id="form_orcamento" class="contato_form grid-8 formphp">
 				<div style="display: flex; width: 100%;">
 					<div style="display: block; width: 100%; padding: 50px; padding-top: 0px;">
+						<div id="formDatahora">
 
-						<label for="formaDePagamento">FORMA DE PAGAMENTO</label>
-						<select v-model="form.formaDePagamento" type="text" id="cep" name="formaDePagamento" maxlength="9" required>
-							<option value="CREDITO">Credito</option>
-							<option value="DEBITO">Debito</option>
-							<option value="DINHEIRO">Dinheiro</option>
-							<option value="PIX">PIX</option>
-							</select>
+							<label for="dataHora">Data disponibilidade</label>
+							<input v-model="formData" type="date" id="dataHora" name="dataHora" maxlength="11" required>
+							<ul>
+								<li>request Body: {{form.disponibilidade}}</li>
+							</ul>
+							<div id="enviar" v-on:click="addDatahora()"name="enviar" type="submit" class="btn btn-preto">ADD</div>
+						</div>
 
-						<button id="enviar" name="enviar" type="submit" class="btn btn-preto">Cadastrar</button>
+						<button id="enviar" v-on:click.prevent="submit()" name="enviar" type="submit" class="btn btn-preto">Cadastrar</button>
 					</div>
 
-					
+
 					<!-- area de teste -->
 					<div style="display: block; width: 100%; padding: 50px; padding-top: 0px;">
 						<p>user</p><br>
@@ -89,43 +87,34 @@
 							<li>complemento: {{usuario_data.complemento}}</li>
 						</ul>
 						<br><br>
-						<p>serviço</p><br>
-						<p>MSG: {{usuario_data.msg}}</p><br>
-						<ul>
-							<li>servico_id: 			 {{servico_data.servico_id}}</li>
-							<li>nome: 					 {{servico_data.nome}}</li>
-							<li>descricao: 				 {{servico_data.descricao}}</li>
-							<li>categoria: 				 {{servico_data.categoria}}</li>
-							<li>statusOperante: 		 {{servico_data.statusOperante}}</li>
-							<li>Profissional oferecendo: {{servico_data.usuarioProfissional.nome}}</li>
-						</ul>
 						<p>pedido</p><br>
 						<p>MSG: {{pedido_data.msg}}</p><br>
 						<ul>
-							<li>pedido_id: 			 				{{pedido_data.pedido_id}}</li>
-							<li>usuario_id: 						{{pedido_data.cliente.usuario_id}}</li>
-							<li>nome: 				 				{{pedido_data.cliente.nome}}</li>
-							<li>servico_id:				 			{{pedido_data.servicoContratado.servico_id}}</li>
-							<li>nome:					 			{{pedido_data.servicoContratado.nome}}</li>
-							<li>descricao:				 			{{pedido_data.servicoContratado.descricao}}</li>
-							<li>categoria:				 			{{pedido_data.servicoContratado.categoria}}</li>
-							<li>statusOperante:			 			{{pedido_data.servicoContratado.statusOperante}}</li>
-							<li>usuarioProfissional:	 			{{pedido_data.servicoContratado.usuarioProfissional.usuario_id}}</li>
-							<li>usuarioProfissional:	 			{{pedido_data.servicoContratado.usuarioProfissional.nome}}</li>
-							<li>disponibilidade:		 			{{pedido_data.disponibilidade}}</li>
-							<li>formaDePagamento:		 			{{pedido_data.formaDePagamento}}</li>
-							<li>servicoFinalizadoCliente:			{{pedido_data.servicoFinalizadoCliente}}</li>
-							<li>servicoFinalizadoProfissional:		{{pedido_data.servicoFinalizadoProfissional}}</li>
+							<li>pedido_id: {{pedido_data.pedido_id}}</li>
+							<li>usuario_id: {{pedido_data.cliente.usuario_id}}</li>
+							<li>nome: {{pedido_data.cliente.nome}}</li>
+							<li>servico_id: {{pedido_data.servicoContratado.servico_id}}</li>
+							<li>nome: {{pedido_data.servicoContratado.nome}}</li>
+							<li>descricao: {{pedido_data.servicoContratado.descricao}}</li>
+							<li>categoria: {{pedido_data.servicoContratado.categoria}}</li>
+							<li>statusOperante: {{pedido_data.servicoContratado.statusOperante}}</li>
+							<li>usuarioProfissional: {{pedido_data.servicoContratado.usuarioProfissional.usuario_id}}
+							</li>
+							<li>usuarioProfissional: {{pedido_data.servicoContratado.usuarioProfissional.nome}}</li>
+							<li>disponibilidade: {{pedido_data.disponibilidade}}</li>
+							<li>formaDePagamento: {{pedido_data.formaDePagamento}}</li>
+							<li>servicoFinalizadoCliente: {{pedido_data.servicoFinalizadoCliente}}</li>
+							<li>servicoFinalizadoProfissional: {{pedido_data.servicoFinalizadoProfissional}}</li>
 						</ul>
 
 					</div>
-					
-					
+
+
 				</div>
 
 			</form>
 
-			
+
 		</div>
 	</section>
 
@@ -142,20 +131,24 @@
 				usuario_data: {},
 				servico_id: '',
 				servico_data: {
-					usuarioProfissional:{
-						nome:'',
+					usuarioProfissional: {
+						nome: '',
 					}
 				},
+				pedido_id: {},
 				pedido_data: {
 					cliente: {},
-					servicoContratado:{
+					servicoContratado: {
 						usuarioProfissional: {},
 						formaDePagamento: '',
 					},
 					disponibilidade: [],
 				},
+				formData:{
+					dataHora: '',
+				},
 				form: {
-					formaDePagamento: '',
+					disponibilidade: []
 				},
 				appMsg: '',
 			},
@@ -168,14 +161,16 @@
 					sessionStorage.setItem("fastserviceData", JSON.stringify(response));
 					this.usuario_data = responseData;
 				},
-				SERVICE: async function () {
+				PEDIDO: async function () {
 					console.log(this.usuario_id);
-					const response = await readUsuariosServicos(this.usuario_id, this.servico_id);
-					this.servico_data = response;
+					const response = await readPedidos(this.usuario_id, this.servico_id);
+					this.pedido_id = response.pedido_id;
+					this.pedido_data = response;
 				},
 				submit: async function () {
+					console.log(JSON.stringify(this.form))
 					try {
-						const response = await cadastraPedidos(this.usuario_id, this.servico_id, this.form);
+						const response = await updateProfissionalPedidosDisponibilidades(this.usuario_id, this.pedido_id, this.form);
 						if (response.msg === undefined) {
 							this.pedido_data = response;
 							this.appMsg = "Serviço cadastrado com sucesso! \nID: " + response.servico_id;
@@ -187,7 +182,13 @@
 					}
 					alert(this.appMsg);
 					// a proxima função é apenas para testes, em produção é outra logica
+					PEDIDO();
 				},
+				addDatahora: function () {
+					this.form.disponibilidade.push({dataHora: this.formData});
+					this.formData = null;
+					
+				}
 			}
 		});
 	</script>
