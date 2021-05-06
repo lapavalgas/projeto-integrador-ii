@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+	<meta charset="utf-8">
+	<title>Fast Service - Contato</title>
+	<meta name="description" content="Entre em contato com a Fast Service!">
+
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="Fast Service - Contato" />
+	<meta property="og:description" content="Entre em contato com a Fast Service!" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="shortcut icon" href="img/FS-icon.ico">
+	<link rel="stylesheet" href="css/style.css">
+
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+	<script src="fastservice_utils.js"></script>
+	<script src="fastservice_api.js"></script>
+</head>
+
+<body>
+
+	<!-- Essa SECTION poderá funcionar melhor como um componente popup. Essa rota ficou estranha pra carmaba, kkkkk  -->
+	<section class="contato container fadeInDown" data-anime="1200">
+		<div id=app>
+
+
+			<!-- Apenas para poder atualizar o usuario logado para testes -->
+			<div style="width: 100%;" id="form_orcamento" class="contato_form grid-8 formphp">
+				<div style="display: flex; width: 100%;">
+					<div style="display: block; width: 100%; padding: 50px; padding-top: 0px;">
+						<label for="login">SIGNIN USUER ID</label>
+						<input v-model="usuario_id" type="login" id="login" name="login" required>
+						<button id="enviar" v-on:click="LOGIN()" name="enviar" type="submit"
+							class="btn btn-preto">login</button>
+					</div>
+				</div>
+			</div>
+			<!-- Apenas para poder atualizar o usuario logado para testes -->
+			<div style="width: 100%;" id="form_orcamento" class="contato_form grid-8 formphp">
+				<div style="display: flex; width: 100%;">
+					<div style="display: block; width: 100%; padding: 50px; padding-top: 0px;">
+						<label for="service">PEDIDO LOAD</label>
+						<input v-model="servico_id" type="service" id="service" name="service" required>
+						<button id="enviar" v-on:click="PEDIDO()" name="enviar" type="submit"
+							class="btn btn-preto">login</button>
+					</div>
+				</div>
+			</div>
+
+			<!-- formulário para atualizar contato-->
+			<form style="width: 100%;" id="form_orcamento" class="contato_form grid-8 formphp">
+				<div style="display: flex; width: 100%;">
+					<div style="display: block; width: 100%; padding: 50px; padding-top: 0px;">
+
+						<label for="nome">AVALIAR PEDIDO</label>
+						<div>
+							<span class="star" id="star_1" v-on:click="selectAvalicao('star_1')"
+								style="border: 1px solid; margin-right: 10px;">STAR 1</span>
+							<span class="star" id="star_2" v-on:click="selectAvalicao('star_2')"
+								style="border: 1px solid; margin-right: 10px;">STAR 2</span>
+							<span class="star" id="star_3" v-on:click="selectAvalicao('star_3')"
+								style="border: 1px solid; margin-right: 10px;">STAR 3</span>
+							<span class="star" id="star_4" v-on:click="selectAvalicao('star_4')"
+								style="border: 1px solid; margin-right: 10px;">STAR 4</span>
+							<span class="star" id="star_5" v-on:click="selectAvalicao('star_5')"
+								style="border: 1px solid; margin-right: 10px;">STAR 5</span>
+						</div>
+						<button id="enviar" v-on:click.prevent="submit" name="enviar" type="submit"
+							class="btn btn-preto">ESCOLHER</button>
+
+					</div>
+				</div>
+
+
+				<!-- area de teste -->
+				<div style="display: block; width: 100%; padding: 50px; padding-top: 0px;">
+					<p>user</p><br>
+					<p>MSG: {{usuario_data.msg}}</p><br>
+					<ul>
+						<li>usuario_id: {{usuario_data.usuario_id}}</li>
+						<li>nome: {{usuario_data.nome}}</li>
+						<li>cpf: {{usuario_data.cpf}}</li>
+						<li>dataNascimento: {{usuario_data.dataNascimento}}</li>
+						<li>genero: {{usuario_data.genero}}</li>
+						<li>email: {{usuario_data.email}}</li>
+						<li>telefone: {{usuario_data.telefone}}</li>
+						<li>cep: {{usuario_data.cep}}</li>
+						<li>estado: {{usuario_data.estado}}</li>
+						<li>municipio: {{usuario_data.municipio}}</li>
+						<li>bairro: {{usuario_data.bairro}}</li>
+						<li>logradouro: {{usuario_data.logradouro}}</li>
+						<li>numero: {{usuario_data.numero}}</li>
+						<li>complemento: {{usuario_data.complemento}}</li>
+					</ul>
+					<br><br>
+					<p>pedido</p><br>
+					<p>MSG: {{pedido_data.msg}}</p><br>
+					<ul>
+						<li>pedido_id: {{pedido_data.pedido_id}}</li>
+						<li>usuario_id: {{pedido_data.cliente.usuario_id}}</li>
+						<li>nome: {{pedido_data.cliente.nome}}</li>
+						<li>servico_id: {{pedido_data.servicoContratado.servico_id}}</li>
+						<li>nome: {{pedido_data.servicoContratado.nome}}</li>
+						<li>descricao: {{pedido_data.servicoContratado.descricao}}</li>
+						<li>categoria: {{pedido_data.servicoContratado.categoria}}</li>
+						<li>statusOperante: {{pedido_data.servicoContratado.statusOperante}}</li>
+						<li>usuarioProfissional: {{pedido_data.servicoContratado.usuarioProfissional.usuario_id}}</li>
+						<li>usuarioProfissional: {{pedido_data.servicoContratado.usuarioProfissional.nome}}</li>
+						<li>disponibilidade: {{pedido_data.disponibilidade}}</li>
+						<li>formaDePagamento: {{pedido_data.formaDePagamento}}</li>
+						<li>servicoFinalizadoCliente: {{pedido_data.servicoFinalizadoCliente}}</li>
+						<li>servicoFinalizadoProfissional: {{pedido_data.servicoFinalizadoProfissional}}</li>
+						<li>avaliaçãoDoCliente: {{pedido_data.avaliacaoDoCliente}}</li>
+					</ul>
+
+				</div>
+
+
+		</div>
+
+		</form>
+
+
+		</div>
+	</section>
+
+	<!-- JavaScript -->
+	<script src="./js/simple-anime.js"></script>
+	<script src="./js/script.js"></script>
+
+	<!-- VueJs -->
+	<script>
+		var app = new Vue({
+			el: "#app",
+			data: {
+				usuario_id: '',
+				usuario_data: {},
+				servico_id: '',
+				servico_data: {
+					usuarioProfissional: {
+						nome: '',
+					}
+				},
+				pedido_id: {},
+				pedido_data: {
+					cliente: {},
+					servicoContratado: {
+						usuarioProfissional: {},
+						formaDePagamento: '',
+					},
+					disponibilidade: [],
+				},
+				formData: {
+					dataHora: '',
+				},
+				form: {
+				},
+				appMsg: '',
+			},
+			methods: {
+				LOGIN: async function () {
+					console.log(this.usuario_id);
+					const response = await signIn(this.usuario_id);
+					const responseData = await readUsuarios(this.usuario_id);
+					document.cookie = "fastserviceId=" + response.usuario_id;
+					sessionStorage.setItem("fastserviceData", JSON.stringify(response));
+					this.usuario_data = responseData;
+				},
+				PEDIDO: async function () {
+					console.log(this.usuario_id);
+					const response = await readPedidos(this.usuario_id, this.servico_id);
+					this.pedido_id = response.pedido_id;
+					this.pedido_data = response;
+				},
+				submit: async function () {
+					try {
+						const response = await updateClientePedidosAvaliar(this.usuario_id, this.pedido_id, this.form.starNumber);
+						if (response.msg === undefined) {
+							this.pedido_data = response;
+							this.appMsg = "Serviço cadastrado com sucesso! \nID: " + response.servico_id;
+						} else {
+							this.appMsg = "ERROR! " + response.msg;
+						}
+					} catch (error) {
+						this.appMsg = "Falha ao atualizar os contatos!";
+					}
+					alert(this.appMsg);
+					// a proxima função é apenas para testes, em produção é outra logica
+					PEDIDO();
+				},
+				selectAvalicao: function (star) {
+					let starNumber = parseInt(star.substring(5));
+					for (i=1; i<=5;i++) {
+						if (starNumber == i) {
+							document.getElementById("star_"+i).style.color = "red";
+							this.form.starNumber = i;
+						} else {
+							document.getElementById("star_"+i).style.color = "black";
+						}
+					}
+					console.log(this.form.starNumber)
+				}
+			}
+		});
+	</script>
+</body>
+
+</html>
