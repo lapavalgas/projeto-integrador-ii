@@ -76,3 +76,5 @@ yarn-error.log*
 ### DOCKER ###*
 .docker/
 
+# setup
+dev-setup.bat

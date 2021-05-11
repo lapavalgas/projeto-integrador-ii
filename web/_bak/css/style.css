@@ -383,7 +383,6 @@ p {
   font-size: 14px;
   line-height: 20px;
 }
-
 img {
   display: block;
   max-width: 100%;
@@ -583,24 +582,12 @@ img {
   padding: 20px;
 }
 
-.contato_sub_cadastro p {
-  font-family: arial;
-  font-size: 18px;
-  line-height: 25px;
-  text-transform: uppercase;
-  color: #195e83;
-  font-weight: bold;
-  border-top: 10px;
-  border-bottom: 50px;
-}
-
 .servicos_separador img {
   padding-top: 70px;
   display: block;
   margin-left: auto;
   margin-right: auto;
 }
-
 .call {
   padding-top: 40px;
   text-align: center;
@@ -957,17 +944,6 @@ img {
   background: url(../img/FS-bg-contato.svg) no-repeat center;
   background-size: cover;
 }
-
-.interna_minhaconta {
-  background: url(../img/FS-MINHACONTA.svg) no-repeat center;
-  background-size: cover;
-}
-
-.interna_cadastro {
-  background: url(../img/FS-CADASTRO.svg) no-repeat center;
-  background-size: cover;
-}
-
 .contato {
   padding: 40px 0;
 }

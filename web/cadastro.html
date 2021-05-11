@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>Fast Service - Contato</title>
+	<title>Fast Service - Cadastro</title>
 	<meta name="description" content="Entre em contato com a Fast Service!">
 
 	<meta property="og:type" content="website" />
@@ -27,59 +27,71 @@
 			<nav class="grid-12 header_menu">
 				<ul>
 					<li><a href="sobre.html">Sobre</a></li>
-					<li><a href="cadastro.html">Cadastro</a></li>
+					<li><a href="cadastro.html" class="menu_ativo"> Cadastro</a></li>
 					<li><a href="servicos.html">Serviços</a></li>
-					<li><a href="contato.html" class="menu_ativo">Contato</a></li>
-					<li><a href="carrinho.html"><img src="img/carrinho.svg" alt="carrinho"></a></li>
-					<li><a href="minhaconta.html"> <img src="img/user.svg" alt="minhaconta"></a></li>
+					<li><a href="contato.html">Contato</a></li>
+                    <li><a href="carrinho.html"><img src="img/carrinho.svg" alt="carrinho"></a></li>
+                    <li><a href="minhaconta.html"> <img src="img/user.svg" alt="minhaconta"></a></li>
 				</ul>
 			</nav>
 		</div>
 	</header>
 
-	<section class="introducao-interna interna_contato">
+	<section class="introducao-interna interna_cadastro">
 		<div class="container">
-			<h1 data-anime="400" class="fadeInDown">Contato</h1>
-			<p data-anime="800" class="fadeInDown">Entre em contato com a gente!</p>
+			<h1 data-anime="400" class="fadeInDown">Cadastro</h1>
+			<p data-anime="800" class="fadeInDown">Faça seu cadastro e aproveite nossos serviços!</p>
 		</div>
 	</section>
 
+
 	<section class="contato container fadeInDown" data-anime="1200">
+        <div class="contato_sub_cadastro"> 
+            <p>Preencha com seus dados:</p>
+        </div><br/>
 		<form id="form_orcamento" method="POST" action="./enviar.php" class="contato_form grid-8 formphp">
 			<label for="nome">Nome</label>
 			<input type="text" id="nome" name="nome" required>
-			<label for="email">E-mail</label>
-			<input type="email" id="email" name="email" required>
-			<label for="telefone">Telefone</label>
-			<input type="text" id="telefone" name="telefone">
-
+			<label for="cpf">CPF</label>
+			<input type="text" id="cpf" name="cpf" required>
+			<label for="dataNascimento">Data de Nascimento</label>
+			<input type="text" id="dataNascimento" name="dataNascimento">
+            <label for="genero">Gênero</label>
+			<input type="text" id="genero" name="genero">
+            <label for="email">E-mail</label>
+			<input type="text" id="email" name="email">
+            <label for="telefone">Telefone</label>
+            <input type="text" id="telefone" name="telefone">
+            
 			<label class="nao-aparece">Se você não é um robô, deixe em branco.</label>
 			<input type="text" class="nao-aparece" name="leaveblank">
 			<label class="nao-aparece">Se você não é um robô, não mude este campo.</label>
 			<input type="text" class="nao-aparece" name="dontchange" value="http://">
-
-			<label for="mensagem">Mensagem</label>
-			<textarea id="mensagem" name="mensagem" required></textarea>
-			<button id="enviar" name="enviar" type="submit" class="btn btn-preto">Enviar</button>
 		</form>
 
 		<div class="contato_dados grid-8">
-			<h3>Dados</h3>
-			<span>+55 48 9 9999-9999</span>
-			<span>orcamento@fastservice.com.br</span>
-			<span>AV. Presidente Kennedy - 1000</span>
-			<span>São José - SC - Brasil</span>
-			<h3>Redes Sociais</h3>
-			<ul>
-				<li><a href="http://facebook.com" target="_blank"><img src="img/redes-sociais/facebook.svg" alt="Facebook Fast Service"></a></li>
-				<li><a href="http://instagram.com" target="_blank"><img src="img/redes-sociais/instagram.svg" alt="Instagram Fast Service"></a></li>
-				<li><a href="http://twitter.com" target="_blank"><img src="img/redes-sociais/twitter.svg" alt="Twitter Fast Service"></a></li>
-			</ul>
-		</div>
-	</section>
+			<form id="form_orcamento" method="POST" action="./enviar.php" class="contato_form grid-8 formphp">
 
-	<section class="container contato_mapa">
-		<a href="https://www.google.com/maps/place/Av.+Presidente+Kennedy,+1000+-+Campinas,+S%C3%A3o+Jos%C3%A9+-+SC,+88101-001/@-27.6013957,-48.6174898,17z/data=!3m1!4b1!4m5!3m4!1s0x95273623b8ee09e9:0xaa15704c52f7e314!8m2!3d-27.6013957!4d-48.6153011" target="_blank" class="grid-16"><img src="img/FS-mapa.svg" alt="Endereço da Fast Service"></a>
+                <label for="estado">Estado</label>
+                <input type="text" id="estado" name="estado">
+                <label for="cidade">Cidade</label>
+                <input type="text" id="cidade" name="cidade">
+                <label for="bairro">Bairro</label>
+                <input type="text" id="bairro" name="bairro">
+                <label for="numero">Número</label>
+                <input type="text" id="numero" name="numero">
+                <label for="complemento">Complemento</label>
+                <input type="text" id="complemento" name="complemento">
+
+                <label class="nao-aparece">Se você não é um robô, deixe em branco.</label>
+                <input type="text" class="nao-aparece" name="leaveblank">
+                <label class="nao-aparece">Se você não é um robô, não mude este campo.</label>
+                <input type="text" class="nao-aparece" name="dontchange" value="http://">
+                <div class="call">
+                <a href="" class="btn btn-preto">Enviar</a>
+                </div>
+            </form>
+		</div>
 	</section>
 
 	<section class="quebra">
