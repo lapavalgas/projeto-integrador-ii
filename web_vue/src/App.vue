@@ -2,23 +2,28 @@
   <div id="app">
     <!-- <Home /> -->
     <!-- <Sobre /> -->
-    <Contato />
+    <!-- <Contato /> -->
+    <!-- <Usuario /> -->
+    <router-view />
   </div>
 </template>
 
 <script>
 // import Home from './components/pages/Home.vue'
 // import Sobre from './components/pages/Sobre.vue'
-import Contato from './components/pages/Contato.vue'
+// import Contato from './components/pages/Contato.vue'
+// import Usuario from "./components/pages/Usuario.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     // Home,
     // Sobre,
-    Contato,
-  }
-}
+    // Contato,
+    // Usuario,
+  },
+};
 </script>
 
-<style src=""> </style>
+<style src="">
+</style>

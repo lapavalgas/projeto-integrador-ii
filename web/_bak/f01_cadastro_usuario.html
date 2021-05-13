@@ -28,12 +28,12 @@
 					<div style="display: block; width: 100%; padding: 50px; padding-top: 0px;">
 						<label for="nome">Nome</label>
 						<input v-model="form.nome" type="text" id="nome" name="nome" required>
-
-						<label for="email">E-mail</label>
-						<input v-model="form.email" type="email" id="email" name="email" required>
-
+						
 						<label for="cpf">CPF</label>
 						<input v-model="form.cpf" v-on:input="cpfMask" type="text" id="cpf" name="cpf" maxlength="11" required>
+						
+						<label for="email">E-mail</label>
+						<input v-model="form.email" type="email" id="email" name="email" required>
 
 						<label for="telefone">Telefone</label>
 						<input v-model="form.telefone" v-on:input="telefoneMask" type="text" id="telefone"
