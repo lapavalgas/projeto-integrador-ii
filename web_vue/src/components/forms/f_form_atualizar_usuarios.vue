@@ -1,19 +1,48 @@
 <template>
   <section class="contato container fadeInDown" data-anime="1200">
     <div id="resumeUsuario">
-      <p class="subtitulo">{{ form.nome }}</p>
-      <button
-        style="position: relative; left: 60px; bottom: 10px"
-        v-on:click.prevent="editar()"
-        id="enviar"
-        name="enviar"
-        type="submit"
-        class="btn btn-preto"
+      <p class="subtitulo" style="margin-bottom: 20px">{{ form.nome }}</p>
+      <div
+        class="qualidade_lista"
+        style="margin-left: 62px; margin-bottom: 20px"
       >
-        Editar dados
-      </button>
+        <p>{{ form.email }}</p>
+        <p>{{ form.telefone }}</p>
+        <p>
+          {{ form.logradouro }}, {{ form.numero }}, - {{ form.estado }} -
+          {{ form.municipio }} - {{ form.bairro }} <br />
+          {{ form.complemento }}
+        </p>
+      </div>
+      <div>
+        <button
+          style="margin-left: 62px"
+          v-on:click.prevent="abrirFecharFormEditar()"
+          id="enviar"
+          name="enviar"
+          type="submit"
+          class="btn btn-preto"
+        >
+          Atualizar cadastro
+        </button>
+        <button
+          v-on:click.prevent="deletarConta()"
+          style="
+            position: absolute;
+            right: 98px;
+            background-color: #f66969;
+            width: 253px;
+          "
+          id="enviar"
+          name="enviar"
+          type="submit"
+          class="btn btn-preto"
+        >
+          Deletar conta
+        </button>
+      </div>
     </div>
-    <div id="updateUsuario" style="display: none;">
+    <div id="updateUsuario" style="display: none">
       <form
         style="width: 100%; margin-top: 25px"
         id="form_orcamento"
@@ -189,22 +218,6 @@
               >
                 Atualizar
               </button>
-              <button
-                v-on:click.prevent="deletarConta()"
-                style="
-                  background-color: #f66969;
-                  position: absolute;
-                  right: 100px;
-                  width: 160px;
-                  max-width: 160px;
-                "
-                id="enviar"
-                name="enviar"
-                type="submit"
-                class="btn btn-preto"
-              >
-                Deletar
-              </button>
             </div>
           </div>
         </div>
@@ -265,6 +278,7 @@ export default {
       } catch (error) {
         this.appMsg = "Falha ao cadastro o usuário!";
       }
+      this.abrirFecharFormEditar();
     },
     deletarConta: async function () {
       try {
@@ -304,26 +318,6 @@ export default {
     ufEnderecoMask: function () {
       this.form.estado = this.form.estado.replace(/^\d+$/, "");
     },
-
-    // Fetch
-    // cadastraUsuarios: async function (form_usuarioDto) {
-    // // form
-    // // {
-    // //     "email": "teste-atualizado@teste.com",
-    // //     "telefone": "000000011"
-    // // }
-    //   let response = await fetch(this.fastservice_url + "/usuarios", {
-    //     headers: {
-    //       Accept: "application/json",
-    //       "Content-Type": "application/json",
-    //     },
-    //     method: "POST",
-    //     body: JSON.stringify(form_usuarioDto),
-    //   });
-    //   let responseData = await response.json();
-    //   return responseData;
-    // },
-
     readUsuarios: async function (usuario_id) {
       let response = await fetch(
         this.fastservice_url + "/usuarios/" + usuario_id,
@@ -407,7 +401,7 @@ export default {
       const parts = value.split(`; ${name}=`);
       if (parts.length === 2) return parts.pop().split(";").shift();
     },
-    editar: function () {
+    abrirFecharFormEditar: function () {
       if (this.editable) {
         document.getElementById("updateUsuario").style.display = "none";
         this.editable = !this.editable;

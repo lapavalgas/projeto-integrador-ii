@@ -4,7 +4,8 @@ import Home from '@/components/pages/Home.vue'
 import Sobre from '@/components/pages/Sobre.vue'
 import Contato from '@/components/pages/Contato.vue'
 import Cadastrar from '@/components/pages/Cadastrar.vue'
-import Atualizar from '@/components/pages/Atualizar.vue'
+import Conta from '@/components/pages/Conta.vue'
+import Servicos from '@/components/pages/Servicos.vue'
 
 Vue.use(VueRouter)
 
@@ -30,9 +31,14 @@ const routes = [
     component: Cadastrar
   },
   {
-    path: '/atualizar',
-    name: 'Atualizar',
-    component: Atualizar
+    path: '/conta',
+    name: 'Conta',
+    component: Conta
+  },
+  {
+    path: '/servicos',
+    name: 'Servicos',
+    component: Servicos
   },
 ]
 

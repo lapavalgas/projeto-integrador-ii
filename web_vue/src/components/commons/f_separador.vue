@@ -1,7 +1,7 @@
 <template>
-		<div class="servicos_separador">
-			<img src="@/img/FS-separador.png" alt="separacao">
-		</div>
+  <div class="servicos_separador">
+    <img src="@/img/FS-separador.png" alt="separacao" />
+  </div>
 </template>
 
 <script>

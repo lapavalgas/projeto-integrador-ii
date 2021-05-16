@@ -187,7 +187,7 @@ export default {
   },
   beforeMount: function () {
     if (this.getCookie("fastserviceId") !== undefined) {
-      window.location.href = "/atualizar";
+      window.location.href = "/conta";
     }
   },
   methods: {
