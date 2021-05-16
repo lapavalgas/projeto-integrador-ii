@@ -5,15 +5,18 @@
       <img :src="img" alt="Serviços Domésticos" />
     </div>
     <h3>{{ card.nome }}</h3>
-    <h5 style="margin-top: 10px;">{{ card.usuarioProfissional.nome }} | {{ card.categoria }}</h5>
+    <h5 style="margin-top: 10px">
+      {{ card.usuarioProfissional.nome }} | {{ card.categoria }}
+    </h5>
     <p>{{ card.descricao }}</p>
     <div>
       <button
-        style="background-color: #195e83; border: solid; margin: 5px"
+        style="background-color: #195e83; border: solid; margin: 5px; margin-bottom: 25px;"
         id="enviar"
         name="enviar"
         type="submit"
         class="btn btn-preto"
+        v-on:click.prevent="submit()"
       >
         Contratar
       </button>
@@ -32,6 +35,11 @@ export default {
     this.setupImg(this.card.categoria);
   },
   methods: {
+    submit: function () {
+      console.log(JSON.stringify(this.card))
+      document.cookie = "fastserviceCheckoutId=" + JSON.stringify(this.card);
+      window.location.href = "/checkout";
+    },
     setupImg: function (categoria) {
       this.img = this.img_mecanico;
       if (categoria !== undefined) {
@@ -65,7 +73,9 @@ export default {
         }
       }
     },
+
   },
+
   data() {
     return {
       img_limpeza: require("@/img/FS-icone-servico-limpeza.svg"),

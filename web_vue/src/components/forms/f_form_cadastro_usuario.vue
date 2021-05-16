@@ -1,6 +1,6 @@
 <template>
   <section class="contato container fadeInDown" data-anime="1200">
-    <div>
+    <div style="width: 100%;">
       <form
         style="width: 100%"
         v-on:submit.prevent="submit()"

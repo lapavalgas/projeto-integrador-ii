@@ -1,9 +1,9 @@
 <template>
-  <section class="introducao-interna interna_carrinho">
+  <section class="introducao-interna interna_servicos">
     <div class="container">
-      <h1 data-anime="400" class="fadeInDown">MINHAS COMPRAS</h1>
+      <h1 data-anime="400" class="fadeInDown">Checkout</h1>
       <p data-anime="800" class="fadeInDown">
-        Visualize, altere e finalize suas compras
+        Conheça todos os nossos serviços.
       </p>
     </div>
   </section>

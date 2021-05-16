@@ -47,6 +47,9 @@ export default {
   },
   beforeMount: async function () {
     this.marketplace = await this.readMarketplace();
+    this.marketplace.forEach((element) => {
+      element.card_id = "card_" + element.servico_id;
+    });
     this.marketplaceByLine = this.chunk(this.marketplace, 3);
   },
   methods: {

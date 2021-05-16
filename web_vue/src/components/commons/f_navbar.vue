@@ -8,7 +8,7 @@
             alt="Fast Service" /></router-link
       ></a>
 
-      <div  v-if="isLogged == true" class="grid-12 header_menu">
+      <div v-if="isLogged == true" class="grid-12 header_menu">
         <ul style="position: absolute; left: 175px; top: 9px">
           <li>
             <a
@@ -44,10 +44,9 @@
             <a href=""> <router-link to="/cadastrar">Cadastrar</router-link></a>
           </li>
           <li v-if="isLogged == true">
-            <a href=""
-              ><img src="@/img/carrinho.svg" alt="carrinho" /><router-link
-                to="/carrinho"
-              ></router-link
+            <a href="" class="menu_ativo">
+              <router-link to="/checkout"
+                ><img src="@/img/carrinho.svg" alt="minhaconta" /></router-link
             ></a>
           </li>
           <li v-if="isLogged == true">

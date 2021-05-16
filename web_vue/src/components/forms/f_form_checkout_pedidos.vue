@@ -1,52 +1,223 @@
 <template>
-    <section class="contato container fadeInDown" data-anime="1200">
-        <div class="contato_sub_cadastro"> 
-            <br/><p>SUAS COMPRAS:</p>
-        </div><br/>
-		<form id="form_compras" method="POST" action="./enviar.php" class="contato_form grid-8 formphp">
-			<ul>
-			<li>Serviço 1 - Profissional 1 - Valor: R$ 200,00</li>
-			<li>Serviço 2 - Profissional 2 - Valor: R$ 80,00</li>
-			<li>Serviço 3 - Profissional 3 - Valor: R$ 50,00</li>
-            <li><br/></li>
-            <li><br/></li>
-            <h5>TOTAL: R$ 330,00</h5>
-		</ul>
+  <section class="contato fadeInDown" data-anime="1200">
+    <div class="contato container fadeInDown" data-anime="1200">
+      <section style="width: 100%" class="contato_form grid-8 formphp">
+        <div style="display: flex; width: 100%">
+          <div
+            style="display: block; width: 100%; padding: 50px; padding-top: 0px"
+          >
+            <h1 style="font-weight: bold" class="topico">SERVIÇO CONTRATADO</h1>
+            <ul>
+              <li>
+                <br />
+              </li>
+              <li class="topico">Serviço:</li>
+              <li class="servicoData">
+                <span>{{ servico.nome }} </span>
+              </li>
+              <li class="topico">Categoria:</li>
+              <li class="servicoData">
+                <span>{{ servico.categoria }} </span>
+              </li>
+              <li class="topico">Profissional:</li>
+              <li class="servicoData">
+                <span>{{ servico.usuarioProfissional.nome }} </span>
+              </li>
+              <li class="topico">Descrição: <br /></li>
+              <li class="servicoData">
+                <span>{{ servico.descricao }} </span>
+              </li>
+              <li class="topico">Preço: <br /></li>
+              <li class="servicoData">
+                <span v-if="servico.preco >= 1">R$: {{ servico.preco }} </span>
+                <span v-else>R$: 200,00 </span>
+              </li>
+              <li>
+                <form v-on:submit="cancelarCheckout()">
+                  <button
+                    id="enviar"
+                    name="enviar"
+                    type="submit"
+                    class="btn btn-preto"
+                    style="background-color: #f66969"
+                  >
+                    cancelar
+                  </button>
+                </form>
+              </li>
+            </ul>
+          </div>
+          <div
+            style="display: block; width: 100%; padding: 50px; padding-top: 0px"
+          >
+            <div>
+              <p style="font-weight: bold" class="topico">FINALIZAR COMPRA:</p>
+              <form
+                style="margin-top: 20px"
+                class="contato_form grid-8 formphp"
+                v-on:submit.prevent="submit()"
+              >
+                <label for="formaDePagamento">FORMA DE PAGAMENTO</label>
+                <select
+                  v-model="form.formaDePagamento"
+                  style="width: 100%; margin: 5px"
+                  type="text"
+                  id="formaDePagamento"
+                  name="formaDePagamento"
+                  maxlength="9"
+                  required
+                  v-on:change="abrirFormDadosCartao()"
+                >
+                  <option value="PIX">PIX</option>
+                  <option value="DEBITO">Debito</option>
+                  <option value="CREDITO">Credito</option>
+                  <option value="BOLETO">Boleto</option>
+                  <option value="DINHEIRO">Dinheiro</option>
+                </select>
+                <div id="cartao" style="display: none">
+                  <label for="ncartao">Número do Cartão</label>
+                  <input type="text" id="ncartao" name="ncartao" />
+                  <label for="vencartao">Vencimento</label>
+                  <input type="text" id="vencartao" name="vencartao" />
+                  <label for="cvvcartao">CVV</label>
+                  <input type="text" id="cvvcartao" name="cvvcartao" />
+                </div>
+                <div id="pix" style="display: none">
+                  <label for="chavepix">Chave PIX</label>
+                  <input type="text" id="chavepix" name="chavepix" />
+                </div>
 
-		<div class="contato_sub_cadastro grid-8">
-			<form id="form_finalizar_compra" method="POST" action="./enviar.php" class="contato_form grid-8 formphp">
-				
-				<p>FINALIZAR COMPRA:</p>
-				<br/>
-				<label for="ncartao">Número do Cartão</label>
-				<input type="text" id="ncartao" name="ncartao" required>
-
-				<label for="ncartao">Nome no Cartão</label>
-				<input type="text" id="nomecartao" name="nomecartao" required>
-
-				<label for="cpfcartao">CPF</label>
-				<input type="text" id="cpfcartao" name="cpfcartao" required>
-
-				<label for="vcartao">Validade do Cartão</label>
-				<input type="text" id="vcartao" name="vcartao" required>
-
-				<label for="cscartao">Codigo de Segurança do Cartão</label>
-				<input type="text" id="cscartao" name="cscartao" required>
-				
-				<label class="nao-aparece">Se você não é um robô, deixe em branco.</label>
-				<input type="text" class="nao-aparece" name="leaveblank">
-				<label class="nao-aparece">Se você não é um robô, não mude este campo.</label>
-				<input type="text" class="nao-aparece" name="dontchange" value="http://">
-				<br/><br/>
-
-                <a href="" class="btn btn-preto">Finalizar</a>
-            </form>
-		</div>
-	</section>
+                <button
+                  id="enviar"
+                  name="enviar"
+                  type="submit"
+                  class="btn btn-preto"
+                >
+                  Finalizar
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
 </template>
 
 <script>
+export default {
+  name: "f_form_checkout_pedidos",
+  props: {
+    msg: String,
+    card: {},
+  },
+  data() {
+    return {
+      fastservice_url: "http://localhost:8080",
+      servico: {},
+      form: {},
+      dadosPagamento: {},
+    };
+  },
+  beforeMount: function () {
+    if (this.getCookie("fastserviceCheckoutId") == undefined) {
+      window.location.href = "/servicos";
+    }
+    this.servico = JSON.parse(this.getCookie("fastserviceCheckoutId"));
+  },
+  methods: {
+    submit: async function () {
+      try {
+        const response = await this.cadastraPedidos(
+          this.getCookie("fastserviceId"),
+          this.servico.servico_id,
+          this.form
+        );
+        if (response.msg === undefined) {
+          this.pedido_data = response;
+          this.appMsg =
+            "Pedido realizado com sucesso! \nID: " + response.pedido_id;
+          alert(this.appMsg);
+          document.cookie =
+            "fastserviceCheckoutId= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+          window.location.href = "/conta";
+        } else {
+          this.appMsg = "ERROR! " + response.msg;
+        }
+      } catch (error) {
+        this.appMsg = "Falha ao atualizar os contatos!";
+      }
+    },
+    cadastraPedidos: async function (usuario_id, servico_id, form_pedidoDto) {
+      // form
+      // {
+      //     "formaDePagamento": "PIX"
+      // }
+      let response = await fetch(
+        this.fastservice_url +
+          "/usuarios/" +
+          usuario_id +
+          "/servicos/" +
+          servico_id +
+          "/pedidos",
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          method: "POST",
+          body: JSON.stringify(form_pedidoDto),
+        }
+      );
+      let responseData = await response.json();
+      return responseData;
+    },
+    cancelarCheckout: function () {
+      document.cookie =
+        "fastserviceCheckoutId= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+      window.location.href = "/conta";
+    },
+    abrirFormDadosCartao: function () {
+      if (this.form.formaDePagamento === "PIX") {
+        document.getElementById("cartao").style.display = "none";
+        document.getElementById("pix").style.display = "";
+      }
+      if (this.form.formaDePagamento === "DEBITO") {
+        document.getElementById("pix").style.display = "none";
+        document.getElementById("cartao").style.display = "";
+      }
+      if (this.form.formaDePagamento === "CREDITO") {
+        document.getElementById("pix").style.display = "none";
+        document.getElementById("cartao").style.display = "";
+      }
+      if (this.form.formaDePagamento === "BOLETO") {
+        document.getElementById("pix").style.display = "none";
+        document.getElementById("cartao").style.display = "none";
+      }
+      if (this.form.formaDePagamento === "DINHEIRO") {
+        document.getElementById("pix").style.display = "none";
+        document.getElementById("cartao").style.display = "none";
+      }
+    },
+
+    // utils
+    getCookie: function (name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(";").shift();
+    },
+  },
+};
 </script>
 
 <style scoped>
+.topico {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.01em;
+}
+.servicoData {
+  font-family: Georgia, "Times New Roman", serif;
+  margin: 5px 0 25px 0;
+  font-size: 0.99em;
+}
 </style>
