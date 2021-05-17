@@ -2,8 +2,7 @@
   <section class="contato container fadeInDown" data-anime="1200">
     <form
       id="form_orcamento"
-      method="POST"
-      action="./enviar.php"
+      v-on:submit.prevent="submit()"
       class="contato_form grid-8 formphp"
     >
       <label for="nome">Nome</label>
@@ -71,6 +70,12 @@ export default {
   name: "f_contato_forms",
   props: {
     msg: String,
+  },
+  methods: {
+    submit: function () {
+      alert("Seu e-mail foi encaminhado. \nAgradecemos.");
+      window.location.href = "/";
+    },
   },
 };
 </script>

@@ -51,7 +51,9 @@
             style="display: block; width: 100%; padding: 50px; padding-top: 0px"
           >
             <div>
-              <p style="font-weight: bold" class="topico">FINALIZAR COMPRA:</p>
+              <p style="font-weight: bold; margin-left: 10px" class="topico">
+                FINALIZAR COMPRA:
+              </p>
               <form
                 style="margin-top: 20px"
                 class="contato_form grid-8 formphp"
@@ -60,7 +62,18 @@
                 <label for="formaDePagamento">FORMA DE PAGAMENTO</label>
                 <select
                   v-model="form.formaDePagamento"
-                  style="width: 100%; margin: 5px"
+                  style="
+                    width: 100%;
+                    margin: 5px;
+                    border: 4px solid #195e83;
+                    background: none;
+                    padding: 7px 10px;
+                    margin-bottom: 10px;
+                    margin: 5px 0px 10px;
+                    outline: none;
+                    font-size: 14px;
+                    font-family: Georgia, 'Times New Roman', serif;
+                  "
                   type="text"
                   id="formaDePagamento"
                   name="formaDePagamento"
@@ -124,6 +137,11 @@ export default {
       window.location.href = "/servicos";
     }
     this.servico = JSON.parse(this.getCookie("fastserviceCheckoutId"));
+      console.log(this.servico)
+    if (this.servico.usuarioProfissional.usuario_id == this.getCookie("fastserviceId")) {
+      alert("Você não pode adquirir os próprios serviços!\n\n Que pena! :-(")
+      this.cancelarCheckout();
+    }
   },
   methods: {
     submit: async function () {

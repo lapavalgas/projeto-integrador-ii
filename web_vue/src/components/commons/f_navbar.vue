@@ -24,7 +24,7 @@
             line-height: 20px;
             padding: 10px 0;
           "
-              ><router-link to="/sobre">Oferecer serviços</router-link></a
+              ><router-link to="/ofertar">Oferecer serviços</router-link></a
             >
           </li>
         </ul>

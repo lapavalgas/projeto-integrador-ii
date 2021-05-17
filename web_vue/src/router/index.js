@@ -7,6 +7,7 @@ import Cadastrar from '@/components/pages/Cadastrar.vue'
 import Conta from '@/components/pages/Conta.vue'
 import Servicos from '@/components/pages/Servicos.vue'
 import Checkout from '@/components/pages/Checkout.vue'
+import ServicosOfertar from '@/components/pages/ServicosOfertar.vue'
 
 Vue.use(VueRouter)
 
@@ -40,6 +41,11 @@ const routes = [
     path: '/servicos',
     name: 'Servicos',
     component: Servicos
+  },
+  {
+    path: '/ofertar',
+    name: 'ServicosOfertar',
+    component: ServicosOfertar
   },
   {
     path: '/checkout',

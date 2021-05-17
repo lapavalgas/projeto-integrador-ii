@@ -47,27 +47,27 @@ export default {
         if (
           categoria == "it" ||
           categoria == "ti" ||
-          categoria == "informatica" ||
-          categoria == "informática" ||
-          categoria == "computacao"
+          categoria.includes("informatica") ||
+          categoria.includes("informática") ||
+          categoria.includes("computacao")
         ) {
           this.img = this.img_ti;
         }
 
         if (
-          categoria == "casa" ||
-          categoria == "limpeza" ||
-          categoria == "arrumacao" ||
-          categoria == "faxina"
+          categoria.includes("casa") ||
+          categoria.includes("limpeza") ||
+          categoria.includes("arrumacao") ||
+          categoria.includes("faxina")
         ) {
           this.img = this.img_limpeza;
         }
 
         if (
-          categoria == "mecanico" ||
-          categoria == "concerto" ||
-          categoria == "eletricista" ||
-          categoria == "engenharia"
+          categoria.includes("mecanico") ||
+          categoria.includes("concerto") ||
+          categoria.includes("eletricista") ||
+          categoria.includes("engenharia")
         ) {
           this.img = this.img_mecanico;
         }
