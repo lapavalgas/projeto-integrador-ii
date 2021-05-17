@@ -1,19 +1,10 @@
 <template>
   <section class="contato container fadeInDown" data-anime="1200">
-    <div id="resumeUsuario">
-      <p class="subtitulo" style="margin-bottom: 20px">{{ form.nome }}</p>
-      <div
-        class="qualidade_lista"
-        style="margin-left: 62px; margin-bottom: 20px"
-      >
-        <p>{{ form.email }}</p>
-        <p>{{ form.telefone }}</p>
-        <p>
-          {{ form.logradouro }}, {{ form.numero }}, - {{ form.estado }} -
-          {{ form.municipio }} - {{ form.bairro }} <br />
-          {{ form.complemento }}
-        </p>
-      </div>
+    <div>
+      <f_conta_resume v-bind:key="form.usuario_id" v-bind:form="form" />
+
+      <f_form_conta_pedidos />
+
       <div>
         <button
           style="margin-left: 62px"
@@ -227,10 +218,16 @@
 </template>
 
 <script>
+import f_conta_resume from "@/components/bodies/f_conta_resume.vue";
+import f_form_conta_pedidos from "@/components/forms/f_form_conta_pedidos.vue";
 export default {
   name: "f_form_atualizar_usuarios",
   props: {
     msg: String,
+  },
+  components: {
+    f_conta_resume,
+    f_form_conta_pedidos,
   },
   data() {
     return {
