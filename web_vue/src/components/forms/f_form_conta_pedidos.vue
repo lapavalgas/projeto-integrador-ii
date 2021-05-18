@@ -1,98 +1,101 @@
 <template>
   <section>
-    <!-- v-if="this.servicosAndamentoMsg === undefined"  -->
-    <div id="servicosAndamento" class="qualidade_lista">
-      <p class="subtitulo" style="margin-bottom: 20px">Serviços em andamento</p>
-      <h1 style="margin: 0 0px 5px 5px">Em andamento</h1>
-      <button style="margin-left: 5px">Fechar serviços em andamento</button>
-      <div
-        style="
-          display: flex;
-          border: 1px solid #8181816e;
-          margin: 5px;
-          padding: 10px;
-        "
-        v-for="servico in servicosSolicitados"
-        v-bind:key="servico.pedido_id"
+    <div class="qualidade_lista">
+      <p
+        v-if="servicosOfertadosIsEmpty() === false"
+        class="subtitulo"
+        style="margin-bottom: 20px"
       >
-        <div style="min-width: 50%">
-          <p>
-            Nome: <span>{{ servico.servicoContratado.nome }}</span>
-          </p>
-          <p>
-            Descrição: <span>{{ servico.servicoContratado.descricao }}</span>
-          </p>
-          <p>
-            Categoria: <span>{{ servico.servicoContratado.categoria }}</span>
-          </p>
-          <p>
-            <span>{{ servico.servicoContratado.statusOperante }}</span>
-          </p>
-          <p>
-            <span>{{
-              servico.servicoContratado.usuarioProfissional.nome
-            }}</span>
-          </p>
-        </div>
-        <div style="margin-left: 2%">
-          <div>
-            <label for="">Finalizar</label>
-            <button>close</button>
-          </div>
-          <div>
-            <label for="">avaliar</label>
-            <select>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
-          </div>
-        </div>
-        <div style="margin-left: 2%">
-          <div>
-            <label for="">Escolher data</label>
-            <div style="display: flex">
-              <input
-                type="date"
-                id="dataHora"
-                name="dataHora"
-                maxlength="11"
-                required
-              />
-              <button>add</button>
-            </div>
-          </div>
-          <div>
-            <label for="">escolha data</label>
-            <select>
-              <option value="1">17/05/2021 10:00</option>
-              <option value="2">17/05/2021 11:00</option>
-              <option value="3">17/05/2021 12:00</option>
-              <option value="4">17/05/2021 16:00</option>
-              <option value="5">17/05/2021 19:00</option>
-            </select>
-          </div>
-        </div>
+        Serviços oferecidos
+      </p>
+      <div v-if="servicosAndamento.length !== 0">
+        <button
+          v-on:click="abrirFechar('servicosAndamento')"
+          style="min-width: 240px; margin-left: 5px"
+        >
+          Fechar serviços em andamento
+        </button>
       </div>
-
-      <p>teste</p>
-      <h1>Finalizados</h1>
+      <div id="servicosAndamento">
+        <f_form_conta_pedidos_card
+          v-for="servico in servicosAndamento"
+          v-bind:key="servico.pedido_id"
+          v-bind:pedido="servico"
+        >
+        </f_form_conta_pedidos_card>
+      </div>
+      <div v-if="servicosAndamentoFinalizados.length !== 0">
+        <button
+          v-on:click="abrirFechar('servicosAndamentoFinalizados')"
+          style="min-width: 240px; margin-left: 5px"
+        >
+          Fechar serviços em andamento
+        </button>
+      </div>
+      <div id="servicosAndamentoFinalizados">
+        <f_form_conta_pedidos_card
+          v-for="servico in servicosAndamentoFinalizados"
+          v-bind:key="servico.pedido_id"
+          v-bind:pedido="servico"
+        >
+        </f_form_conta_pedidos_card>
+      </div>
     </div>
-    <p class="subtitulo" style="margin-bottom: 20px">Serviços solicitados</p>
-    <div
-      class="qualidade_lista"
-      style="margin-left: 62px; margin-bottom: 20px"
-    ></div>
+
+    <div class="qualidade_lista">
+      <p
+        v-if="servicosSolicitadosIsEmpty() === false"
+        class="subtitulo"
+        style="margin-bottom: 20px"
+      >
+        serviços solicitados
+      </p>
+      <div v-if="servicosSolicitados.length !== 0">
+        <button
+          v-on:click="abrirFechar('servicosSolicitados')"
+          style="min-width: 240px; margin-left: 5px"
+        >
+          Fechar serviços em andamento
+        </button>
+      </div>
+      <div id="servicosSolicitados">
+        <f_form_conta_pedidos_card
+          v-for="servico in servicosSolicitados"
+          v-bind:key="servico.pedido_id"
+          v-bind:pedido="servico"
+        >
+        </f_form_conta_pedidos_card>
+      </div>
+      <div v-if="servicosSolicitadosFinalizados.length !== 0">
+        <button
+          v-on:click="abrirFechar('servicosSolicitadosFinalizados')"
+          style="min-width: 240px; margin-left: 5px"
+        >
+          Fechar serviços em andamento
+        </button>
+      </div>
+      <div id="servicosSolicitadosFinalizados">
+        <f_form_conta_pedidos_card
+          v-for="servico in servicosSolicitadosFinalizados"
+          v-bind:key="servico.pedido_id"
+          v-bind:pedido="servico"
+        >
+        </f_form_conta_pedidos_card>
+      </div>
+    </div>
+    <div style="margin-bottom: 2%"></div>
   </section>
 </template>
 
 <script>
+import f_form_conta_pedidos_card from "@/components/forms/f_form_conta_pedidos_card.vue";
 export default {
   name: "f_form_conta_pedidos",
   props: {
     msg: String,
+  },
+  components: {
+    f_form_conta_pedidos_card,
   },
   data() {
     return {
@@ -134,13 +137,6 @@ export default {
         this.servicosSolicitadosMsg = responseReadPedidosCliente[0].msg;
       }
     });
-    console.log("solicitado " + this.servicosSolicitados);
-    console.log(this.servicosSolicitados);
-    console.log("solicitado finalizado " + this.servicosSolicitadosFinalizados);
-    console.log("solicitado msg " + this.servicosSolicitadosMsg);
-    console.log("oferecido " + this.servicosAndamento);
-    console.log("oferecido finalizado " + this.servicosAndamentoFinalizados);
-    console.log("oferecido msg " + this.servicosAndamentoMsg);
   },
   methods: {
     readPedidos: async function (usuario_id, pedido_id) {
@@ -187,6 +183,51 @@ export default {
           method: "GET",
         }
       ).then((response) => response.json());
+    },
+
+    // AbrirFechar
+    abrirFechar: function (id) {
+      // botão 1 : document.getElementById("servicosAndamento").parentNode.children[1].children[1]
+      if (document.getElementById(id).style.display === "none") {
+        document.getElementById(id).style.display = "";
+        if (id.includes("Finalizados")) {
+          document.getElementById(
+            "servicosSolicitadosFinalizados"
+          ).parentNode.children[3].children[0].textContent =
+            "Fechar serviços em andamento";
+        } else {
+          document.getElementById(
+            id
+          ).parentNode.children[1].children[0].textContent =
+            "Fechar serviços em andamento";
+        }
+      } else {
+        document.getElementById(id).style.display = "none";
+        if (id.includes("Finalizados")) {
+          document.getElementById(
+            "servicosSolicitadosFinalizados"
+          ).parentNode.children[3].children[0].textContent =
+            "Fechar serviços em andamento";
+        } else {
+          document.getElementById(
+            id
+          ).parentNode.children[1].children[0].textContent =
+            "Fechar serviços em andamento";
+        }
+      }
+    },
+
+    servicosOfertadosIsEmpty: function () {
+      let sum = 0;
+      sum += this.servicosAndamento.length;
+      sum += this.servicosAndamentoFinalizados.length;
+      return sum === 0 ? true : false;
+    },
+    servicosSolicitadosIsEmpty: function () {
+      let sum = 0;
+      sum += this.servicosSolicitados.length;
+      sum += this.servicosSolicitadosFinalizados.length;
+      return sum === 0 ? true : false;
     },
 
     // utils
