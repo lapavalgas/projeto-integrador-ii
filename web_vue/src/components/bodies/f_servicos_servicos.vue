@@ -46,10 +46,16 @@ export default {
     };
   },
   beforeMount: async function () {
-    this.marketplace = await this.readMarketplace();
-    this.marketplace.forEach((element) => {
-      element.card_id = "card_" + element.servico_id;
+    let responseMarketplace = await this.readMarketplace();
+    responseMarketplace.forEach((element) => {
+      if (element.statusOperante == 'true') {
+        element.card_id = "card_" + element.servico_id;
+        this.marketplace.push(element);
+      }
     });
+    // this.marketplace.forEach((element) => {
+    //   element.card_id = "card_" + element.servico_id;
+    // });
     this.marketplaceByLine = this.chunk(this.marketplace, 3);
   },
   methods: {

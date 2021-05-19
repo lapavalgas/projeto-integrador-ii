@@ -8,14 +8,7 @@
       >
         Serviços oferecidos
       </p>
-      <div v-if="servicosAndamento.length !== 0">
-        <button
-          v-on:click="abrirFechar('servicosAndamento')"
-          style="min-width: 240px; margin-left: 5px"
-        >
-          Fechar serviços em andamento
-        </button>
-      </div>
+      <div v-if="servicosAndamento.length !== 0"></div>
       <div id="servicosAndamento">
         <f_form_conta_pedidos_card
           v-for="servico in servicosAndamento"
@@ -26,13 +19,14 @@
       </div>
       <div v-if="servicosAndamentoFinalizados.length !== 0">
         <button
-          v-on:click="abrirFechar('servicosAndamentoFinalizados')"
+          id="servicosAndamentoBtn"
+          v-on:click="abrirFechar('servicosAndamentoFinalizados', 'serviços')"
           style="min-width: 240px; margin-left: 5px"
         >
-          Fechar serviços em andamento
+          Visualizar/ocultar serviços finalizados
         </button>
       </div>
-      <div id="servicosAndamentoFinalizados">
+      <div style="display: none" id="servicosAndamentoFinalizados">
         <f_form_conta_pedidos_card
           v-for="servico in servicosAndamentoFinalizados"
           v-bind:key="servico.pedido_id"
@@ -50,14 +44,7 @@
       >
         serviços solicitados
       </p>
-      <div v-if="servicosSolicitados.length !== 0">
-        <button
-          v-on:click="abrirFechar('servicosSolicitados')"
-          style="min-width: 240px; margin-left: 5px"
-        >
-          Fechar serviços em andamento
-        </button>
-      </div>
+      <div v-if="servicosSolicitados.length !== 0"></div>
       <div id="servicosSolicitados">
         <f_form_conta_pedidos_card
           v-for="servico in servicosSolicitados"
@@ -68,13 +55,14 @@
       </div>
       <div v-if="servicosSolicitadosFinalizados.length !== 0">
         <button
-          v-on:click="abrirFechar('servicosSolicitadosFinalizados')"
+          id="servicosSolicitadosBtn"
+          v-on:click="abrirFechar('servicosSolicitadosFinalizados', 'pedidos')"
           style="min-width: 240px; margin-left: 5px"
         >
-          Fechar serviços em andamento
+          Visualizar/ocultar pedidos finalizados
         </button>
       </div>
-      <div id="servicosSolicitadosFinalizados">
+      <div style="display: none" id="servicosSolicitadosFinalizados">
         <f_form_conta_pedidos_card
           v-for="servico in servicosSolicitadosFinalizados"
           v-bind:key="servico.pedido_id"
@@ -114,7 +102,10 @@ export default {
     );
     responseReadPedidosProfissional.forEach((element) => {
       if (responseReadPedidosProfissional[0].msg === undefined) {
-        if (element.statusOperante === false) {
+        if (
+          "12345".includes(element.avaliacaoDoCliente) ||
+          element.servicoContratado.statusOperante === "false"
+        ) {
           this.servicosAndamentoFinalizados.push(element);
         } else {
           this.servicosAndamento.push(element);
@@ -128,7 +119,10 @@ export default {
     );
     responseReadPedidosCliente.forEach((element) => {
       if (responseReadPedidosCliente[0].msg === undefined) {
-        if (element.statusOperante === false) {
+        if (
+          "12345".includes(element.avaliacaoDoCliente) ||
+          element.servicoContratado.statusOperante === "false"
+        ) {
           this.servicosSolicitadosFinalizados.push(element);
         } else {
           this.servicosSolicitados.push(element);
@@ -137,6 +131,11 @@ export default {
         this.servicosSolicitadosMsg = responseReadPedidosCliente[0].msg;
       }
     });
+    console.log(this.servicosAndamento);
+    console.log(this.servicosAndamentoFinalizados);
+    console.log(this.servicosAndamentoMsg);
+    console.log(this.servicosSolicitados);
+    console.log(this.servicosSolicitadosFinalizados);
   },
   methods: {
     readPedidos: async function (usuario_id, pedido_id) {
@@ -187,33 +186,10 @@ export default {
 
     // AbrirFechar
     abrirFechar: function (id) {
-      // botão 1 : document.getElementById("servicosAndamento").parentNode.children[1].children[1]
       if (document.getElementById(id).style.display === "none") {
         document.getElementById(id).style.display = "";
-        if (id.includes("Finalizados")) {
-          document.getElementById(
-            "servicosSolicitadosFinalizados"
-          ).parentNode.children[3].children[0].textContent =
-            "Fechar serviços em andamento";
-        } else {
-          document.getElementById(
-            id
-          ).parentNode.children[1].children[0].textContent =
-            "Fechar serviços em andamento";
-        }
       } else {
         document.getElementById(id).style.display = "none";
-        if (id.includes("Finalizados")) {
-          document.getElementById(
-            "servicosSolicitadosFinalizados"
-          ).parentNode.children[3].children[0].textContent =
-            "Fechar serviços em andamento";
-        } else {
-          document.getElementById(
-            id
-          ).parentNode.children[1].children[0].textContent =
-            "Fechar serviços em andamento";
-        }
       }
     },
 

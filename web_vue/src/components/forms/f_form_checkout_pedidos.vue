@@ -137,9 +137,12 @@ export default {
       window.location.href = "/servicos";
     }
     this.servico = JSON.parse(this.getCookie("fastserviceCheckoutId"));
-      console.log(this.servico)
-    if (this.servico.usuarioProfissional.usuario_id == this.getCookie("fastserviceId")) {
-      alert("Você não pode adquirir os próprios serviços!\n\n Que pena! :-(")
+    console.log(this.servico);
+    if (
+      this.servico.usuarioProfissional.usuario_id ==
+      this.getCookie("fastserviceId")
+    ) {
+      alert("Você não pode adquirir os próprios serviços!\n\n Que pena! :-(");
       this.cancelarCheckout();
     }
   },
@@ -164,6 +167,10 @@ export default {
         }
       } catch (error) {
         this.appMsg = "Falha ao atualizar os contatos!";
+      }
+        alert(this.appMsg);
+      if (this.appMsg.includes("Usuário desativado!")) {
+        window.location.href = "/servicos";
       }
     },
     cadastraPedidos: async function (usuario_id, servico_id, form_pedidoDto) {

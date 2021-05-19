@@ -11,8 +11,7 @@ import ServicosOfertar from '@/components/pages/ServicosOfertar.vue'
 
 Vue.use(VueRouter)
 
-const routes = [
-  {
+const routes = [{
     path: '/',
     name: 'Home',
     component: Home

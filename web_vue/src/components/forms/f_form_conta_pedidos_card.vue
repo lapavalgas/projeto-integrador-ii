@@ -9,7 +9,8 @@
   >
     <div style="min-width: 50%">
       <p>
-        Nome: <span>{{ pedido.servicoContratado.nome }}</span>
+        Nome: <span>{{ pedido.servicoContratado.nome }}</span> ::: ID ~>
+        <span>{{ pedido.pedido_id }}</span>
       </p>
       <p>
         Descrição: <span>{{ pedido.servicoContratado.descricao }}</span>
@@ -18,11 +19,15 @@
         Categoria: <span>{{ pedido.servicoContratado.categoria }}</span>
       </p>
       <p>
-        <span>{{ pedido.servicoContratado.statusOperante }}</span>
-      </p>
-      <p>
         <span>{{ pedido.servicoContratado.usuarioProfissional.nome }}</span>
       </p>
+      <button 
+        v-if="((!setp3) && !pedido.servicoContratado.statusOperante)"
+        style="max-height: 34px; padding: 4px; margin-top: 4px"
+        class="btn btn-preto"
+      >
+        Cancelar
+      </button>
     </div>
     <div style="margin-left: 2%">
       <!-- <div>
@@ -76,6 +81,9 @@
       <div v-if="setp4 === true">
         <p>setp 4</p>
       </div>
+      <div v-if="setp5 === true">
+        <p>setp 5</p>
+      </div>
     </div>
   </div>
 </template>
@@ -89,6 +97,7 @@ export default {
   },
   data() {
     return {
+      setp0: false,
       setp1: false, // profissional disponibiliza datahora  |  cliente ~> cancela
       setp2: false, // cliente escolhe data hora            |  profiss ~> cancela
       setp3: false, // cliente finaliza | profiss finaliza  |   não pode cancelar
@@ -97,36 +106,72 @@ export default {
     };
   },
   beforeMount: function () {
+    // setp 1 : No 1 o profissional deverá libera 3 dataHora de atendimento | + Cancelar
     if (this.pedido.disponibilidade.length === 0) {
+      console.log(
+        "pedido:" +
+          this.pedido.pedido_id +
+          "::step1::::" +
+          this.pedido.disponibilidade.length
+      );
       this.setp1 = true;
-    } else {
-      this.pedido.disponibilidade.forEach((element) => {
-        if (element.dataSelecionadaPeloUsuario === true) {
-          this.setp1 = false;
-          this.setp2 = true;
-        }
-      });
-      if (
-        this.pedido.servicoFinalizadoCliente === true &&
-        this.pedido.servicoFinalizadoProfissional === true
-      ) {
-        this.setp1 = false;
-        this.setp2 = false;
+    }
+    // step 2 : No 2 o cliente optará por 1 dataHora disponibilizada | + Cancelar
+    this.pedido.disponibilidade.forEach((element) => {
+      if (element.dataSelecionadaPeloUsuario === "false") {
+        console.log(
+          "pedido:" +
+            this.pedido.pedido_id +
+            "::step2::::" +
+            element.dataSelecionadaPeloUsuario
+        );
+        this.setp1 = true;
+        this.setp2 = true;
+      } else if (element.dataSelecionadaPeloUsuario === "true") {
+        console.log(
+          "pedido:" +
+            this.pedido.pedido_id +
+            "::step3::::" +
+            element.dataSelecionadaPeloUsuario
+        );
+        // step 3 : No 3 o profissional e cliente deverão FINALIZAR | - Cancelar
+        this.setp1 = true;
+        this.setp2 = true;
         this.setp3 = true;
       }
-    }
-    if (this.setp3 === true) {
-      this.setp1 = false;
-      this.setp2 = false;
-      this.setp3 = false;
+    });
+    // setp 4 : No 4 o cliente deverá avaliar o profissional | - Cancelar
+    if (
+      this.pedido.servicoFinalizadoCliente === "true" &&
+      this.pedido.servicoFinalizadoProfissional === "true"
+    ) {
+      console.log(
+        "pedido:" +
+          this.pedido.pedido_id +
+          "::step4::::C." +
+          this.pedido.servicoFinalizadoCliente +
+          "P." +
+          this.pedido.servicoFinalizadoProfissional
+      );
+      this.setp1 = true;
+      this.setp2 = true;
+      this.setp3 = true;
       this.setp4 = true;
     }
-    if (this.pedido.avaliacaoDoCliente >= 1) {
-      this.setp1 = false;
-      this.setp2 = false;
-      this.setp3 = false;
-      this.setp4 = false;
+    // setp 5 : no 5 o pedido foi avaliado, o profisisonal recebe nota e finaliza
+    if ("12345".includes(this.pedido.avaliacaoDoCliente)) {
+      console.log(
+        "pedido:" +
+          this.pedido.pedido_id +
+          "::step5::::" +
+          "12345".includes(this.pedido.avaliacaoDoCliente)
+      );
+      this.setp1 = true;
+      this.setp2 = true;
+      this.setp3 = true;
+      this.setp4 = true;
       this.setp5 = true;
+      console.log(this.step5);
     }
   },
 };

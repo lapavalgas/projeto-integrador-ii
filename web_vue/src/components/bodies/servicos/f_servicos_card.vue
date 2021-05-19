@@ -11,7 +11,12 @@
     <p>{{ card.descricao }}</p>
     <div>
       <button
-        style="background-color: #195e83; border: solid; margin: 5px; margin-bottom: 25px;"
+        style="
+          background-color: #195e83;
+          border: solid;
+          margin: 5px;
+          margin-bottom: 25px;
+        "
         id="enviar"
         name="enviar"
         type="submit"
@@ -36,7 +41,7 @@ export default {
   },
   methods: {
     submit: function () {
-      console.log(JSON.stringify(this.card))
+      console.log(JSON.stringify(this.card));
       document.cookie = "fastserviceCheckoutId=" + JSON.stringify(this.card);
       window.location.href = "/checkout";
     },
@@ -73,7 +78,6 @@ export default {
         }
       }
     },
-
   },
 
   data() {

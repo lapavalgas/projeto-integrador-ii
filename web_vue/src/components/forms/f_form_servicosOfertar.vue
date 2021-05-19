@@ -87,7 +87,7 @@ export default {
   data() {
     return {
       form: {
-        usuarioProfissional:{
+        usuarioProfissional: {
           usuario_id: this.getCookie("fastserviceId"),
         },
       },
@@ -127,6 +127,7 @@ export default {
       //         "nome": "!!!!!!!!!!!!!!!"
       //     }
       // }
+      form_servicoDto.statusOperante = true;
       let response = await fetch(
         this.fastservice_url + "/usuarios/" + usuario_id + "/servicos",
         {
