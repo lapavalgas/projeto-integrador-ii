@@ -240,3 +240,4 @@ export default {
   margin: 5px 0 25px 0;
   font-size: 0.99em;
 }
+</style>
