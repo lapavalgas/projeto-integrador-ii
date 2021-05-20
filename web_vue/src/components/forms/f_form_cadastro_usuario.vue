@@ -1,6 +1,6 @@
 <template>
   <section class="contato container fadeInDown" data-anime="1200">
-    <div style="width: 100%;">
+    <div style="width: 100%">
       <form
         style="width: 100%"
         v-on:submit.prevent="submit()"
@@ -185,8 +185,10 @@ export default {
       appMsg: "",
     };
   },
-  beforeMount: function () {
+  beforeMount: async function () {
     if (this.getCookie("fastserviceId") !== undefined) {
+      const response = await this.signIn(this.getCookie("fastserviceId"));
+      sessionStorage.setItem("fastserviceData", JSON.stringify(response));
       window.location.href = "/conta";
     }
   },
@@ -258,6 +260,21 @@ export default {
         method: "POST",
         body: JSON.stringify(form_usuarioDto),
       });
+      let responseData = await response.json();
+      return responseData;
+    },
+
+    signIn: async function (usuario_id) {
+      let response = await fetch(
+        this.fastservice_url + "/usuarios/login/" + usuario_id,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          method: "GET",
+        }
+      );
       let responseData = await response.json();
       return responseData;
     },

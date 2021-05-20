@@ -8,6 +8,7 @@
     "
   >
     <div style="min-width: 50%">
+      <p>{{ usuarioType }}</p>
       <p>
         Nome: <span>{{ pedido.servicoContratado.nome }}</span> ::: ID ~>
         <span>{{ pedido.pedido_id }}</span>
@@ -21,68 +22,173 @@
       <p>
         <span>{{ pedido.servicoContratado.usuarioProfissional.nome }}</span>
       </p>
-      <button 
-        v-if="((!setp3) && !pedido.servicoContratado.statusOperante)"
-        style="max-height: 34px; padding: 4px; margin-top: 4px"
+      <button
+        v-if="!setp3 && !pedido.servicoContratado.statusOperante"
+        style="max-height: 34px; padding: 4px; margin-top: 20px"
         class="btn btn-preto"
       >
-        Cancelar
+        Cancelar pedido
       </button>
     </div>
+    <div style="margin-left: 2%"></div>
     <div style="margin-left: 2%">
-      <!-- <div>
-        <label for="">Finalizar</label>
-        <button>close</button>
-      </div> -->
-      <!-- <div>
-        <label for="">avaliar</label>
-        <select>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-        </select>
-      </div> -->
-    </div>
-    <div style="margin-left: 2%">
-      <!-- <div>
-        <label for="">Escolher data</label>
-        <div style="display: flex">
-          <input
-            type="date"
-            id="dataHora"
-            name="dataHora"
-            maxlength="11"
-            required
-          />
-          <button>add</button>
+      <div v-if="setp1 && !setp2 && !setp3 && !setp4 && !setp5">
+        <div style="margin-left: 10px">
+          <div style="display: flex">
+            <div>
+              <span v-if="usuarioType === 'profissional'">
+                <h2 for="">
+                  Escolher data {{ pedido.pedido_id }} |
+                </h2>
+                <input
+                  v-model="formData"
+                  type="date"
+                  id="dataHora"
+                  name="dataHora"
+                  required
+                />
+                <span>
+                  <button
+                    v-on:click="addDatahora()"
+                    style="margin-left: 5px; width: 127px"
+                  >
+                    Adicionar
+                  </button>
+
+                  <button v-on:click="setUpData()" style="margin-left: 10px">
+                    Enviar
+                  </button>
+                </span>
+              </span>
+               <span v-else-if="usuarioType === 'cliente'">Aguardando o profissional disponibilizar horarios.</span>
+              <div style="padding: 5px 0px 0px 0px">
+                <p
+                  v-for="data in form.disponibilidade"
+                  v-bind:key="form.disponibilidade.indexOf(data)"
+                >
+                  <span style="margin: 2px; 0px;">
+                    Disponibilidade: <span>{{ data.dataHora }}</span>
+                  </span>
+                  <span style="margin: 4px; padding: 4px"
+                    ><button v-on:click="removeDatahora(data)">X</button></span
+                  >
+                </p>
+              </div>
+            </div>
+            <p></p>
+            <p></p>
+          </div>
         </div>
-      </div> -->
-      <!-- <div>
-        <label for="">escolha data</label>
-        <select>
-          <option value="1">17/05/2021 10:00</option>
-          <option value="2">17/05/2021 11:00</option>
-          <option value="3">17/05/2021 12:00</option>
-          <option value="4">17/05/2021 16:00</option>
-          <option value="5">17/05/2021 19:00</option>
-        </select>
-      </div> -->
-      <div v-if="setp1 === true">
-        <p>setp 1</p>
       </div>
-      <div v-if="setp2 === true">
-        <p>setp 2</p>
+      <div v-if="setp1 && setp2 && !setp3 && !setp4 && !setp5">
+        <h2 v-if="usuarioType === 'cliente'" for="">
+          Escolher data para o Serviço
+        </h2>
+        <h2 v-if="usuarioType === 'profissional'" for="">
+          Aguardando escolha da data pelo Cliente
+        </h2>
+        <div style="padding: 5px 0px 0px 0px">
+          <p
+            v-for="disponibilidade in pedido.disponibilidade"
+            v-bind:key="pedido.disponibilidade.indexOf(disponibilidade)"
+          >
+            <span style="margin: 4px 0px 4px 0px; padding: 4px"
+              ><button
+                v-if="usuarioType === 'cliente'"
+                v-on:click="chooseData(disponibilidade.id)"
+              >
+                >
+              </button></span
+            >
+            <span style="margin: 2px 2px 2px 0px; 0px;">
+              Disponibilidade: <span>{{ disponibilidade.dataHora }}</span>
+            </span>
+          </p>
+        </div>
       </div>
-      <div v-if="setp3 === true">
-        <p>setp 3</p>
+      <div v-if="setp1 && setp2 && setp3 && !setp4 && !setp5">
+        <span
+          v-if="
+            usuarioType === 'cliente' &&
+            pedido.servicoFinalizadoCliente === 'false'
+          "
+        >
+          <h5>Não deixe de nos informar se o serviço já foi finalizado!</h5>
+          <span
+            ><button v-on:click="finalizarServico(usuarioType)">
+              Finalizar servico
+            </button></span
+          ></span
+        >
+        <span
+          v-else-if="
+            usuarioType === 'cliente' &&
+            pedido.servicoFinalizadoCliente === 'true'
+          "
+        >
+          <h5>Não deixe de avaliar o serviço contratado!</h5>
+          <form action="">
+            <div style="margin-top: 15px; margin: 5px; paddin: 5px">
+              <select v-model="form" name="" id="">
+                <option value="1">{{ star1 }}</option>
+                <option value="2">{{ star2 }}</option>
+                <option value="3">{{ star3 }}</option>
+                <option value="4">{{ star4 }}</option>
+                <option value="5">{{ star5 }}</option>
+              </select>
+            </div>
+            <button
+              id="enviar"
+              style="margin-top: 10px"
+              v-on:click.prevent="avaliar()"
+              name="enviar"
+              type="submit"
+            >
+              Avaliar
+            </button>
+          </form>
+        </span>
+
+        <span
+          v-else-if="
+            usuarioType === 'profissional' &&
+            pedido.servicoFinalizadoCliente === 'false'
+          "
+        >
+          <h5>Aguardando avaliação do cliente!</h5>
+        </span>
+        <span
+          v-else-if="
+            usuarioType === 'profissional' &&
+            pedido.servicoFinalizadoCliente === 'true'
+          "
+        >
+          <h5>Avaliação do serviço!</h5>
+          <br />
+          <span>{{ getStarImg() }}</span>
+        </span>
+
+        <!-- <span
+          v-else-if="
+            usuarioType === 'profissional' &&
+            pedido.servicoFinalizadoProfissional === false
+          "
+        >
+          <h5>Não deixe de nos informar se o serviço já foi finalizado!</h5>
+          <span
+            ><button v-on:click="finalizarServico(usuarioType)">
+              Finalizar servico
+            </button></span
+          ></span
+        > -->
       </div>
-      <div v-if="setp4 === true">
-        <p>setp 4</p>
+      <div v-if="setp1 && setp2 && setp3 && setp4 && !setp5">
+        <h1>Avaliação do serviço</h1>
+        <span>{{ getStarImg() }}</span>
       </div>
-      <div v-if="setp5 === true">
-        <p>setp 5</p>
+      <div v-if="setp1 && setp2 && setp3 && setp4 && setp5">
+        <h1>Avaliação do serviço</h1>
+        <span>{{ getStarImg() }}</span>
       </div>
     </div>
   </div>
@@ -97,43 +203,54 @@ export default {
   },
   data() {
     return {
+      fastservice_url: "http://localhost:8080",
+      usuarioType: "",
       setp0: false,
       setp1: false, // profissional disponibiliza datahora  |  cliente ~> cancela
       setp2: false, // cliente escolhe data hora            |  profiss ~> cancela
       setp3: false, // cliente finaliza | profiss finaliza  |   não pode cancelar
       setp4: false, // cliente avalia
       setp5: false, // statusoperante
+      formData: null,
+      form: {
+        disponibilidade: [],
+      },
+      star1: "★☆☆☆☆",
+      star2: "★★☆☆☆",
+      star3: "★★★☆☆",
+      star4: "★★★★☆",
+      star5: "★★★★★",
+      getStarImg: function () {
+        if (this.pedido.avaliacaoDoCliente == 1) {
+          return this.star1;
+        } else if (this.pedido.avaliacaoDoCliente == 2) {
+          return this.star2;
+        } else if (this.pedido.avaliacaoDoCliente == 3) {
+          return this.star3;
+        } else if (this.pedido.avaliacaoDoCliente == 4) {
+          return this.star4;
+        } else if (this.pedido.avaliacaoDoCliente == 5) {
+          return this.star5;
+        }
+      },
     };
   },
   beforeMount: function () {
+    if (this.pedido.cliente.usuario_id == this.getCookie("fastserviceId")) {
+      this.usuarioType = "cliente";
+    } else {
+      this.usuarioType = "profissional";
+    }
     // setp 1 : No 1 o profissional deverá libera 3 dataHora de atendimento | + Cancelar
     if (this.pedido.disponibilidade.length === 0) {
-      console.log(
-        "pedido:" +
-          this.pedido.pedido_id +
-          "::step1::::" +
-          this.pedido.disponibilidade.length
-      );
       this.setp1 = true;
     }
     // step 2 : No 2 o cliente optará por 1 dataHora disponibilizada | + Cancelar
     this.pedido.disponibilidade.forEach((element) => {
-      if (element.dataSelecionadaPeloUsuario === "false") {
-        console.log(
-          "pedido:" +
-            this.pedido.pedido_id +
-            "::step2::::" +
-            element.dataSelecionadaPeloUsuario
-        );
+      if (element.dataSelecionadaPeloUsuario === false) {
         this.setp1 = true;
         this.setp2 = true;
-      } else if (element.dataSelecionadaPeloUsuario === "true") {
-        console.log(
-          "pedido:" +
-            this.pedido.pedido_id +
-            "::step3::::" +
-            element.dataSelecionadaPeloUsuario
-        );
+      } else if (element.dataSelecionadaPeloUsuario === true) {
         // step 3 : No 3 o profissional e cliente deverão FINALIZAR | - Cancelar
         this.setp1 = true;
         this.setp2 = true;
@@ -142,17 +259,9 @@ export default {
     });
     // setp 4 : No 4 o cliente deverá avaliar o profissional | - Cancelar
     if (
-      this.pedido.servicoFinalizadoCliente === "true" &&
-      this.pedido.servicoFinalizadoProfissional === "true"
+      this.pedido.servicoFinalizadoCliente === true &&
+      this.pedido.servicoFinalizadoProfissional === true
     ) {
-      console.log(
-        "pedido:" +
-          this.pedido.pedido_id +
-          "::step4::::C." +
-          this.pedido.servicoFinalizadoCliente +
-          "P." +
-          this.pedido.servicoFinalizadoProfissional
-      );
       this.setp1 = true;
       this.setp2 = true;
       this.setp3 = true;
@@ -160,12 +269,6 @@ export default {
     }
     // setp 5 : no 5 o pedido foi avaliado, o profisisonal recebe nota e finaliza
     if ("12345".includes(this.pedido.avaliacaoDoCliente)) {
-      console.log(
-        "pedido:" +
-          this.pedido.pedido_id +
-          "::step5::::" +
-          "12345".includes(this.pedido.avaliacaoDoCliente)
-      );
       this.setp1 = true;
       this.setp2 = true;
       this.setp3 = true;
@@ -173,6 +276,218 @@ export default {
       this.setp5 = true;
       console.log(this.step5);
     }
+  },
+  methods: {
+    setUpData: async function () {
+      try {
+        const response = await this.updateProfissionalPedidosDisponibilidades(
+          this.getCookie("fastserviceId"),
+          this.pedido.pedido_id,
+          this.form
+        );
+        if (response.msg === undefined) {
+          this.appMsg =
+            "Foi registrado a disponibilidade para os serviços com sucesso!";
+          window.location.href = "/conta";
+        } else {
+          this.appMsg = "ERROR! " + response.msg;
+        }
+      } catch (error) {
+        this.appMsg = "Falha ao atualizar pedido! \n\n\n" + error;
+      }
+      alert(this.appMsg);
+    },
+    addDatahora: function () {
+      if (this.formData !== null && this.form.disponibilidade.length < 3) {
+        this.form.disponibilidade.push({
+          dataHora: this.formData,
+        });
+        this.formData = null;
+      }
+    },
+    chooseData: async function (disponibilidade_id) {
+      try {
+        const response = await this.updateClientePedidosDisponibilidades(
+          this.getCookie("fastserviceId"),
+          this.pedido.pedido_id,
+          disponibilidade_id
+        );
+        if (response.msg === undefined) {
+          this.appMsg = "Escolheu uma data para o serviço";
+          window.location.href = "/conta";
+        } else {
+          this.appMsg = "ERROR! " + response.msg;
+        }
+      } catch (error) {
+        this.appMsg = "Falha ao atualizar pedido! \n\n\n" + error;
+      }
+      alert(this.appMsg);
+    },
+    updateProfissionalPedidosDisponibilidades: async function (
+      usuario_id,
+      pedido_id,
+      form_disponibilidadeDto
+    ) {
+      // form
+      // {
+      //     "disponibilidade": [
+      //         {
+      //             "dataHora": "2021-04-03"
+      //         },
+      //         {
+      //             "dataHora": "2021-04-03"
+      //         },
+      //         {
+      //             "dataHora": "2021-04-05"
+      //         }
+      //     ]
+      // }
+      let response = await fetch(
+        this.fastservice_url +
+          "/usuarios/" +
+          usuario_id +
+          "/pedidos/" +
+          pedido_id +
+          "/disponibilidades",
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          method: "PUT",
+          body: JSON.stringify(form_disponibilidadeDto),
+        }
+      );
+      let responseData = await response.json();
+      return responseData;
+    },
+
+    updateClientePedidosDisponibilidades: async function (
+      usuario_id,
+      pedido_id,
+      disponibilidade_id
+    ) {
+      let response = await fetch(
+        this.fastservice_url +
+          "/usuarios/" +
+          usuario_id +
+          "/pedidos/" +
+          pedido_id +
+          "/disponibilidades/" +
+          disponibilidade_id,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          method: "PUT",
+        }
+      );
+      let responseData = await response.json();
+      return responseData;
+    },
+
+    removeDatahora: function (data) {
+      const lastDisponibilidade = this.form.disponibilidade;
+      this.form.disponibilidade = [];
+      lastDisponibilidade.forEach((element) => {
+        if (element !== data) {
+          this.form.disponibilidade.push(element);
+        }
+      });
+    },
+    finalizarServico: async function () {
+      try {
+        const response = await this.updatePedidosFinalizar(
+          this.getCookie("fastserviceId"),
+          this.pedido.pedido_id
+        );
+        if (response.msg === undefined) {
+          this.appMsg = "Serviço finalizado com sucesso!";
+          window.location.href = "/conta";
+        } else {
+          this.appMsg = "ERROR! " + response.msg;
+        }
+      } catch (error) {
+        this.appMsg = "Falha ao finalizar o serviço!";
+      }
+      alert(this.appMsg);
+    },
+
+    updatePedidosFinalizar: async function (usuario_id, pedido_id) {
+      // form
+      // fixed to true
+      let response = await fetch(
+        this.fastservice_url +
+          "/usuarios/" +
+          usuario_id +
+          "/pedidos/" +
+          pedido_id +
+          "/finalizar?stts=true",
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          method: "PUT",
+        }
+      );
+      let responseData = await response.json();
+      return responseData;
+    },
+
+    avaliar: async function () {
+      try {
+        const response = await this.updateClientePedidosAvaliar(
+          this.getCookie("fastserviceId"),
+          this.pedido.pedido_id,
+          this.form
+        );
+        if (response.msg === undefined) {
+          this.appMsg = "Serviço avaliado com sucesso!!";
+          window.location.href = "/conta";
+        } else {
+          this.appMsg = "ERROR! " + response.msg;
+        }
+      } catch (error) {
+        this.appMsg = "Falha ao avaliar o serviço contratado!! :-(!";
+      }
+      alert(this.appMsg);
+    },
+
+    updateClientePedidosAvaliar: async function (
+      usuario_id,
+      pedido_id,
+      notaAvaliacao
+    ) {
+      // form
+      // 0 to 5
+      let response = await fetch(
+        this.fastservice_url +
+          "/usuarios/" +
+          usuario_id +
+          "/pedidos/" +
+          pedido_id +
+          "/avaliar?stts=" +
+          notaAvaliacao,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          method: "PUT",
+        }
+      );
+      let responseData = await response.json();
+      return responseData;
+    },
+
+    // utils
+    getCookie: function (name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(";").shift();
+    },
   },
 };
 </script>
