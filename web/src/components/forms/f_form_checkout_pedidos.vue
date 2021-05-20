@@ -133,8 +133,11 @@ export default {
     };
   },
   beforeMount: function () {
+    if (this.getCookie("fastserviceId") == undefined) {
+      this.cancelarCheckout("servicos");
+    }
     if (this.getCookie("fastserviceCheckoutId") == undefined) {
-      window.location.href = "/servicos";
+      this.cancelarCheckout("servicos");
     }
     this.servico = JSON.parse(this.getCookie("fastserviceCheckoutId"));
     console.log(this.servico);
@@ -143,7 +146,7 @@ export default {
       this.getCookie("fastserviceId")
     ) {
       alert("Você não pode adquirir os próprios serviços!\n\n Que pena! :-(");
-      this.cancelarCheckout();
+      this.cancelarCheckout("conta");
     }
   },
   methods: {
@@ -168,7 +171,7 @@ export default {
       } catch (error) {
         this.appMsg = "Falha ao atualizar os contatos!";
       }
-        alert(this.appMsg);
+      alert(this.appMsg);
       if (this.appMsg.includes("Usuário desativado!")) {
         window.location.href = "/servicos";
       }
@@ -197,10 +200,10 @@ export default {
       let responseData = await response.json();
       return responseData;
     },
-    cancelarCheckout: function () {
+    cancelarCheckout: function (localToGo) {
       document.cookie =
         "fastserviceCheckoutId= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
-      window.location.href = "/conta";
+      window.location.href = "/"+localToGo;
     },
     abrirFormDadosCartao: function () {
       if (this.form.formaDePagamento === "PIX") {
