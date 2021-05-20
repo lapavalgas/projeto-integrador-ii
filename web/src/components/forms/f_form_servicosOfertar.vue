@@ -115,20 +115,8 @@ export default {
     },
 
     cadastraServicos: async function (usuario_id, form_servicoDto) {
-      // form
-      // {
-      //     "nome": "Programação Java",
-      //     "descricao": "Desenvolvimento de pequenos sistemas transacionais em Java.",
-      //     "categoria": "Informática",
-      //     "valor": "1200.00",
-      //     "statusOperante": true,
-      //     "usuarioProfissional": {
-      //         "usuario_id": 1,
-      //         "nome": "!!!!!!!!!!!!!!!"
-      //     }
-      // }
       form_servicoDto.statusOperante = true;
-      let response = await fetch(
+      return fetch(
         this.fastservice_url + "/usuarios/" + usuario_id + "/servicos",
         {
           headers: {
@@ -138,9 +126,7 @@ export default {
           method: "POST",
           body: JSON.stringify(form_servicoDto),
         }
-      );
-      let responseData = await response.json();
-      return responseData;
+      ).then((response) => response.json());
     },
 
     // utils

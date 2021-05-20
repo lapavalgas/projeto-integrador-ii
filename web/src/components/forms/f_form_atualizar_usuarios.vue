@@ -346,11 +346,6 @@ export default {
     },
 
     updateUsuariosContatos: async function (usuario_id, form_contatoDto) {
-      // form
-      // {
-      //     "email": "teste-atualizado@teste.com",
-      //     "telefone": "000000001"
-      // }
       let response = await fetch(
         this.fastservice_url + "/usuarios/" + usuario_id + "/contatos",
         {
@@ -367,16 +362,6 @@ export default {
     },
 
     updateUsuariosEnderecos: async function (usuario_id, form_enderecoDto) {
-      // form
-      // {
-      //     "cpf": "11111-111",
-      //     "cep": "88101-300",
-      //     "estado": "Estado Teste ALTERADO",
-      //     "municipio":"Municipio Teste ALTERADO",
-      //     "bairro":"Bairro Teste ALTERADO",
-      //     "numero": "11",
-      //     "complemento": "AP. 111"
-      // }
       let response = await fetch(
         this.fastservice_url + "/usuarios/" + usuario_id + "/enderecos",
         {

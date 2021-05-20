@@ -179,30 +179,6 @@
         >
           <h5>Aguardando avaliação do cliente!</h5>
         </span>
-        <!-- <span
-          v-else-if="
-            usuarioType === 'profissional' &&
-            pedido.servicoFinalizadoCliente === 'true'
-          "
-        >
-          <h5>Avaliação do serviço!</h5>
-          <br />
-          <span>{{ getStarImg() }}</span>
-        </span> -->
-
-        <!-- <span
-          v-else-if="
-            usuarioType === 'profissional' &&
-            pedido.servicoFinalizadoProfissional === false
-          "
-        >
-          <h5>Não deixe de nos informar se o serviço já foi finalizado!</h5>
-          <span
-            ><button v-on:click="finalizarServico(usuarioType)">
-              Finalizar servico
-            </button></span
-          ></span
-        > -->
       </div>
       <div v-if="setp1 && setp2 && setp3 && setp4 && !setp5">
         <h1>Avaliação do serviço</h1>
@@ -354,7 +330,7 @@ export default {
       pedido_id,
       form_disponibilidadeDto
     ) {
-      let response = await fetch(
+      return fetch(
         this.fastservice_url +
           "/usuarios/" +
           usuario_id +
@@ -369,9 +345,7 @@ export default {
           method: "PUT",
           body: JSON.stringify(form_disponibilidadeDto),
         }
-      );
-      let responseData = await response.json();
-      return responseData;
+      ).then((response) => response.json());
     },
 
     updateClientePedidosDisponibilidades: async function (
@@ -379,7 +353,7 @@ export default {
       pedido_id,
       disponibilidade_id
     ) {
-      let response = await fetch(
+      return fetch(
         this.fastservice_url +
           "/usuarios/" +
           usuario_id +
@@ -394,9 +368,7 @@ export default {
           },
           method: "PUT",
         }
-      );
-      let responseData = await response.json();
-      return responseData;
+      ).then((response) => response.json());
     },
 
     removeDatahora: function (data) {
@@ -427,9 +399,7 @@ export default {
     },
 
     updatePedidosFinalizar: async function (usuario_id, pedido_id) {
-      // form
-      // fixed to true
-      let response = await fetch(
+      return fetch(
         this.fastservice_url +
           "/usuarios/" +
           usuario_id +
@@ -443,9 +413,7 @@ export default {
           },
           method: "PUT",
         }
-      );
-      let responseData = await response.json();
-      return responseData;
+      ).then((response) => response.json());
     },
 
     avaliar: async function () {
@@ -472,9 +440,7 @@ export default {
       pedido_id,
       notaAvaliacao
     ) {
-      // form
-      // 0 to 5
-      let response = await fetch(
+      return fetch(
         this.fastservice_url +
           "/usuarios/" +
           usuario_id +
@@ -489,9 +455,7 @@ export default {
           },
           method: "PUT",
         }
-      );
-      let responseData = await response.json();
-      return responseData;
+      ).then((response) => response.json());
     },
 
     // utils

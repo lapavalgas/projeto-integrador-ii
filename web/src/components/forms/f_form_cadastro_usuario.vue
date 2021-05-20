@@ -193,7 +193,6 @@ export default {
     }
   },
   methods: {
-    // UI
     submit: async function () {
       try {
         const response = await this.cadastraUsuarios(this.form);
@@ -235,23 +234,7 @@ export default {
       this.form.estado = this.form.estado.replace(/^\d+$/, "");
     },
 
-    // Fetch
     cadastraUsuarios: async function (form_usuarioDto) {
-      // form
-      // {
-      //     "cpf": "00000000",
-      //     "nome": "Usuario teste 0",
-      //     "dataNascimento": "01/01/1990",
-      //     "genero": "H",
-      //     "email": "teste@teste.com",
-      //     "telefone": "000000000",
-      //     "cep": "88000-000",
-      //     "estado": "Estado Teste",
-      //     "municipio":"Municipio Teste",
-      //     "bairro":"Bairro Teste",
-      //     "numero": "00",
-      //     "complemento": "AP. 000"
-      // }
       let response = await fetch(this.fastservice_url + "/usuarios", {
         headers: {
           Accept: "application/json",

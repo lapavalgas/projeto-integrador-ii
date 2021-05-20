@@ -175,11 +175,7 @@ export default {
       }
     },
     cadastraPedidos: async function (usuario_id, servico_id, form_pedidoDto) {
-      // form
-      // {
-      //     "formaDePagamento": "PIX"
-      // }
-      let response = await fetch(
+      return fetch(
         this.fastservice_url +
           "/usuarios/" +
           usuario_id +
@@ -194,9 +190,7 @@ export default {
           method: "POST",
           body: JSON.stringify(form_pedidoDto),
         }
-      );
-      let responseData = await response.json();
-      return responseData;
+      ).then((response) => response.json());
     },
     cancelarCheckout: function (localToGo) {
       document.cookie =
@@ -246,4 +240,3 @@ export default {
   margin: 5px 0 25px 0;
   font-size: 0.99em;
 }
-</style>
