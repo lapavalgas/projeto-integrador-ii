@@ -131,11 +131,6 @@ export default {
         this.servicosSolicitadosMsg = responseReadPedidosCliente[0].msg;
       }
     });
-    console.log(this.servicosAndamento);
-    console.log(this.servicosAndamentoFinalizados);
-    console.log(this.servicosAndamentoMsg);
-    console.log(this.servicosSolicitados);
-    console.log(this.servicosSolicitadosFinalizados);
   },
   methods: {
     readPedidos: async function (usuario_id, pedido_id) {

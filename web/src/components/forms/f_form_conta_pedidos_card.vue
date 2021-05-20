@@ -301,16 +301,10 @@ export default {
       this.setp3 = true;
       this.setp4 = true;
       this.setp5 = true;
-      console.log(this.step5);
     }
   },
   methods: {
     setUpData: async function () {
-      console.log("\n\n");
-      console.log("\n" + this.getCookie("fastserviceId"));
-      console.log("\n" + this.pedido.pedido_id);
-      console.log("\n" + this.form);
-      console.log("\n\n");
       try {
         const response = await this.updateProfissionalPedidosDisponibilidades(
           this.getCookie("fastserviceId"),

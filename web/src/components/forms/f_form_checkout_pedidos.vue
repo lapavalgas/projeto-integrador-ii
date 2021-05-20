@@ -140,7 +140,6 @@ export default {
       this.cancelarCheckout("servicos");
     }
     this.servico = JSON.parse(this.getCookie("fastserviceCheckoutId"));
-    console.log(this.servico);
     if (
       this.servico.usuarioProfissional.usuario_id ==
       this.getCookie("fastserviceId")

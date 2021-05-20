@@ -41,7 +41,6 @@ export default {
   },
   methods: {
     submit: function () {
-      console.log(JSON.stringify(this.card));
       document.cookie = "fastserviceCheckoutId=" + JSON.stringify(this.card);
       window.location.href = "/checkout";
     },
