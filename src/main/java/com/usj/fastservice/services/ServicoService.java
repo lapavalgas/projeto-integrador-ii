@@ -70,7 +70,7 @@ public class ServicoService {
 		try {
 			Servicos servico = readServicoRepositoryById(idServico);
 			UsuarioService.isUsuarioAtivo(servico.getUsuario());			
-			if (servico.getUsuario().getId() == idUsuario) {
+			if (servico.getUsuario().getId().equals(idUsuario)) {
 				servico.setStatusOperante(String.valueOf(stts));
 				servicoRepository.save(servico);
 				String valorStts = stts ? "ativado" : "desativado";

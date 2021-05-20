@@ -35,7 +35,7 @@ public class PedidoService {
 			UsuarioService.isUsuarioAtivo(cliente);
 			Servicos servico = servicoService.readServicoRepositoryById(idServico);
 			UsuarioService.isUsuarioAtivo(servico.getUsuario());
-			if (cliente.getId() != servico.getUsuario().getId()) {
+			if (!cliente.getId().equals(servico.getUsuario().getId())) {
 				pedidoRequestDTO.setCliente(UsuarioMapper.toDto(cliente));
 				pedidoRequestDTO.setServicoContratado(ServicoMapper.toDto(servico));
 				Pedidos pedido = PedidoMapper.toModel(pedidoRequestDTO);			
@@ -111,7 +111,7 @@ public class PedidoService {
 				}
 			}
 			for (DisponibilidadeDataHora disponibilidadeDataHora : pedido.getDisponibilidade()) {
-				if (disponibilidadeDataHora.getId() == idDataHora) {
+				if (disponibilidadeDataHora.getId().equals(idDataHora)) {
 					disponibilidadeDataHora.setDataSelecionadaPeloUsuario(true);
 				}
 			}
