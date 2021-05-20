@@ -171,7 +171,6 @@ export default {
       } catch (error) {
         this.appMsg = "Falha ao atualizar os contatos!";
       }
-      alert(this.appMsg);
       if (this.appMsg.includes("Usuário desativado!")) {
         window.location.href = "/servicos";
       }
@@ -203,7 +202,7 @@ export default {
     cancelarCheckout: function (localToGo) {
       document.cookie =
         "fastserviceCheckoutId= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
-      window.location.href = "/"+localToGo;
+      window.location.href = "/" + localToGo;
     },
     abrirFormDadosCartao: function () {
       if (this.form.formaDePagamento === "PIX") {
