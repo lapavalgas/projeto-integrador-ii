@@ -57,7 +57,7 @@ public class PedidoService {
 			Servicos servico = pedido.getServico();
 			UsuarioService.isUsuarioAtivo(servico.getUsuario());
 			Long profissional = servico.getUsuario().getId();
-			if (profissional == idUsuario) {
+			if (profissional.equals(idUsuario)) {
 				pedido.setDisponibilidade(disponibilidadeRequestDTO.getDisponibilidade());
 				for (DisponibilidadeDataHora disponibilidade : pedido.getDisponibilidade()) {
 					disponibilidade.setPedido(pedido);
@@ -80,9 +80,9 @@ public class PedidoService {
 			UsuarioService.isUsuarioAtivo(servico.getUsuario());
 			Long cliente = pedido.getUsuario().getId();
 			Long profissional = servico.getUsuario().getId();
-				if (cliente == idUsuario) {
+				if (cliente.equals(idUsuario)) {
 					pedido.setServicoFinalizadoPeloUsuario(fnsh);
-				} else if (profissional == idUsuario) {
+				} else if (profissional.equals(idUsuario)) {
 					pedido.setServicoFinalizadoPeloProfissional(fnsh); 
 				} else {
 					throw new Exception("Você não tem permissão para executar essa ação!"); 				
@@ -101,7 +101,7 @@ public class PedidoService {
 			Servicos servico = pedido.getServico();
 			UsuarioService.isUsuarioAtivo(servico.getUsuario());
 			Long cliente = pedido.getUsuario().getId();
-		if (cliente == idUsuario) {
+		if (cliente.equals(idUsuario)) {
 			if (pedido.getDisponibilidade().isEmpty()) {
 				throw new Exception("Em breve o usuario "+ servico.getUsuario().getNome() +" deverá liberar algumas datas e horas disponíveis para executar o serviço.");
 			}
@@ -132,7 +132,7 @@ public class PedidoService {
 		Servicos servico = pedido.getServico();
 		UsuarioService.isUsuarioAtivo(servico.getUsuario());
 		Long cliente = pedido.getUsuario().getId();
-		if (cliente == idUsuario)
+		if (cliente.equals(idUsuario))
 			if (pedido.isServicoFinalizadoPeloUsuario()) {
 				pedido.setAvaliacaoDoServicoPeloUsuario(String.valueOf(av));
 				pedidoRepository.save(pedido);
@@ -214,7 +214,7 @@ public class PedidoService {
 			Pedidos pedido = readPedidoRepositoryById(idPedido);
 			Long cliente = pedido.getUsuario().getId();
 			Long profissional =pedido.getServico().getUsuario().getId();
-			if (cliente == requisitante || profissional == requisitante) {
+			if (cliente.equals(requisitante) || profissional.equals(requisitante)) {
 				UsuarioService.isUsuarioAtivo(pedido.getUsuario());
 				UsuarioService.isUsuarioAtivo(pedido.getServico().getUsuario());
 				return PedidoMapper.toDto(pedido);

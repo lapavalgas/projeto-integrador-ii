@@ -37,9 +37,7 @@
           <div style="display: flex">
             <div>
               <span v-if="usuarioType === 'profissional'">
-                <h2 for="">
-                  Escolher data {{ pedido.pedido_id }} |
-                </h2>
+                <h2 for="">Escolher data {{ pedido.pedido_id }} |</h2>
                 <input
                   v-model="formData"
                   type="date"
@@ -60,7 +58,9 @@
                   </button>
                 </span>
               </span>
-               <span v-else-if="usuarioType === 'cliente'">Aguardando o profissional disponibilizar horarios.</span>
+              <span v-else-if="usuarioType === 'cliente'"
+                >Aguardando o profissional disponibilizar horarios.</span
+              >
               <div style="padding: 5px 0px 0px 0px">
                 <p
                   v-for="data in form.disponibilidade"
@@ -123,7 +123,8 @@
         <span
           v-else-if="
             usuarioType === 'cliente' &&
-            pedido.servicoFinalizadoCliente === 'true'
+            pedido.servicoFinalizadoCliente === 'true' &&
+            pedido.avaliacaoDoCliente === undefined
           "
         >
           <h5>Não deixe de avaliar o serviço contratado!</h5>
@@ -148,16 +149,37 @@
             </button>
           </form>
         </span>
-
+        <span
+          v-else-if="
+            pedido.servicoFinalizadoCliente === 'true' &&
+            pedido.servicoFinalizadoProfissional === 'false'
+          "
+        >
+          <h1>Avaliação do serviço</h1>
+          <span>{{ getStarImg() }}</span>
+        </span>
+        <span
+          v-if="
+            usuarioType === 'profissional' &&
+            pedido.servicoFinalizadoProfissional === 'false'
+          "
+        >
+          <h5>Não deixe de nos informar se o serviço já foi finalizado!</h5>
+          <span
+            ><button v-on:click="finalizarServico(usuarioType)">
+              Finalizar servico
+            </button></span
+          ></span
+        >
         <span
           v-else-if="
             usuarioType === 'profissional' &&
-            pedido.servicoFinalizadoCliente === 'false'
+            pedido.servicoFinalizadoProfissional === 'true'
           "
         >
           <h5>Aguardando avaliação do cliente!</h5>
         </span>
-        <span
+        <!-- <span
           v-else-if="
             usuarioType === 'profissional' &&
             pedido.servicoFinalizadoCliente === 'true'
@@ -166,7 +188,7 @@
           <h5>Avaliação do serviço!</h5>
           <br />
           <span>{{ getStarImg() }}</span>
-        </span>
+        </span> -->
 
         <!-- <span
           v-else-if="
@@ -211,7 +233,9 @@ export default {
       setp3: false, // cliente finaliza | profiss finaliza  |   não pode cancelar
       setp4: false, // cliente avalia
       setp5: false, // statusoperante
-      formData: null,
+      formData: {
+        dataHora: "",
+      },
       form: {
         disponibilidade: [],
       },
@@ -268,7 +292,10 @@ export default {
       this.setp4 = true;
     }
     // setp 5 : no 5 o pedido foi avaliado, o profisisonal recebe nota e finaliza
-    if ("12345".includes(this.pedido.avaliacaoDoCliente)) {
+    if (
+      this.pedido.servicoFinalizadoProfissional === "true" &&
+      "12345".includes(this.pedido.avaliacaoDoCliente)
+    ) {
       this.setp1 = true;
       this.setp2 = true;
       this.setp3 = true;
@@ -279,6 +306,11 @@ export default {
   },
   methods: {
     setUpData: async function () {
+      console.log("\n\n");
+      console.log("\n" + this.getCookie("fastserviceId"));
+      console.log("\n" + this.pedido.pedido_id);
+      console.log("\n" + this.form);
+      console.log("\n\n");
       try {
         const response = await this.updateProfissionalPedidosDisponibilidades(
           this.getCookie("fastserviceId"),
@@ -328,20 +360,6 @@ export default {
       pedido_id,
       form_disponibilidadeDto
     ) {
-      // form
-      // {
-      //     "disponibilidade": [
-      //         {
-      //             "dataHora": "2021-04-03"
-      //         },
-      //         {
-      //             "dataHora": "2021-04-03"
-      //         },
-      //         {
-      //             "dataHora": "2021-04-05"
-      //         }
-      //     ]
-      // }
       let response = await fetch(
         this.fastservice_url +
           "/usuarios/" +
