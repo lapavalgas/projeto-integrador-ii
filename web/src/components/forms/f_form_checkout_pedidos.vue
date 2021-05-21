@@ -145,7 +145,7 @@ export default {
       this.getCookie("fastserviceId")
     ) {
       alert("Você não pode adquirir os próprios serviços!\n\n Que pena! :-(");
-      this.cancelarCheckout("conta");
+      this.cancelarCheckout("servicos");
     }
   },
   methods: {
