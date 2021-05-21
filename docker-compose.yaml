@@ -1,6 +1,5 @@
 version: '3.7'
 services:
-
   db:
     image: mysql:latest 
     volumes:
@@ -15,7 +14,6 @@ services:
       MYSQL_DATABASE: fastservice
     ports:
       - "3306:3306"
-
   adminer:
     image: adminer
     restart: always
@@ -23,7 +21,6 @@ services:
       - 8081:8080
     depends_on:
       - db
-
   backend:
     container_name: fastservice-backend
     build:
@@ -37,7 +34,6 @@ services:
     working_dir: /backend
     depends_on:
       - db
-
   frontend:
     container_name: fastservice-frontend
     build:
