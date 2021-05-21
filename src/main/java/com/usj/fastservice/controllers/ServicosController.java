@@ -14,11 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.usj.fastservice.models.Servicos;
-import com.usj.fastservice.models.Usuario;
 import com.usj.fastservice.models.dto.DadosServicoDTO;
 import com.usj.fastservice.services.ServicoService;
-import com.usj.fastservice.services.UsuarioService;
 
 @RestController
 @RequestMapping("/usuarios/{idUsuario}")

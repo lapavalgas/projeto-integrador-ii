@@ -1,6 +1,5 @@
 package com.usj.fastservice.models;
 
-import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -14,9 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
