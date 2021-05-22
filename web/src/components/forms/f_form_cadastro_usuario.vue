@@ -235,20 +235,18 @@ export default {
     },
 
     cadastraUsuarios: async function (form_usuarioDto) {
-      let response = await fetch(this.fastservice_url + "/usuarios", {
+      return fetch(this.fastservice_url + "/usuarios", {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
         method: "POST",
         body: JSON.stringify(form_usuarioDto),
-      });
-      let responseData = await response.json();
-      return responseData;
+      }).then((response) => response.json());
     },
 
     signIn: async function (usuario_id) {
-      let response = await fetch(
+      return fetch(
         this.fastservice_url + "/usuarios/login/" + usuario_id,
         {
           headers: {
@@ -257,9 +255,7 @@ export default {
           },
           method: "GET",
         }
-      );
-      let responseData = await response.json();
-      return responseData;
+      ).then((response) => response.json());
     },
 
     // utils
@@ -267,6 +263,15 @@ export default {
       const value = `; ${document.cookie}`;
       const parts = value.split(`; ${name}=`);
       if (parts.length === 2) return parts.pop().split(";").shift();
+    },
+
+    setCookie: function (cookieName, cookieValue) {
+      document.cookie = cookieName + "=" + cookieValue;
+    },
+
+    killCookie: function (cookieName) {
+      document.cookie =
+        cookieName + "= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
     },
   },
 };
