@@ -12,7 +12,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"cpf\": \"00000000\",\r\n    \"nome\": \"Teste teste\",\r\n    \"dataNascimento\": \"01/01/1990\",\r\n    \"genero\": \"T\",\r\n    \"email\": \"teste@teste.com\",\r\n    \"telefone\": \"000000000\",\r\n    \"cep\": \"88101-300\",\r\n    \"estado\": \"Estado Teste\",\r\n    \"municipio\":\"Municipio Teste\",\r\n    \"bairro\":\"Bairro Teste\",\r\n    \"numero\": \"00\",\r\n    \"complemento\": \"AP. 000\"\r\n}",
+					"raw": "{\r\n    \"cpf\": \"00000000\",\r\n    \"nome\": \"Usuario teste 1\",\r\n    \"dataNascimento\": \"01/01/1990\",\r\n    \"genero\": \"T\",\r\n    \"email\": \"teste@teste.com\",\r\n    \"telefone\": \"000000000\",\r\n    \"cep\": \"88101-300\",\r\n    \"estado\": \"Estado Teste\",\r\n    \"municipio\":\"Municipio Teste\",\r\n    \"bairro\":\"Bairro Teste\",\r\n    \"numero\": \"00\",\r\n    \"complemento\": \"AP. 000\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -32,31 +32,38 @@
 			"response": []
 		},
 		{
-			"name": "LOGIN Usuario",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
+			"name": "LOGIN Usuario by ID",
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"cpf\": \"00000000\",\r\n    \"nome\": \"Teste teste\",\r\n    \"dataNascimento\": \"01/01/1990\",\r\n    \"genero\": \"T\",\r\n    \"email\": \"teste@teste.com\",\r\n    \"telefone\": \"000000000\",\r\n    \"cep\": \"88101-300\",\r\n    \"estado\": \"Estado Teste\",\r\n    \"municipio\":\"Municipio Teste\",\r\n    \"bairro\":\"Bairro Teste\",\r\n    \"numero\": \"00\",\r\n    \"complemento\": \"AP. 000\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
 				"url": {
-					"raw": "{{uri}}/usuarios/login/1",
+					"raw": "{{uri}}/usuarios/login/",
 					"host": [
 						"{{uri}}"
 					],
 					"path": [
 						"usuarios",
 						"login",
-						"1"
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LOGIN Usuario by CPF",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{uri}}/usuarios/login/1-1-1-1-1-1-1-1-1-1-1",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"usuarios",
+						"login",
+						"1-1-1-1-1-1-1-1-1-1-1"
 					]
 				}
 			},
@@ -64,21 +71,9 @@
 		},
 		{
 			"name": "READ Usuario",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"cpf\": \"00000000\",\r\n    \"nome\": \"Teste teste\",\r\n    \"dataNascimento\": \"01/01/1990\",\r\n    \"genero\": \"T\",\r\n    \"email\": \"teste@teste.com\",\r\n    \"telefone\": \"000000000\",\r\n    \"cep\": \"88101-300\",\r\n    \"estado\": \"Estado Teste\",\r\n    \"municipio\":\"Municipio Teste\",\r\n    \"bairro\":\"Bairro Teste\",\r\n    \"numero\": \"00\",\r\n    \"complemento\": \"AP. 000\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
 				"url": {
 					"raw": "{{uri}}/usuarios/1",
 					"host": [
@@ -97,15 +92,6 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"cpf\": \"00000000\",\r\n    \"nome\": \"Teste teste\",\r\n    \"dataNascimento\": \"01/01/1990\",\r\n    \"genero\": \"T\",\r\n    \"email\": \"teste@teste.com\",\r\n    \"telefone\": \"000000000\",\r\n    \"cep\": \"88101-300\",\r\n    \"estado\": \"Estado Teste\",\r\n    \"municipio\":\"Municipio Teste\",\r\n    \"bairro\":\"Bairro Teste\",\r\n    \"numero\": \"00\",\r\n    \"complemento\": \"AP. 000\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
 				"url": {
 					"raw": "{{uri}}/usuarios/1",
 					"host": [
@@ -192,7 +178,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"cpf\": \"11111-111\",\r\n    \"cep\": \"88101-300\",\r\n    \"estado\": \"Estado Teste ALTERADO\",\r\n    \"municipio\":\"Municipio Teste ALTERADO\",\r\n    \"bairro\":\"Bairro Teste ALTERADO\",\r\n    \"numero\": \"11\",\r\n    \"complemento\": \"AP. 111\"\r\n}",
+					"raw": "{\r\n    \"cpf\": \"11111-111\",\r\n    \"cep\": \"88101-300\",\r\n    \"estado\": \"Estado Teste ALTERADO\",\r\n    \"municipio\":\"Municipio Teste ALTERADO\",\r\n    \"bairro\":\"Bairro Teste ALTERADO\",\r\n    \"logradouro\":\"Av. TESTE\",\r\n    \"numero\": \"11\",\r\n    \"complemento\": \"AP. 111\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -452,13 +438,13 @@
 				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "{{uri}}/usuarios/2/pedidos/1/disponibilidades/1",
+					"raw": "{{uri}}/usuarios/1/pedidos/1/disponibilidades/1",
 					"host": [
 						"{{uri}}"
 					],
 					"path": [
 						"usuarios",
-						"2",
+						"1",
 						"pedidos",
 						"1",
 						"disponibilidades",
@@ -528,7 +514,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{uri}}/usuarios/1/pedidos/filtrar?servicofinalizado=false",
+					"raw": "{{uri}}/usuarios/1/pedidos/filtrar?servicofinalizado=true",
 					"host": [
 						"{{uri}}"
 					],
@@ -541,8 +527,46 @@
 					"query": [
 						{
 							"key": "servicofinalizado",
-							"value": "false"
+							"value": "true"
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LOGIN Usuario Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{uri}}/usuarios/login/1",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"usuarios",
+						"login",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LOGIN Usuario Copy 2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{uri}}/usuarios/login/1",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"usuarios",
+						"login",
+						"1"
 					]
 				}
 			},
