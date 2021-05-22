@@ -26,10 +26,18 @@ public class UsuarioController {
 		return usuarioService.cadastroDeUsuario(usuarioCadastroRequestDTO);
 	}
 
+	/**
+	 * Por ser um MVP não previa login. Foi implementado um por idUsuario, mas com a
+	 * evolução do protótipo se transformou em login por cpfUsuario.
+	 * 
+	 * @param cpfUsuario
+	 * @return
+	 * @throws Exception
+	 */
 	@CrossOrigin
-	@GetMapping(value = "/login/{idUsuario}")
-	public DadosUsuarioDTO login(@PathVariable Long idUsuario) throws Exception {
-		return usuarioService.logarUsuario(idUsuario);
+	@GetMapping(value = "/login/{cpfUsuario}")
+	public DadosUsuarioDTO login(@PathVariable String cpfUsuario) throws Exception {
+		return usuarioService.logarUsuario(cpfUsuario);
 	}
 
 	@CrossOrigin

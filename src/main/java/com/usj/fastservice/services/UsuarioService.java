@@ -21,10 +21,10 @@ public class UsuarioService {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
-	
+
 	public DadosUsuarioDTO cadastroDeUsuario(DadosUsuarioDTO usuarioCadastroRequestDTO) {
 		try {
-			Usuario usuario = UsuarioMapper.toModel(usuarioCadastroRequestDTO); 
+			Usuario usuario = UsuarioMapper.toModel(usuarioCadastroRequestDTO);
 			Contato contato = ContatoMapper.toContato(usuarioCadastroRequestDTO);
 			EnderecoCompleto endereco = EnderecoMapper.toModel(usuarioCadastroRequestDTO);
 			contato.setUsuario(usuario);
@@ -33,18 +33,20 @@ public class UsuarioService {
 			usuario.setEnderecoCompleto(endereco);
 			usuario.setServicosOferecidos(new ArrayList<Servicos>());
 			usuario.setPedidosRealizados(new ArrayList<Pedidos>());
-			usuario.setAtivo(true);;
+			usuario.setAtivo(true);
+			;
 			usuario = usuarioRepository.save(usuario);
-			return UsuarioMapper.toLoggedUsuarioDTO(usuario); 
-		} catch (Exception e) { 
-			return UsuarioMapper.setMsg(null,"Problemas no serviço. Entre em contato com o administrador!  :(");
+			return UsuarioMapper.toLoggedUsuarioDTO(usuario);
+		} catch (Exception e) {
+			return UsuarioMapper.setMsg(null, "Problemas no serviço. Entre em contato com o administrador!  :(");
 		}
 	}
 
-	// TODO : implementar UsuarioFilter
-	public DadosUsuarioDTO logarUsuario(Long id) throws Exception {
+	public DadosUsuarioDTO logarUsuario(String cpfUsuario) throws Exception {
 		try {
-			Usuario usuario = readUsuarioRepositoryById(id);
+			cpfUsuario = removeCaracteresEspeciaisCpf(cpfUsuario);
+			Usuario usuario = readUsuarioRepositoryByCpf(cpfUsuario);
+			isUsuarioAtivo(usuario);
 			UsuarioService.isUsuarioAtivo(usuario);
 			return UsuarioMapper.toLoggedUsuarioDTO(usuario);
 		} catch (Exception e) {
@@ -56,8 +58,8 @@ public class UsuarioService {
 		try {
 			Usuario usuario = readUsuarioRepositoryById(id);
 			UsuarioService.isUsuarioAtivo(usuario);
-			return UsuarioMapper.toDto(usuario);					
-		} catch (Exception e) { 
+			return UsuarioMapper.toDto(usuario);
+		} catch (Exception e) {
 			return UsuarioMapper.setMsg(null, e.getMessage());
 		}
 	}
@@ -72,13 +74,23 @@ public class UsuarioService {
 			return UsuarioMapper.setMsg(id, "Usuario deletado com sucesso!");
 		} catch (Exception e) {
 			return UsuarioMapper.setMsg(id, "Usuario não encontrado!");
-		} 
+		}
 	}
-	
+
 	Usuario readUsuarioRepositoryById(Long id) throws Exception {
 		return usuarioRepository.findById(id).orElseThrow(() -> new Exception("Usuario não encontrado!"));
 	}
+
+	Usuario readUsuarioRepositoryByCpf(String cpfUsuario) throws Exception {
+		return usuarioRepository.findByCpf(cpfUsuario);
+	}
 	
+	String removeCaracteresEspeciaisCpf(String cpfUsuario) {
+		return cpfUsuario.replace("*", "").replace("!", "").replace("@", "").replace("#", "").replace("$", "")
+				.replace("%", "").replace("&", "").replace("*", "").replace("'", "").replace("\"", "")
+				.replace("=", "").replace("+", "").replace(".", "").replace("-", "").replace("_", "");
+	}
+
 	public static boolean isUsuarioAtivo(Usuario usuario) throws Exception {
 		if (usuario.isAtivo()) {
 			return usuario.isAtivo();
