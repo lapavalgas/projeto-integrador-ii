@@ -7,12 +7,12 @@ A API foi desenvolvida utilizando MySQL, Java e Spring Boot. Existe um conjunto 
 ## Como rodar?
 1. Instalar o Git
 2. Instalar o Docker 
-3. Executar os seguintes comandos
+3. Executar os seguintes comandos no Windows
 
 ```
 1. git clone https://github.com/lapavalgas/projeto-integrador-ii
 
-2. cd projeto-integrador-ii
+2. cd projeto-integrador-ii-fastservice
 
 3. start cmd.exe /c docker-compose up
 
