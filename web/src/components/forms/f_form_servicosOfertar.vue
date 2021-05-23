@@ -102,8 +102,7 @@ export default {
           this.form
         );
         if (response.msg === undefined) {
-          this.appMsg =
-            "Serviço cadastrado com sucesso!\nID: " + response.servico_id;
+          this.appMsg = "Serviço cadastrado com sucesso!\nID: " + response.servico_id;
         } else {
           this.appMsg = response.msg;
         }
@@ -111,6 +110,7 @@ export default {
         this.appMsg = "Falha ao cadastrar o serviço!";
       }
       alert(this.appMsg);
+      alert("Cadastre quantos serviços quiser!! :-) ")
       window.location.href = "/ofertar";
     },
 

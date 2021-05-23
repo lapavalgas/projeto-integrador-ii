@@ -27,37 +27,37 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Usuario {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Column(name = "cpf")
-    private String cpf;
-    
-    @Column(name = "nome")
-    private String nome;
-    
-    @Column(name = "dataNascimento")
-    private String dataNascimento;
+	@Column(name = "cpf")
+	private String cpf;
 
-    @Column(name = "genero")
-    private String genero;
+	@Column(name = "nome")
+	private String nome;
 
-    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true) 
-    @PrimaryKeyJoinColumn(name = "usuario_id")
-    private Contato contato;
+	@Column(name = "dataNascimento")
+	private String dataNascimento;
 
-    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true) 
-    @PrimaryKeyJoinColumn(name = "usuario_id")
-    private EnderecoCompleto enderecoCompleto;   
+	@Column(name = "genero")
+	private String genero;
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY) 
-    private List<Servicos> servicosOferecidos;
+	@OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+	@PrimaryKeyJoinColumn(name = "usuario_id")
+	private Contato contato;
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY) 
+	@OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+	@PrimaryKeyJoinColumn(name = "usuario_id")
+	private EnderecoCompleto enderecoCompleto;
+
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+	private List<Servicos> servicosOferecidos;
+
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	private List<Pedidos> pedidosRealizados;
-    
-    @Column
-    private boolean ativo;
+
+	@Column
+	private boolean ativo;
 
 }

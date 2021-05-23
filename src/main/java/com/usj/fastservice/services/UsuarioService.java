@@ -25,6 +25,7 @@ public class UsuarioService {
 	public DadosUsuarioDTO cadastroDeUsuario(DadosUsuarioDTO usuarioCadastroRequestDTO) {
 		try {
 			usuarioCadastroRequestDTO.removeCaracteresEspeciaisCpf();
+			validaCpf(usuarioCadastroRequestDTO.getCpf());
 			Usuario usuario = UsuarioMapper.toModel(usuarioCadastroRequestDTO);
 			Contato contato = ContatoMapper.toContato(usuarioCadastroRequestDTO);
 			EnderecoCompleto endereco = EnderecoMapper.toModel(usuarioCadastroRequestDTO);
@@ -39,7 +40,11 @@ public class UsuarioService {
 			usuario = usuarioRepository.save(usuario);
 			return UsuarioMapper.toLoggedUsuarioDTO(usuario);
 		} catch (Exception e) {
-			return UsuarioMapper.setMsg(null, "Problemas no serviço. Entre em contato com o administrador!  :(");
+			if (e.getMessage().contains("CPF")) {
+				return UsuarioMapper.setMsg(null, e.getMessage());				
+			} else {
+				return UsuarioMapper.setMsg(null, "Problemas no serviço. Entre em contato com o administrador!  :(");
+			}
 		}
 	}
 
@@ -84,6 +89,16 @@ public class UsuarioService {
 	Usuario readUsuarioRepositoryByCpf(String cpfUsuario) throws Exception {
 		return usuarioRepository.findByCpf(cpfUsuario);
 	}
+	
+	boolean validaCpf(String cpfUsuario) throws Exception {
+		Usuario usuario = usuarioRepository.findByCpf(cpfUsuario);
+		if (usuario == null) {
+			return false;
+		} else {
+			throw new Exception("CPF já cadastrado!!");
+		}
+	}
+
 
 	public static boolean isUsuarioAtivo(Usuario usuario) throws Exception {
 		if (usuario.isAtivo()) {
