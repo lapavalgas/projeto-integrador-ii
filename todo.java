@@ -1,8 +1,6 @@
 /**
  * TODO:  * 
  * 	FRONTEND:
- * 		- Incluir validação de usuário na #app do Vue
- * 		- Faltou a tela de Login/Logout
  * 		- Melhorar Layout card de Pedidos
  * 		--=> Incluir a data escolhida pelo cliente, após a escolha
  * 		- Corrigir valor do serviço, ainda está mockado

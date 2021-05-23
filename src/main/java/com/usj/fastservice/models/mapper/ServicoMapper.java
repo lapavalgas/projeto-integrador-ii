@@ -24,6 +24,7 @@ public class ServicoMapper {
 				.nome(servico.getNome())
 				.descricao(servico.getDescricao())
 				.categoria(servico.getCategoria())
+				.valor(servico.getValor())
 				.statusOperante(servico.getStatusOperante())
 				.usuarioProfissional(UsuarioMapper.toLoggedUsuarioDTO(servico.getUsuario()))
 				.build();

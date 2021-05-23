@@ -29,8 +29,7 @@
               </li>
               <li class="topico">Preço: <br /></li>
               <li class="servicoData">
-                <span v-if="servico.preco >= 1">R$: {{ servico.preco }} </span>
-                <span v-else>R$: 200,00 </span>
+                <span>R$: {{ servico.valor }} </span>
               </li>
               <li>
                 <form v-on:submit="cancelarCheckout()">
