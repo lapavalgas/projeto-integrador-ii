@@ -37,13 +37,6 @@
           >Data: <span class="pedidosValue">{{ data.dataHora }}</span>
         </span>
       </p>
-      <button
-        v-if="setp3 === true"
-        style="max-height: 34px; padding: 2px; margin-top: 10px"
-        class="btn btn-preto"
-      >
-        Cancelar pedido
-      </button>
     </div>
     <div style="margin-left: 2%"></div>
     <div style="margin-left: 2%">
