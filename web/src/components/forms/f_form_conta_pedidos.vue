@@ -103,8 +103,9 @@ export default {
     responseReadPedidosProfissional.forEach((element) => {
       if (responseReadPedidosProfissional[0].msg === undefined) {
         if (
-          "12345".includes(element.avaliacaoDoCliente) ||
-          element.servicoContratado.statusOperante === "false"
+          "12345".includes(element.avaliacaoDoCliente) &&
+          element.servicoFinalizadoCliente === "true" &&
+          element.servicoFinalizadoProfissional === "true"
         ) {
           this.servicosAndamentoFinalizados.push(element);
         } else {
@@ -120,8 +121,9 @@ export default {
     responseReadPedidosCliente.forEach((element) => {
       if (responseReadPedidosCliente[0].msg === undefined) {
         if (
-          "12345".includes(element.avaliacaoDoCliente) ||
-          element.servicoContratado.statusOperante === "false"
+          "12345".includes(element.avaliacaoDoCliente) &&
+          element.servicoFinalizadoCliente === "true" &&
+          element.servicoFinalizadoProfissional === "true"
         ) {
           this.servicosSolicitadosFinalizados.push(element);
         } else {

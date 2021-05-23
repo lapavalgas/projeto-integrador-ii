@@ -8,23 +8,38 @@
     "
   >
     <div style="min-width: 50%">
-      <p>{{ usuarioType }}</p>
-      <p>
-        Nome: <span>{{ pedido.servicoContratado.nome }}</span> ::: ID ~>
-        <span>{{ pedido.pedido_id }}</span>
+      <p class="pedidos">
+        Nome:
+        <span class="pedidosValue">{{ pedido.servicoContratado.nome }}</span>
       </p>
-      <p>
-        Descrição: <span>{{ pedido.servicoContratado.descricao }}</span>
+      <p class="pedidos">
+        Descrição:
+        <span class="pedidosValue">{{
+          pedido.servicoContratado.descricao
+        }}</span>
       </p>
-      <p>
-        Categoria: <span>{{ pedido.servicoContratado.categoria }}</span>
+      <p class="pedidos">
+        Categoria:
+        <span class="pedidosValue">{{
+          pedido.servicoContratado.categoria
+        }}</span>
       </p>
-      <p>
+      <p class="pedidos profissional">
+        Profissional:
         <span>{{ pedido.servicoContratado.usuarioProfissional.nome }}</span>
       </p>
+      <p
+        class="pedidos"
+        v-for="data in pedido.disponibilidade"
+        v-bind:key="data.id"
+      >
+        <span v-if="data.dataSelecionadaPeloUsuario === true"
+          >Data: <span class="pedidosValue">{{ data.dataHora }}</span>
+        </span>
+      </p>
       <button
-        v-if="!setp3 && !pedido.servicoContratado.statusOperante"
-        style="max-height: 34px; padding: 4px; margin-top: 20px"
+        v-if="setp3 === true"
+        style="max-height: 34px; padding: 2px; margin-top: 10px"
         class="btn btn-preto"
       >
         Cancelar pedido
@@ -37,7 +52,7 @@
           <div style="display: flex">
             <div>
               <span v-if="usuarioType === 'profissional'">
-                <h2 for="">Escolher data {{ pedido.pedido_id }} |</h2>
+                <h2 for="">Escolher data {{ pedido.pedido_id }}</h2>
                 <input
                   v-model="formData"
                   type="date"
@@ -151,6 +166,7 @@
         </span>
         <span
           v-else-if="
+            usuarioType === 'cliente' &&
             pedido.servicoFinalizadoCliente === 'true' &&
             pedido.servicoFinalizadoProfissional === 'false'
           "
@@ -469,4 +485,15 @@ export default {
 </script>
 
 <style scoped>
+.pedidos {
+  font-weight: 800;
+}
+.pedidosValue {
+  font-size: 1.15em;
+  font-weight: 200;
+  margin-left: 5px;
+}
+.pedidos .profissional {
+  font-size: 1.15em;
+}
 </style>
