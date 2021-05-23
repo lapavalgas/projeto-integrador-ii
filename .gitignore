@@ -79,3 +79,4 @@ yarn-error.log*
 # setup
 dev-setup.bat
 app_dev.bat
+app_user.bat
