@@ -10,7 +10,7 @@ A API foi desenvolvida utilizando MySQL, Java e Spring Boot. Existe um conjunto 
 3. Executar os seguintes comandos no Windows
 
 ```
-1. git clone https://github.com/lapavalgas/projeto-integrador-ii
+1. git clone https://github.com/lapavalgas/projeto-integrador-ii-fastservice
 
 2. cd projeto-integrador-ii-fastservice
 
