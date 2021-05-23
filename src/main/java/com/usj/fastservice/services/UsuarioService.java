@@ -24,6 +24,7 @@ public class UsuarioService {
 
 	public DadosUsuarioDTO cadastroDeUsuario(DadosUsuarioDTO usuarioCadastroRequestDTO) {
 		try {
+			usuarioCadastroRequestDTO.removeCaracteresEspeciaisCpf();
 			Usuario usuario = UsuarioMapper.toModel(usuarioCadastroRequestDTO);
 			Contato contato = ContatoMapper.toContato(usuarioCadastroRequestDTO);
 			EnderecoCompleto endereco = EnderecoMapper.toModel(usuarioCadastroRequestDTO);
@@ -44,7 +45,6 @@ public class UsuarioService {
 
 	public DadosUsuarioDTO logarUsuario(String cpfUsuario) throws Exception {
 		try {
-			cpfUsuario = removeCaracteresEspeciaisCpf(cpfUsuario);
 			Usuario usuario = readUsuarioRepositoryByCpf(cpfUsuario);
 			isUsuarioAtivo(usuario);
 			UsuarioService.isUsuarioAtivo(usuario);
@@ -83,12 +83,6 @@ public class UsuarioService {
 
 	Usuario readUsuarioRepositoryByCpf(String cpfUsuario) throws Exception {
 		return usuarioRepository.findByCpf(cpfUsuario);
-	}
-	
-	String removeCaracteresEspeciaisCpf(String cpfUsuario) {
-		return cpfUsuario.replace("*", "").replace("!", "").replace("@", "").replace("#", "").replace("$", "")
-				.replace("%", "").replace("&", "").replace("*", "").replace("'", "").replace("\"", "")
-				.replace("=", "").replace("+", "").replace(".", "").replace("-", "").replace("_", "");
 	}
 
 	public static boolean isUsuarioAtivo(Usuario usuario) throws Exception {

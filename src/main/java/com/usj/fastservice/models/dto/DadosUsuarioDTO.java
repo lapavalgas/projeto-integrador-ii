@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class DadosUsuarioDTO {
 
 	private Long usuario_id;
-	
+
 	private String cpf;
 
 	private String nome;
@@ -29,20 +29,26 @@ public class DadosUsuarioDTO {
 
 	private String telefone;
 
- 	private String cep;
- 	
+	private String cep;
+
 	private String estado;
-	
+
 	private String municipio;
-	
+
 	private String bairro;
 
 	private String logradouro;
-	
+
 	private String numero;
 
 	private String complemento;
-	
+
 	private String msg;
- 
+
+	public void removeCaracteresEspeciaisCpf() {
+		setCpf(this.cpf.replace("*", "").replace("!", "").replace("@", "").replace("#", "").replace("$", "")
+				.replace("%", "").replace("&", "").replace("*", "").replace("'", "").replace("\"", "").replace("=", "")
+				.replace("+", "").replace(".", "").replace("-", "").replace("_", ""));
+	}
+
 }
