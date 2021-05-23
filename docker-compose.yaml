@@ -24,26 +24,26 @@ services:
   backend:
     container_name: fastservice-backend
     build:
-      context: ./src/main/resources/
+      context: ./api/src/main/resources/
       dockerfile: Dockerfile
     volumes:
-      - ./:/backend
+      - ./api/:/backend
     ports:
     - '8080:8080'
     restart: always
     working_dir: /backend
     depends_on:
       - db
-  # frontend:
-  #   container_name: fastservice-frontend
-  #   build:
-  #     context: ./web/
-  #     dockerfile: Dockerfile
-  #   volumes:
-  #     - './web/:/appfront'
-  #     - '/appfront/node_modules'
-  #   ports:
-  #     - '8082:8080'
-  #   restart: always
-  #   environment:
-  #     - NODE_ENV=development
+  frontend:
+    container_name: fastservice-frontend
+    build:
+      context: ./web/
+      dockerfile: Dockerfile
+    volumes:
+      - './web/:/appfront'
+      - '/appfront/node_modules'
+    ports:
+      - '8082:8080'
+    restart: always
+    environment:
+      - NODE_ENV=development
